@@ -1,0 +1,33 @@
+/* .info_style {
+    display: flex;
+    background:rgb(162, 156, 155, 0.8); 
+    border-radius: 5px;
+    width: 200px;
+    height: 66px;
+    font-size: 15px;
+}
+
+.info_info {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical; 
+    width: 170px;
+    height: 64px;
+    padding: 2px 2px 0px 2px;
+};
+
+
+.close_wrapper {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: rgb(231, 185, 19, 0.6);
+}
+
+.close_icon {
+    font-size: 14px;
+    color:  rgb(78, 79, 78, 0.6);
+} */
