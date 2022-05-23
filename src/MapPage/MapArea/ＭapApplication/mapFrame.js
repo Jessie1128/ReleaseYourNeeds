@@ -426,10 +426,20 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
     console.log(typeof(hours))
     console.log(typeof(minutes))
     let times=stringify(hours)+stringify(minutes)
+    times=times.replace('"', '')
+    times=times.replace('"', '')
+    console.log(times)
+    // let abc='"12333"'
+    // console.log(abc)
+    // abc=abc.replace('"', '')
+    // abc=abc.replace('"', '')
+    // console.log(abc)
     let marker_with_time=[]
 
 
     res.map(item=>{
+      // console.log(item['weekday_text'][day-1].includes("休息"))
+      // console.log(item['weekday_text'][day-1])
       if (item.hasOwnProperty('weekday_text')){
 
         let time_num = item['weekday_text'][day-1].replace(/[^0-9]/g, "")
@@ -462,17 +472,21 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
               }
             }
             if(time_num.slice(0,8)){
+              console.log('llllll')
               let start = Number(time_num.slice(0,4))  //5
               let end = Number(time_num.slice(4,8))  //3 27
-              if(start>end){
+              if( start>end ){
+                console.log('start>end')
                 console.log(end)
                 if (end==0){
                   if(times>=start && times<2400){
                     item['opened']='ok'
+                    console.log('start>end')
                   }
                 }else{
                   if( times>=start && times<2400 || times<end ){
                     item['opened']='ok'
+                    console.log('start>end')
                   }
                 }
                 console.log(end)
@@ -498,7 +512,8 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
           item['opened']='ok'
         }else if (item['weekday_text']=='none'){
           item['opened']='pending'
-        }else if(item['weekday_text'][day-1]=='休息'){
+        }else if(item['weekday_text'][day-1].includes("休息")){
+          console.log('休息')
           item['opened']='none'
         }else{
           slice_time_to_num(time_num)
