@@ -1,14 +1,15 @@
 import React from 'react'
-import { useState , useEffect , useRef , useCallback } from 'react'
+import { useState , useEffect , useRef , useCallback , useMemo} from 'react'
 import { GoogleMap, useLoadScript , Marker } from '@react-google-maps/api';
 import googleMapStyles from './googleMapStyles';
 import { db } from "../../../connection_firebase/connection_firebase.js"
-import { collection , getDocs , doc, setDoc , serverTimestamp , query, orderBy , where, startAfter , updateDoc , limit , limitToFirst , limitToLast , startAt , endAt } from "firebase/firestore";
+import { collection , getDocs , doc, setDoc , serverTimestamp , query, orderBy , where, startAfter , updateDoc , limit , startAt , arrayUnion } from "firebase/firestore";
 import './mapFrame.css'
 import MarkerInfo from '../MarkerInfo/MarkerInfo.js'
 import MarkerInfoLabel from '../MarkerInfo/MarkerInfoLabel'
 import { async, stringify } from '@firebase/util';
 import Source from '../../../source/oriSource.json'
+import { v4 } from 'uuid';
 
 const containerStyle = {
   width: '600px',
@@ -56,144 +57,36 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
         let min_lng=Number((center['lng']-0.003).toFixed(6))
         let max_lat=Number((center['lat']+0.003).toFixed(6))
         let max_lng=Number((center['lng']+0.003).toFixed(6))
-        let get_res = collection(db, "test-source");
-        let res = query(get_res,limit(10)) 
-        // let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
-        // ****** let res = query(get_res , orderBy("id") , startAt('7528a5bf') , limit(0));  
-        // let res = query(get_res,orderBy("id"), startAt(), endAt(),limit(10));  
+        let get_res = collection(db, "source");
+        // let res = query(get_res, limit(15)) 
+        let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
+        // ********** let res = query(get_res , orderBy("id") , startAt('ea68c5f2') , limit(200));  
+        // let res = query(get_res , orderBy("") )
         console.log(res) 
         // const first = query(collection(db, "cities"), orderBy("population"), limit(25));
-
         let snapshot = await getDocs(res);
-        // let i=0
+        let i=0
         let new_marker=[]
+        console.log(new_marker)
         snapshot.forEach((doc) => {
-          new_marker.push(doc.data())
-     
-            // if( doc.data()["經度"]<max_lng && doc.data()["經度"]>min_lng){
-            //   // // console.log( min_lng+'<'+doc.data()["經度"] +"<"+ max_lng )
-            //   new_marker.push(doc.data())
-            // }else{
-            //   return
-            // }
-
-
-            // i++
-            // // console.log(i)
+          // new_marker.push(doc.data()) 
+            if( doc.data()["經度"]<max_lng && doc.data()["經度"]>min_lng){
+              // console.log( min_lng+'<'+doc.data()["經度"] +"<"+ max_lng )
+              console.log(doc.data()["weekday_text"])
+              new_marker.push(doc.data())
+            }else{
+              return
+            }
+            i++
+            console.log(i)
         })
-        // console.log(new_marker)
-        // setFiltered_marker(new_marker)
         return new_marker
       }
     }
-    
-    // async function ttry () {
-    //   console.log('這邊')
-    //   // let new_marker=[]
-    //   //   let get_res = collection(db, "test-source");
-    //   //   let res = query(get_res);   
-    //   //   let snapshot = await getDocs(res);
-    //   //   snapshot.forEach((doc) => {
-    //   //     console.log(doc.data())
-    //   //     new_marker.push(doc.data()) 
-    //   //   })
-    //   async function get_place_id(request,toliet){
-    //     console.log(toliet)
-    //     return new Promise((resolve,reject) => {
-    //       let service = new window.google.maps.places.PlacesService(map_obj.current);
-    //         service.findPlaceFromQuery(request, (results, status) => {
-    //         // console.log(request)
-    //         // console.log(results)
-    //         if(status === window.google.maps.places.PlacesServiceStatus.OK) {
-    //           console.log(results)
-    //           console.log(results.length)
-    //           if(results.length==0){
-    //             console.log("no資料")
-    //             resolve("no資料")
-    //           }else if(results.length==1){
-    //             console.log("我只有一筆資料")
-    //             get_id_from_firebase(toliet,resolve,results)           
-    //             // resolve("我只有一筆資料")
-    //           }else{
-    //             console.log(results)
-    //             console.log(request['query'])
-    //             resolve(results)
-    //           }
-    //         }
-    //       }) 
-    //     })
-    //   }
 
-    //   for (let i=0;i<4;i++){
-    //     console.log(Source[i]['公廁名稱'])
-    //     console.log(Source[i]['公廁地址'])
-    //     console.log(Source[i]['經度'])
-    //     console.log(Source[i]['緯度'])
-    //     let request = {
-    //       query: Source[i]["公廁地址"]+','+Source[i]["公廁名稱"],
-    //       fields: ["place_id"],
-    //       locationBias: {lat: Number(Source[i]["緯度"]), lng: Number(Source[i]["經度"])} 
-    //     }
-
-    //     let wait=await get_place_id(request,Source[i]["公廁名稱"])
-    //     console.log(wait)
-    //   }
-    // } 
-    
-
-    // async function get_id_from_firebase (toliet,resolve,results){
-    //   collection(db, "test-source")
-    //     .whereEqualTo("公廁名稱", toliet)
-    //     .get()
-    //     .await()
-    //   // let q = query(get_res, where("公廁名稱", "==", toliet )); 
-    //   // let res = await getDocs(q)
-      
-    //   // // .then((res)=>{
-    //   // let id = res.forEach((doc) => {
-    //   //   // doc.data() is never undefined for query doc snapshots
-    //   //   console.log(doc.id, " => ", doc.data());
-    //   //   doc.id;
-    //   // })
-    //   // console.log(id)
-    //   // .then(data=>
-    //   //     console.log(data)
-    //   //   )
-    //   // })
-      
-    //   // const querySnapshot = await getDocs(q);
-    //   // const 
-
-    //   // console.log(querySnapshot.docs)
-    //   // querySnapshot.forEach((doc) => {
-    //   //   // doc.data() is never undefined for query doc snapshots
-    //   //   console.log(doc.id, " => ", doc.data());
-    //   //   id=doc.id
-    //   //   let data = doc.data()
-    //   //   console.log(data)
-    //   //   if(data.hasOwnProperty('place_id')){
-    //   //     resolve(id)
-    //   //     return 
-    //   //   }
-    //   // });
-    //   // console.log(results)
-    //   // console.log(id)
-     
-    //   // if(results[0].hasOwnProperty('place_id')){
-    //   //   console.log(results[0]['place_id'])
-    //   //   await setDoc(doc(db, "test-source", id), {
-    //   //     place_id: results[0]['place_id'],
-    //   //   });
-    //   // }else{
-    //   //   console.log(toliet,"沒有place_id")
-    //   // }
-     
-    //   resolve("ok")
-    // }
-
-    const myRes=[]
-    const fetch_place_id=[]
-
+    // const myRes=[]
+    // const fetch_place_id=[]
+    // ========================================================================= // for place search to get place_id START
     async function get_id(res){
 
         // async function start (){
@@ -244,7 +137,7 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
                           '公廁地址':place_address,
                           'firebase_id':data_id,
                           '緯度':place_lat,
-                          '緯度':place_lng,
+                          '經度':place_lng,
                           'place_id':'none',
                         })
                       console.log(`${place_address+place_name}沒有資料     res=0`)
@@ -256,7 +149,7 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
                             '公廁地址':place_address,
                             'firebase_id':data_id,
                             '緯度':place_lat,
-                            '緯度':place_lng,
+                            '經度':place_lng,
                             'place_id':results[0]['place_id'],
                           })
                       }else{
@@ -266,7 +159,7 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
                             '公廁地址':place_address,
                             'firebase_id':data_id,
                             '緯度':place_lat,
-                            '緯度':place_lng,
+                            '經度':place_lng,
                             'place_id':'none',
                           })
                         console.log(`${place_address+place_name}沒有資料     res=1 but no data`)
@@ -279,7 +172,7 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
                             '公廁地址':place_address,
                             'firebase_id':data_id,
                             '緯度':place_lat,
-                            '緯度':place_lng,
+                            '經度':place_lng,
                             'place_id':results[0]['place_id'],
                             'place_id 資料':'多於ㄧ',
                           })
@@ -290,7 +183,7 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
                             '公廁地址':place_address,
                             'firebase_id':data_id,
                             '緯度':place_lat,
-                            '緯度':place_lng,
+                            '經度':place_lng,
                             'place_id':'none',
                             'place_id 資料':'多於ㄧ',
                           })
@@ -303,7 +196,7 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
                           '公廁地址':place_address,
                           'firebase_id':data_id,
                           '緯度':place_lat,
-                          '緯度':place_lng,
+                          '經度':place_lng,
                           'place_id':'none',
                         })
                       console.log(`${place_address+place_name}沒有資料     status 正確 but no 需要查清楚`)
@@ -317,7 +210,7 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
                         '公廁地址':place_address,
                         'firebase_id':data_id,
                         '緯度':place_lat,
-                        '緯度':place_lng,
+                        '經度':place_lng,
                         'place_id':'error',
                       })
                     resolve(fetch_place_id)
@@ -343,7 +236,7 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
             // console.log(data['firebase_id'])
             // console.log(data['place_id'])
             try {
-              const newData = doc(db, "source", data['firebase_id']);
+              const newData = doc(db, "test-source", data['firebase_id']);
               await updateDoc(newData, {
                 placeID: data['place_id']
               });
@@ -378,82 +271,246 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
           // console.log(myRes.length)
         // }
     }
-  
-    // async function get_marker_placce_info (res) {
-    //   Promise.all(res.map((item)=>{ 
-    //     return new Promise((resolve,reject) => {
-    //       let request = {      
-    //         query: item["公廁地址"],     
-    //         // query: item["公廁地址"]+','+item["公廁名稱"],
-    //         fields: ["opening_hours"],
-    //         locationBias: {lat: item['緯度'], lng: item['經度']} 
-    //       }
-    //       let service = new window.google.maps.places.PlacesService(map_obj.current);
-    //       service.findPlaceFromQuery(request, (results, status) => {
-    //         console.log(status)
-    //         // console.log(results)
-    //         if(status === window.google.maps.places.PlacesServiceStatus.OK) {
-    //           console.log(results)
-    //           try {
-    //             if(results.length==null){
-    //               console.log('0')
-    //               item['opened']='null' 
-    //             }else if(results.length==1){
-    //               console.log(results[0].hasOwnProperty('opening_hours'))
-    //               if(results[0].hasOwnProperty('opening_hours')){
-    //                 console.log(results[0]['opening_hours']['open_now'])
-    //                 if(results[0]['opening_hours']['open_now']){
-    //                   item['opened']=true
-    //                   console.log('1')
-    //                   // resolve("true")
-    //                 }else{
-    //                   item['opened']=false
-    //                   console.log('1')
-    //                   // resolve("false")
-    //                 }
-    //               }else{
-    //                 item['opened']='null'
-    //                 console.log('1')
-    //                 // resolve("pending")
-    //               }
-    //             }else if(results.length<1){
-    //               if(results[0].hasOwnProperty('opening_hours')){
-    //                 if(results[0]['opening_hours']['open_now']){
-    //                   item['opened']=true
-    //                   console.log('2')
-                      
-    //                   // resolve("true")
-    //                 }else{
-    //                   item['opened']=false
-    //                   console.log('2')
-                  
-    //                   // resolve("false")
-    //                 }
-    //               }else{
-    //                 item['opened']='null'
-    //                 console.log('2')
-                   
-    //                 // resolve("pending")
-    //               }
-    //             }else{
-    //               item['opened']='null'
-    //             }
-    //           } catch (error) {
-    //             console.log(error)
-    //           }                   
-    //         }  
-    //         console.log(results)
-    //         resolve("ok")
-    //       })  
-    //     })
-    //   }))
-    //   .then(data=>{
-    //     console.log(JSON.stringify(data))
-    //     console.log(res)
-    //     console.log(JSON.stringify(res))
-    //     // setFiltered_marker(res)
-    //   })
-    // }       
+    // ========================================================================= // for place search to get place_id END
+
+    const myRes=[]
+    const fetch_place_id=[]
+    // ========================================================================= // for place details to get place_id START
+    async function get_details(res){
+
+      let p=0
+      res.map(item=>{
+        myRes.push({
+          '公廁名稱':item['公廁名稱'],
+          '公廁地址':item['公廁地址'],
+          'id':item['id'],
+          // 'lat':item['緯度'],
+          // 'lng':item['經度'],
+          'placeID':item['placeID'],
+        })
+      })
+      console.log("我希望這邊先全部執行完",myRes)
+
+      async function get_id_promise (place_name,place_address,data_id,placeID,myRes) {
+        // console.log(place_name, place_address,data_id,place_lat,place_lng)
+        console.log("我要開始了")
+        let request = {        
+          placeId: placeID,
+          fields: [ 'name', 'formatted_address' , 'opening_hours' ]
+        }
+        // console.log(request)
+
+        if( placeID==='none' || placeID==='error' ){
+          console.log('我這邊要直接存進去資料庫')
+        }else{
+          new Promise ((resolve,reject)=>{
+            let service = new window.google.maps.places.PlacesService(map_obj.current);
+            service.getDetails(request, (place, status)=>{
+              try {
+                console.log(place)
+                if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+                  // console.log(place)
+                  // console.log(place.hasOwnProperty('opening_hours'))
+                  if(place.hasOwnProperty('opening_hours')){
+                    fetch_place_id.push(
+                      {
+                        '公廁名稱':place_name,
+                        '公廁地址':place_address,
+                        'firebase_id':data_id,
+                        'weekday_text':place['opening_hours']['weekday_text'],
+                      }
+                    )
+                  }else{
+                    fetch_place_id.push(
+                      {
+                        '公廁名稱':place_name,
+                        '公廁地址':place_address,
+                        'firebase_id':data_id,
+                        'weekday_text':'none',
+                      }
+                    )
+                    console.log(`${place_address+place_name}       'weekday_text'     沒有資料`)
+                  }
+                  resolve(fetch_place_id)
+                }else{
+                  console.log(`${place_address+place_name}有錯誤     status錯誤`)
+                  fetch_place_id.push(
+                    {
+                      '公廁名稱':place_name,
+                      '公廁地址':place_address,
+                      'firebase_id':data_id,
+                      'weekday_text':'error',
+                    })
+                  resolve(fetch_place_id)
+                }
+              } catch (error) {
+                console.log('error',error)
+                resolve('not ok')
+              }            
+            });
+          })
+          .then((data)=>{
+            // console.log(data)
+            // console.log(data[0]['weekday_text'][0])
+            // console.log(data[0]['weekday_text'][2])
+            // console.log('aaa')
+            // console.log('測試完成')
+            update_placeID_to_firebase (fetch_place_id)
+          })
+        }
+      }
+
+      async function update_placeID_to_firebase (fetch_place_id) {
+        let num=fetch_place_id.length
+        console.log(num)
+        let data=fetch_place_id[num-1]
+        console.log(JSON.stringify(data))
+        // console.log(data['firebase_id'])
+        // // console.log(data['place_id'])
+        // console.log(data['weekday_text'])
+        // let to_num = /\d+/;
+        // let s =data['weekday_text'][0]
+        // console.log(s.match(to_num));
+        let str = data['weekday_text'][0]
+        str = str.replace(/[^0-9]/g, "");
+        console.log(str); // "500"
+        // console.log(typeof(str))
+        try {
+          const newData = doc(db, "source", data['firebase_id']);
+          if( data['weekday_text']=='none' ||  data['weekday_text']=='error' ){
+            // console.log('空')
+            await updateDoc(newData, {
+              weekday_text: data['weekday_text']
+            });
+          }else{
+            // console.log('有')
+            await updateDoc(newData, {
+              weekday_text: data['weekday_text']
+            });
+          }
+          console.log(`新增完畢 id:${data['firebase_id']} 公廁名稱:${data['公廁名稱']} 公廁地址:${data['公廁地址']} 營業時間:${data['weekday_text']}`)
+        } catch (error) {
+          console.log(`${error} ${fetch_place_id}`)
+        }
+      }
+
+      for await ( let num of myRes ){
+        (
+          function(num,p){
+            if( p > myRes.length ){
+              return
+            }
+            window.setTimeout(function() {
+              let place_name=num['公廁名稱']
+              let place_address=num['公廁地址']
+              let data_id=num['id']
+              let placeID=num['placeID']
+              get_id_promise(place_name,place_address,data_id,placeID,myRes)
+            }, 2000 * p );
+          }
+        )(num,p);
+        p++
+      }
+    }
+  // ========================================================================= // for place details to get place_id END
+
+  async function get_current_time(res){
+    let day=new Date().getDay()
+    let hours = new Date().getHours() // type Number
+    let minutes = new Date().getMinutes() // type Number
+    if (minutes<10){
+      minutes='0'+minutes
+    }
+    console.log(hours)
+    console.log(minutes) 
+    console.log(typeof(hours))
+    console.log(typeof(minutes))
+    let times=stringify(hours)+stringify(minutes)
+    let marker_with_time=[]
+
+
+    res.map(item=>{
+      if (item.hasOwnProperty('weekday_text')){
+
+        let time_num = item['weekday_text'][day-1].replace(/[^0-9]/g, "")
+
+        let slice_time_to_num = (time_num) => {
+          console.log(times) 
+          times=Number(times)
+          console.log(typeof(times)) // Number
+          console.log(times)
+          if(times!=''){
+            if(time_num.slice(24,32)){
+              console.log('hi')
+              if( times>=Number(time_num.slice(24,28)) && times<Number(time_num.slice(28,32)) ){
+                item['opened']='ok'
+                console.log('hi')
+              }
+            }
+            if(time_num.slice(16,24)){
+              console.log('hi')
+              if( times>=Number(time_num.slice(16,20)) && times<Number(time_num.slice(20,24)) ){
+                item['opened']='ok'
+                console.log('hi')
+              }
+            }
+            if(time_num.slice(8,16)){
+              console.log('hi')
+              if( times>=Number(time_num.slice(8,12)) && times<Number(time_num.slice(12,16)) ){
+                item['opened']='ok'
+                console.log('hi')
+              }
+            }
+            if(time_num.slice(0,8)){
+              let start = Number(time_num.slice(0,4))  //5
+              let end = Number(time_num.slice(4,8))  //3 27
+              if(start>end){
+                console.log(end)
+                if (end==0){
+                  if(times>=start && times<2400){
+                    item['opened']='ok'
+                  }
+                }else{
+                  if( times>=start && times<2400 || times<end ){
+                    item['opened']='ok'
+                  }
+                }
+                console.log(end)
+              }else if( times>=start && times<end ){
+                item['opened']='ok'
+                console.log(Number(time_num.slice(0,4)))
+                console.log(times)
+                console.log(Number(time_num.slice(4,8)))
+                console.log('llllllllllllll')
+              }
+            }
+
+            if(item.hasOwnProperty('opened')===false){
+              item['opened']='none'
+            }
+            console.log(item['opened'])
+          }else{
+            item['opened']='none'
+          }
+        }
+
+        if(time_num=='24'){
+          item['opened']='ok'
+        }else if (item['weekday_text']=='none'){
+          item['opened']='pending'
+        }else if(item['weekday_text'][day-1]=='休息'){
+          item['opened']='none'
+        }else{
+          slice_time_to_num(time_num)
+        }
+        marker_with_time.push(item)
+      }
+    })
+    console.log(JSON.stringify(marker_with_time))  
+    setFiltered_marker(marker_with_time)
+  }
+
+
 
     useEffect(()=>{           // 載入畫面，取的使用者定位後的地圖呈現
       get_your_location();
@@ -467,8 +524,11 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
         }else{
           let res = await get_data_from_firebase(center)
           console.log("成功吧寶貝",res)
-          // ******* get_id(res)
-          setFiltered_marker(res)
+          get_current_time(res)
+          // console.log(res[0]['weekday_text'][6])
+          // get_id(res)
+          // get_details(res)
+          // setFiltered_marker(res)
         }
       }
       get_marker_info()
@@ -520,7 +580,7 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
       //   borderRadius: '5px',
       // }}>88888888</div>
       <GoogleMap
-        zoom={16}
+        zoom={15}
         center={center}
         mapContainerStyle={containerStyle}
         streetView={false}
@@ -539,6 +599,18 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
           // setBack_to_center(ori_map)}          
         }
         
+        // onZoomChanged={()=>{
+        //   if(map_obj.current.zoom===undefined){
+        //     return
+        //   }else{
+        //     if(map_obj.current.zoom<=13){
+        //       setFiltered_marker(<Marker option={{visible: false}}/>)
+        //     }
+        //   }
+        //   // console.log('change')
+        //   // console.log(map_obj.current.zoom)
+        // }}
+
         // onDrag={()=>{
         //   // console.log("我正在拖曳")
 
@@ -569,28 +641,36 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
 
             console.log("八巴巴阿巴巴",filtered_marker)
             let new_lat_lng={ "lat":item["緯度"], "lng":item["經度"] };
-            let text;
+            let icon;
             // console.log(item)
             // console.log(item['優等級'])
             // console.log(item['opened'])
-            if(item['opened']){
-              text='我開著'
-            }else if(item['opened']===false){
-              text='關了'
-            }else if(item['opened']==='null'){
-              text='待訂'
+            {/* if(map_obj.current.zoom<=13){
+              console.log()
+            } */}
+
+            if(item['opened']=='ok'){
+              icon=require('../../../source/current_opened.png')
+            }else if(item['opened']=='pending'){
+              icon=require('../../../source/current_pending.png')
+            }else{
+              icon=require('../../../source/current_closed.png')
             }
+            {/* let vis=true */}
             return ( 
-              <Marker position={new_lat_lng} label={text} 
+              <Marker 
+                position={new_lat_lng}  
+                icon={icon}
+                key={Number((item["緯度"]))+Number((item["經度"]))}
+                // visible={{vis}}
+                // useCallback()=>{
 
-                onClick={(e) => {
-                  // console.log(e.latLng)
-                  // console.log("latitude = ", e.latLng.lat());
-                  // console.log("longtitude = ", e.latLng.lng());
-                }}
-
-                onMouseOver={()=>{
+                // }
+                onMouseOver={(e)=>{
+                  console.log(Marker)
+                  console.log(e)
                   // console.log("我的滑鼠移進來了")
+                  // e.stopPropagation();
                   setMarker_info(
                     <MarkerInfoLabel 
                       center={new_lat_lng} 
@@ -612,7 +692,7 @@ const MapFrame = ({ setText , setBack_to_center , setIf_center_move }) => {
         <Marker 
           // key={}
           position={center}
-          icon={require('../../../source/current-pin.png')}
+          icon={require('../../../source/current_place.png')}
           // options={{
           //   icon: require('../../../source/current-pin.png'),
           //   scaledSize: new window.google.map.Size(100,100),

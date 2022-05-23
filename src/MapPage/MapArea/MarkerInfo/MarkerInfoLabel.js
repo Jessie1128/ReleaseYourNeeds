@@ -71,6 +71,9 @@ const MarkerInfoLabel = ({ center , inner , setMarker_info , map_obj }) => {
         margin: '6px 0px 2px 0px',
     }
 
+    let info_frame_MouseOnClick = (e) =>{
+        e.stopPropagation();
+    }
 
     let close_MouseOver = (e) => {
         e.target.style.color = '#000';
@@ -116,7 +119,7 @@ const MarkerInfoLabel = ({ center , inner , setMarker_info , map_obj }) => {
             e.closeBoxURL=''
           }}
         >
-            <div style={info_frame}>
+            <div style={info_frame} onClick={info_frame_MouseOnClick}>
                 <div style={info_style}>
                     <div style={info_info}>
                     {inner}
