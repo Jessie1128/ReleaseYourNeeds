@@ -1,0 +1,129 @@
+.review_comments_frame {
+    width: 250px;
+    border-radius: 5px;
+    background-color: rgb(138, 138, 138);
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    height:50px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.review_comments_frame:hover {
+    height:70px;
+    margin-bottom: 10px;
+}
+
+.review_user_img_frame {
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
+    align-items: center;
+    /* width:20px;
+    height:20px; */
+}
+
+.review_user_img_src {
+    width:42px;
+    height:42px;
+    border-radius: 100%;
+    margin-right: 5px;
+}
+
+.review_user_img_comments {
+    /* margin-left: 5px; */
+    /* width:190px; */
+    height:36px;
+    /* padding-left: 5px; */
+    /* border: 1px solid #000; */
+    border-radius: 5px;
+    background-color: rgb(188, 188, 188);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.review_user_text{
+    display: grid;
+    /* justify-items: center;
+    align-items: center; */
+    background-color: rgb(220, 220, 220, 0.1);
+    color: #000;
+    border-radius: 5px;
+    border: none;
+    width: 170px;
+    /* height: 23px; */
+    /* padding-left: 10px; */
+    word-break: break-all;
+    resize: none;
+    text-align: justify;
+    padding: 2px 10px 2px;
+}
+
+.review_user_time {
+    font-size: 11px;
+    font-weight: normal;
+    display: flex;
+    justify-content: start;
+    color: #393E41;
+}
+
+.review_user_inner{
+    font-size: 13px;
+    font-weight: normal;
+    display: flex;
+    justify-content: start;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical; 
+}
+
+
+/* ::placeholder {
+    color: #000;
+} */
+
+.review_user_img_input:hover {
+    cursor:pointer;
+}
+
+.review_user_img_input:focus {
+    border:#000 2px solid;
+    outline: none;
+}
+
+.review_user_img_confirm {
+    width:250px;
+    height:20px;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+
+.review_user_img_confirm_text {
+    width:100px;
+    height:18px;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 7px;
+    background-color: #393E41;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.review_user_img_confirm_text:hover {
+    background-color: #dcdcdc;
+    color: #393E41;
+    /* color:#666666; */
+    cursor: pointer;
+}

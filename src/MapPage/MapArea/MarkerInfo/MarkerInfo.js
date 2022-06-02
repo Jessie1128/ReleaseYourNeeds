@@ -25,38 +25,12 @@ const MarkerInfo = ({ center , inner }) => {
         zIndex: '10',
     }
 
-    // const above_marker={ "lat":(center['lat']) , "lng":(center['lng']) }
-    // console.log(above_marker)
-    // console.log(<InfoBox/>)
     return (
         <InfoBox 
-          // style={info_style}
-          position={ center }
-          
+          position={ center }   
           onLoad={(e)=>{
-            // console.log("啊啊啊啊啊啊啊啊",e)
-            // console.log(e.content)
-            // console.log(e.closeBoxURL)
             e.closeBoxURL=''
-            // console.log(Object.getOwnPropertyNames(e));
           }}
-
-          // onDomReady={()=>{
-          //   // console.log("我不要框框關起來")
-
-          // }}
-
-          // onUnmount={(e)=>{
-            
-          //   e.content.style.display='flex';
-          //   // console.log("我不要框框關起來",e)
-    
-          // }}
-
-          // onCloseClick={()=>{
-          //   console.log("哈哈哈哈哈")
-          // }}
-
         >
           <div style={info_style} >
             <div style={info_info}>

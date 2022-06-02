@@ -1,12 +1,14 @@
-/* .loading_effect {
-    display:flex;
-    
-}
-
-.loading_effect_inner {
+.bottom_function {
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 60px;
-    font-weight: bold;;
-} */
+    top:530px;
+    left:530px;
+    width: 200px;
+    height: 46px;
+    border-radius: 5px;
+    /* z-index: 300; */
+    background-color: rgb(57, 62, 65, 0.8);
+    color: #fff;
+}

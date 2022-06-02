@@ -107,6 +107,17 @@ const Source = () => {
         }
         get_data_from_firebase()
     }
+
+    // const link = function (point, url) {     // 這邊只是我自己的小測試，無關專案
+    //   // console.log(point==false)
+    //   // console.log(typeof(point))
+    //   point = false || 10
+    //   url = url || 'http://google.com'
+    //   // point = typeof point == 'undefined' ? 10 : point
+    //   // url = typeof url !== 'undefined' ? url : 'http://google.com'
+    //   // console.log(point)
+    //   // console.log(url)
+    // }
 }
 
 export default Source

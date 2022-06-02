@@ -34,25 +34,48 @@
     font-size:16px;
 }
 
-.menu-search-bar {
+.menu-login {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #E9F1F7;
+}
+
+.menu-signIn-or-out {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#393E41;
+    color:#fff;
     border-radius: 5px;
-    border:#fff 2px solid;
-    margin-right: 20px;
-    width:200px;
-    padding:7px;
-    padding-left: 20px;
+    font-size:16px;
+    font-weight: bold;
+    height: 34px;
+    width:90px;
 }
 
-
-.menu-search-bar:hover{
+.menu-signIn-or-out:hover {
     cursor:pointer;
+    font-size:17px;
 }
 
-.menu-search-bar:focus {
-    border:#393E41 2px solid;
-    outline: none;
+/* .menu-login-info {
+    display: flex;
+} */
+
+.menu-login_name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(212, 123, 7); */
+    margin-left: 20px;
+    width: auto;
+    padding: 0px 10px 0px;
+    font-size: 14px;
+}
+
+.menu-login_photo {
+    /* background-color: fuchsia; */
+    height:40px;
+    width: 40px;
+    border-radius: 100px;
 }

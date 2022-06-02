@@ -1,0 +1,30 @@
+.more_comments {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    /* position: absolute; */
+}
+
+.more_comments:hover {
+    cursor:pointer;
+    font-size: 14px;
+    text-decoration:underline;
+    text-underline-offset:3px;
+}
+
+.more_comments_board {
+    background-color: #dcdcdc;
+    position: absolute;
+    left: 20px;
+    height: 335px;
+    width: 256px;               /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 這個切版要注意 */
+    border-radius: 5px;         /* 我是用 left:20px 不然 infoboard會歪掉 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border:2px solid #393E41;
+    transition-property: top;
+    transition-duration: 1.5s ;
+}

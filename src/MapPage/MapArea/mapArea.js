@@ -1,17 +1,17 @@
-import { useState ,useEffect } from 'react'
+import { useState , useEffect , useContext } from 'react'
 import './mapArea.css'
 import MapFrame from './ＭapApplication/mapFrame'
 // import  MapMarker from './ＭapApplication/marker'
-import Loading_effect from './LoadingEffect/loadingEffect'
-import { GoogleMap } from '@react-google-maps/api'
+import Loading_effect from '../../Component/LoadingEffect/loadingEffect'
 import Source from '../../source/source'
 // import i from '../../source/direction.png'
 
 const MapArea = () =>{
-
+    
     const [ text , setText ] = useState( "我這邊要放特效" )
     const [ back_to_center , setBack_to_center ] = useState('')
-    const [ if_center_move , setIf_center_move ] = useState('')
+    // const [ loading , setLoading ] = useState(<Loading_effect />)
+    // const [ InfoBoard , setInfo_board ] = useState('') // 傳遞 → MapFrame → MarkerInfoLabel(onClick 做更改)
 
     useEffect(()=>{
         setBack_to_center(back_to_center)
@@ -21,28 +21,30 @@ const MapArea = () =>{
         <div className='outside-background'>
             <div className='outside-frame'>
                 <div className='map-area'>
+                    {/* {InfoBoard} */}
                     <MapFrame 
                         setText={setText} 
                         setBack_to_center={setBack_to_center} 
-                        setIf_center_move={setIf_center_move}
+                        // setInfo_board={setInfo_board}
                     />
-                    <Loading_effect text={text}/>
+                    {/* {loading} */}
                 </div>
                 <div className='function-area'>
                     <div className='function-icon'>
-                        {/* <div> */}
+                        <input className="function-search-bar" placeholder='搜尋想找的地區'></input>
+                    </div>
+                    {/* <div className='function-icon'>
+                        <div className='function-back-to-current'>
                             <img 
                                 className='map-back-to-current' 
                                 src={require('../../source/direction.png')} 
                                 onClick={()=>{
-                                    console.log('巴拉巴拉',if_center_move)
                                     back_to_center.panTo(if_center_move)
                                 }}
                             />
-                        {/* </div> */}
+                        </div>
                         <div className='function-icon-text'>返回當前位置</div>
-                    </div>
-                    <div className='function-icon'></div>
+                    </div> */}
                     <div className='function-icon'></div>
                 </div>
             </div>
