@@ -66,9 +66,8 @@ const MapFrame = ({ setText , setBack_to_center }) => {
         let max_lat=Number((center['lat']+0.003).toFixed(6))
         let max_lng=Number((center['lng']+0.003).toFixed(6))
         let get_res = collection(db, "test-source");
-        // let res = query(get_res) 
-        // let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
-        let res = query(get_res , orderBy("id") , limit(15));  
+        let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
+        // let res = query(get_res , orderBy("id") , limit(15));  
         // let res = query(get_res , orderBy("") )
         console.log(res) 
         // const first = query(collection(db, "cities"), orderBy("population"), limit(25));
@@ -118,9 +117,16 @@ const MapFrame = ({ setText , setBack_to_center }) => {
             day=7
           }
           console.log(day)
+          console.log(item['weekday_text'])
           console.log(item['weekday_text'][day-1])
-          console.log(item)
-          let time_num = item['weekday_text'][day-1].replace(/[^0-9]/g, "")
+          let time_num
+          if(item['weekday_text'][day-1]===undefined){
+            console.log('undefined')
+          }else{
+            time_num = item['weekday_text'][day-1].replace(/[^0-9]/g, "")
+          }
+          // console.log(item)
+          // let time_num = item['weekday_text'][day-1].replace(/[^0-9]/g, "")
 
           let slice_time_to_num = (time_num) => {
             console.log(times) 
@@ -330,7 +336,6 @@ const MapFrame = ({ setText , setBack_to_center }) => {
         }}
       >
         { 
-
           filtered_marker.map(item => {
             let new_lat_lng={ "lat":item["緯度"], "lng":item["經度"] };
             let icon;

@@ -238,8 +238,8 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
                             setClick_and_more_comments={setClick_and_more_comments}
                             commented={commented}
                             setCommented={setCommented}
+                            inner={inner}
                         />
-                        // 要作一個review comment
                     )
                 }
             </div>

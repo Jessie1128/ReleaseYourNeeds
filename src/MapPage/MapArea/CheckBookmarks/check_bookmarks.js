@@ -84,6 +84,7 @@ const CheckBookmarks = ({ info_board , get_user_data , inner , confirm_hover , s
             if(inner['公廁名稱'] in data['user_comments']){
                 setConfirm_botton('顯示留言')   
                 setCommented(data['user_comments'][inner['公廁名稱']])
+                console.log(commented)
             }else{
                 console.log('還沒留言喔')
                 setConfirm_botton('ENTER')

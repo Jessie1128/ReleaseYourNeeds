@@ -8,7 +8,7 @@ import More_Comments from '../MapArea/MoreComments/more_comments'
 
 const Comments = ({ url , info_board , inner , get_user_data , comment_exist , setComment_exist , 
                     confirm_hover , setConfirm_hover , confirm_botton , setConfirm_botton ,
-                    top , setTop , click_and_more_comments , setClick_and_more_comments }) => {
+                    top , setTop , click_and_more_comments , setClick_and_more_comments  }) => {
     // console.log('哇啦哇啦',url)
     // let [ top , setTop ] = useState ({top:'480px'})
     // let [ click_and_more_comments , setClick_and_more_comments ] = useState ('查看更多留言...')
@@ -109,6 +109,7 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
         info_in_array['user_Email']=email
         info_in_array['user_Name']=name
         info_in_array['user_Comments']=user_comments
+        info_in_array['user_img']=url
         info_in_array['create_at']=new Date()
         console.log(info)
         console.log(info_in_array)
@@ -119,6 +120,12 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
             //     user_comments: {
             //       food: "Ice Cream"
             //     }})
+            // for(let i=0; i<10 ; i++){
+            //     await setDoc(doc(db, "comments", inner['公廁名稱']+id), {
+            //         'data': arrayUnion(info_in_array)
+            //         // user_collection: firebase.firestore.FieldValue.arrayUnion([inner['公廁名稱']])
+            //     },{ merge : true })
+            // }
 
             await setDoc(doc(db, "user", email), {
                 user_comments:By_Place
@@ -129,7 +136,7 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
                 'data': arrayUnion(info_in_array)
                 // user_collection: firebase.firestore.FieldValue.arrayUnion([inner['公廁名稱']])
             },{ merge : true })
-            
+
             console.log(inner['公廁名稱'])
             console.log(get_user_data)
             console.log('我存好了')
@@ -163,8 +170,8 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
     return (
         <div style={{display:'block'}}>
             <div className='comments_frame'
-                 onMouseOver={comments_frame_mouseOver}
-                 onMouseOut={comments_frame_mouseOut}
+                onMouseOver={comments_frame_mouseOver}
+                onMouseOut={comments_frame_mouseOut}
             >
                 <div>
                     <div className='user_img_frame'>
@@ -189,6 +196,8 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
                 setTop={setTop} 
                 click_and_more_comments={click_and_more_comments} 
                 setClick_and_more_comments={setClick_and_more_comments}
+                url={url}
+                inner={inner}
             />
         </div>
     )

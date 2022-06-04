@@ -10,14 +10,14 @@ import LoginStatus from '../Component/LoginStatus/loginStatus';
 
 const MapPage = () =>{
 
-    const bodyBackground ={
+    let bodyBackground ={
         backgroundImage: `url(${require('../source/mapImg-2.png')})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         width:'100%',
         height:'100vh'
-      }
+    }
 
     return (
         <div style={bodyBackground}>
