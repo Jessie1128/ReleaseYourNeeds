@@ -84,14 +84,6 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
 
 
     let insert_comment_to_db = async(user_comments) => { // 從 user_Effect 呼叫
-        // console.log(inner['緯度'],inner['經度'])
-        // console.log(inner['緯度']+inner['經度'])
-        // console.log(inner['公廁名稱'].length)
-        // console.log(inner['公廁名稱']+id)
-        // console.log(typeof(inner['公廁名稱']+id))
-        // console.log(email)
-        // console.log(name)
-        // console.log(user_comments)
         if(user_comments===null){
             console.log('沒有打字')
             console.log('這邊要做 不能存空的留言 提示框')
@@ -198,6 +190,7 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
                 setClick_and_more_comments={setClick_and_more_comments}
                 url={url}
                 inner={inner}
+                 get_user_data={get_user_data}
             />
         </div>
     )

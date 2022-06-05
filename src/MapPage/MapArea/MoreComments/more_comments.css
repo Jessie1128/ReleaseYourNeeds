@@ -82,7 +82,7 @@
     align-items: flex-start; */
     display: block;
     width:40px;
-    /* height: 40px; */
+    height: 40px;
     padding: 0px 2px 2px;
     /* border-radius: 100%;
     border: #393E41 1px solid; */
@@ -90,7 +90,7 @@
 
 .inner_img {
     width:40px;
-    /* height: 40px; */
+    height: 40px;
     border-radius: 100%;
 }
 

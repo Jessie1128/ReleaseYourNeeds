@@ -5,6 +5,7 @@ import MapFrame from './ＭapApplication/mapFrame'
 import Loading_effect from '../../Component/LoadingEffect/loadingEffect'
 import Source from '../../source/source'
 // import i from '../../source/direction.png'
+import SearchPlace from './SearchPlace/search_place'
 
 const MapArea = () =>{
     
@@ -31,8 +32,9 @@ const MapArea = () =>{
                 </div>
                 <div className='function-area'>
                     <div className='function-icon'>
-                        <input className="function-search-bar" placeholder='搜尋想找的地區'></input>
+                        <input className="function-search-bar" placeholder='輸入關鍵字'></input>
                     </div>
+                    <SearchPlace />
                     {/* <div className='function-icon'>
                         <div className='function-back-to-current'>
                             <img 

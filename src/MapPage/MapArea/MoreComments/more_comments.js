@@ -5,7 +5,7 @@ import { getDoc , getDocs , doc, query, orderBy , where, startAfter , updateDoc 
 import { db } from '../../../connection_firebase/connection_firebase';
 import MoreCommentsComments from './MoreComments-comments/more_comments_comments';
 
-const More_Comments = ({ url , info_board ,  top , setTop , commented , inner ,
+const More_Comments = ({ url , info_board ,  top , setTop , commented , inner , get_user_data ,
                          click_and_more_comments , setClick_and_more_comments , commented_inner , commented_time }) => {
 
     // let [ top , setTop ] = useState ({top:'480px'})
@@ -115,6 +115,8 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , inner ,
                                     background={{background:'rgb(58, 68, 69, 0.3)'}}
                                     commented_time={commented_time}
                                     commented_inner={commented_inner}
+                                    inner={inner}
+                                    get_user_data={get_user_data}
                                 />
                                 <hr style={{border:'1px solid #000'}}/>
                             </>
@@ -137,6 +139,7 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , inner ,
                                     user_Name={item['user_Name']}
                                     commented_time={item['time']}
                                     commented_inner={item['user_Comments']}
+                                    inner={inner}
                                 />
                             )
                         }) 

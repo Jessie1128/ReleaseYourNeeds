@@ -66,8 +66,8 @@ const MapFrame = ({ setText , setBack_to_center }) => {
         let max_lat=Number((center['lat']+0.003).toFixed(6))
         let max_lng=Number((center['lng']+0.003).toFixed(6))
         let get_res = collection(db, "test-source");
-        let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
-        // let res = query(get_res , orderBy("id") , limit(15));  
+        // let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
+        let res = query(get_res , orderBy("id") , limit(15));  
         // let res = query(get_res , orderBy("") )
         console.log(res) 
         // const first = query(collection(db, "cities"), orderBy("population"), limit(25));

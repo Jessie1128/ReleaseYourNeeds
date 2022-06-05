@@ -239,6 +239,7 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
                             commented={commented}
                             setCommented={setCommented}
                             inner={inner}
+                            get_user_data={get_user_data}
                         />
                     )
                 }

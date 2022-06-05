@@ -46,7 +46,7 @@
     justify-content: center;
     align-items: center; */
     /* grid-auto-flow: column; */
-    background-color: rgb(0, 76, 82);
+    /* background-color: rgb(0, 76, 82); */
     margin:10px 0px 10px;
 }
 
@@ -85,9 +85,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
+    background-color: #9F9F92;
     border-radius: 5px;
-    border:#fff 2px solid;
+    border:#9F9F92 2px solid;
     /* margin-right: 20px; */
     width:200px;
     /* padding:7px; */

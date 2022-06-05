@@ -1,0 +1,15 @@
+.search_place_frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search_place {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #9F9F92;
+    width: 230px;
+    height: 230px;
+    border-radius: 5px;
+}
