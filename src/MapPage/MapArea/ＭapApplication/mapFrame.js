@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState , useEffect , useRef , useCallback , useMemo} from 'react'
+import { useState , useEffect , useRef , useCallback , useMemo , useContext } from 'react'
 import { GoogleMap, useLoadScript , Marker } from '@react-google-maps/api';
 import googleMapStyles from './googleMapStyles';
 import { db } from "../../../connection_firebase/connection_firebase.js"
@@ -13,6 +13,8 @@ import Loading_effect from '../../../Component/LoadingEffect/loadingEffect';
 import { v4 } from 'uuid';
 import MarkerForToilet from './MarkerForToilet/marker_for_toilet';
 import BackToCurrent from '../../BackToCurrent/back_to_current';
+import { Marker_Data } from '../../../Component/ContextFolder/context_folder';
+import { Map_Marker } from '../../../Component/ContextFolder/context_folder';
 
 const containerStyle = {
   width: '800px',
@@ -21,6 +23,9 @@ const containerStyle = {
 };
 
 const MapFrame = ({ setText , setBack_to_center }) => {
+
+    const { marker_data , setMarker_data } = useContext(Marker_Data)
+    // const { map_marker , setMap_Marker } = useContext(Map_Marker)
 
     const [ center , setCenter ] = useState ('')
     const [ label , setLabel ] = useState ('目前位置')
@@ -33,6 +38,7 @@ const MapFrame = ({ setText , setBack_to_center }) => {
     const [ loading , setLoading ] = useState(<Loading_effect />)
 
     const get_your_location = () => {
+      // console.log(marker_data)
       if(navigator.geolocation) {                // 向使用者取得定位權限
         function error(e) {
           alert('無法取得你的位置',e);
@@ -61,34 +67,84 @@ const MapFrame = ({ setText , setBack_to_center }) => {
         // console.log("空的")
         return "none"
       }else{
-        let min_lat=Number((center['lat']-0.003).toFixed(6))
-        let min_lng=Number((center['lng']-0.003).toFixed(6))
-        let max_lat=Number((center['lat']+0.003).toFixed(6))
-        let max_lng=Number((center['lng']+0.003).toFixed(6))
+        let range=0.02
+        let min_lat=Number((center['lat']-range).toFixed(6))
+        let min_lng=Number((center['lng']-range).toFixed(6))
+        let max_lat=Number((center['lat']+range).toFixed(6))
+        let max_lng=Number((center['lng']+range).toFixed(6))
         let get_res = collection(db, "test-source");
+        let res = query(get_res, limit(15))
+        // let get_res = collection(db, "source");
         // let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
-        let res = query(get_res , orderBy("id") , limit(15));  
-        // let res = query(get_res , orderBy("") )
-        console.log(res) 
-        // const first = query(collection(db, "cities"), orderBy("population"), limit(25));
         let snapshot = await getDocs(res);
         let i=0
-        let new_marker=[]
-        console.log(new_marker)
+        let result=[]
         snapshot.forEach((doc) => {
-          // new_marker.push(doc.data()) 
             if( doc.data()["經度"]<max_lng && doc.data()["經度"]>min_lng){
-              // console.log( min_lng+'<'+doc.data()["經度"] +"<"+ max_lng )
-              // console.log(doc.data()["weekday_text"])
-              new_marker.push(doc.data())
+              result.push(doc.data())
             }else{
               return
             }
             i++
             console.log(i)
         })
-        console.log(JSON.stringify(new_marker))
-        return new_marker
+        // 先不要用
+        // let min_lat=Number((center['lat']-0.003).toFixed(6))
+        // let min_lng=Number((center['lng']-0.003).toFixed(6))
+        // let max_lat=Number((center['lat']+0.003).toFixed(6))
+        // let max_lng=Number((center['lng']+0.003).toFixed(6))
+        // let get_res = collection(db, "source");
+        // // let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
+        // let res = query(get_res , orderBy("id") , limit(15));  
+        // // let res = query(get_res , orderBy("") )
+        // console.log(res) 
+        // const first = query(collection(db, "cities"), orderBy("population"), limit(25));
+        // let snapshot = await getDocs(res);
+        // let i=0
+        // let new_marker=[]
+        // console.log(new_marker)
+        // snapshot.forEach((doc) => {
+        //   // new_marker.push(doc.data()) 
+        //     if( doc.data()["經度"]<max_lng && doc.data()["經度"]>min_lng){
+        //       // console.log( min_lng+'<'+doc.data()["經度"] +"<"+ max_lng )
+        //       // console.log(doc.data()["weekday_text"])
+        //       new_marker.push(doc.data())
+        //     }else{
+        //       return
+        //     }
+        //     i++
+        //     console.log(i)
+        // })    
+        console.log(JSON.stringify(result))
+        console.log(result)
+        return new Promise((reslove,reject)=>{
+          // setMarker_data(result)
+          reslove('ok')
+        })
+        .then(()=>{
+          setMarker_data(result)
+        })
+        .then(()=>{
+          console.log(marker_data)
+          min_lat=Number((center['lat']-0.003).toFixed(6))
+          min_lng=Number((center['lng']-0.003).toFixed(6))
+          max_lat=Number((center['lat']+0.003).toFixed(6))
+          max_lng=Number((center['lng']+0.003).toFixed(6))
+          // const new_marker = result.filter(item => {
+          //     return item['經度'] >= min_lng && item['經度'] <= max_lng && item['緯度'] >= min_lat && item['緯度'] <= max_lat
+          // });
+          const new_marker = result
+          return new_marker
+        })
+        // .then((marker)=>{
+        //   setMap_Marker(marker)
+        //   console.log()
+        //   console.log(marker_data)
+        //   console.log(map_marker)
+        //   console.log(JSON.stringify(marker_data))
+        //   console.log(JSON.stringify(map_marker))
+        //   return marker
+        // })
       }
     }
 

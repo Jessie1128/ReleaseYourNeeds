@@ -115,27 +115,62 @@
 .edit_review_user_inner {
     font-size: 13px;
     font-weight: normal;
-    height: auto;
-    min-height: 38px;
-    overflow-y:visible;
-    overflow: auto;
-    padding: 0px;
+    margin-top: 4px;
+    border-radius: 5px;
+    /* height: auto; */
+    /* height: 20px; */
+    /* overflow-y:visible;
+    overflow: auto; */
+    padding: 2px;
+    line-height:16px;
+    /* display: flex;
+    justify-content: start; */
+    /* margin-top: 4px; */
+    /* resize:none; */
+    border: none;
+    background:rgb(220, 220, 220, 0.6);
+    /* readonly:readonly; */
+}
+
+.edit_review_user_inner:focus {
+    border: none;
+    outline: none;
+}
+
+.inner_edit {
     display: flex;
     justify-content: start;
-    margin-top: 4px;
-    resize:none;
-    border: none;
-    background:none;
-    /* readonly:readonly; */
+}
+
+.inner_confirm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    background: #dcdcdc;
+    color: #393E41;
+    font-weight: bold;
+    width: 30px;
+    height: 20px;
+    border-radius: 5px;
+    margin-top: 2px;
+    margin-left: 5px;
+}
+
+.inner_confirm:hover {
+    cursor: pointer;
+    background: #393E41;
+    color: #dcdcdc;
 }
 
 .show_review_user_inner{
     font-size: 13px;
     font-weight: normal;
-    display: flex;
-    justify-content: start;
+    /* display: flex;
+    justify-content: start; */
     margin-top: 4px;
     line-height:16px;
+    padding: 2px;
     /* overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

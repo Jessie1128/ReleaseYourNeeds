@@ -119,6 +119,7 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
     }
 
     useEffect(()=>{
+        console.log('神魔鬼東東',inner)
         setComment_exist(false)
         if(photo_url===undefined){
             console.log('空空空空空空空')
@@ -131,8 +132,10 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
     },[info_board])
 
     useEffect(()=>{
+        console.log('這邊有')
         if(comment_exist===false){
             console.log('comment_exist是false')
+            setConfirm_botton('ENTER')
             return
         }else{
             init_loadBoard()
@@ -191,7 +194,7 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
                     <div className='placeInfoInner'>無障礙廁所座數：{inner['無障礙廁所座數']} 座</div>
                     <div className='placeInfoInner'>親子廁所座數：{inner['親子廁所座數']} 座</div>
                     <div style={{display:'flex',width:'100%'}}>
-                        <div className='placeInfoInner' style={{paddingBottom:'10px'}}>親子廁所座數：{inner['親子廁所座數']} 座</div>
+                        <div className='placeInfoInner' style={{paddingBottom:'10px'}}>貼心公廁座數：{inner['貼心公廁']} 座</div>
                         <CheckBookmarks 
                             info_board={info_board} 
                             get_user_data={get_user_data} 
@@ -222,6 +225,7 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
                             setConfirm_botton={setConfirm_botton}
                             top={top}
                             setTop={setTop}
+                            setCommented={setCommented}
                             click_and_more_comments={click_and_more_comments}
                             setClick_and_more_comments={setClick_and_more_comments}
                         />
@@ -240,6 +244,7 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
                             setCommented={setCommented}
                             inner={inner}
                             get_user_data={get_user_data}
+                            setComment_exist={setComment_exist}
                         />
                     )
                 }

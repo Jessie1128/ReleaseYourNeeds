@@ -6,6 +6,9 @@ import Loading_effect from '../../Component/LoadingEffect/loadingEffect'
 import Source from '../../source/source'
 // import i from '../../source/direction.png'
 import SearchPlace from './SearchPlace/search_place'
+import { Alert_Box } from '../../Component/AlertBox/alert_box';
+import { AlertFrame } from '../../Component/ContextFolder/context_folder';
+
 
 const MapArea = () =>{
     
@@ -20,6 +23,7 @@ const MapArea = () =>{
 
     return (
         <div className='outside-background'>
+            {/* <Alert_Box /> */}
             <div className='outside-frame'>
                 <div className='map-area'>
                     {/* {InfoBoard} */}
@@ -30,12 +34,13 @@ const MapArea = () =>{
                     />
                     {/* {loading} */}
                 </div>
-                <div className='function-area'>
+                <SearchPlace />
+                {/* <div className='function-area'>
                     <div className='function-icon'>
                         <input className="function-search-bar" placeholder='輸入關鍵字'></input>
                     </div>
-                    <SearchPlace />
-                    {/* <div className='function-icon'>
+                    
+                    <div className='function-icon'>
                         <div className='function-back-to-current'>
                             <img 
                                 className='map-back-to-current' 
@@ -46,9 +51,9 @@ const MapArea = () =>{
                             />
                         </div>
                         <div className='function-icon-text'>返回當前位置</div>
-                    </div> */}
+                    </div>
                     <div className='function-icon'></div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

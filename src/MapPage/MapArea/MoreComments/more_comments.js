@@ -5,15 +5,15 @@ import { getDoc , getDocs , doc, query, orderBy , where, startAfter , updateDoc 
 import { db } from '../../../connection_firebase/connection_firebase';
 import MoreCommentsComments from './MoreComments-comments/more_comments_comments';
 
-const More_Comments = ({ url , info_board ,  top , setTop , commented , inner , get_user_data ,
-                         click_and_more_comments , setClick_and_more_comments , commented_inner , commented_time }) => {
+const More_Comments = ({ url , info_board ,  top , setTop , commented , setCommented , inner , get_user_data ,
+                         click_and_more_comments , setClick_and_more_comments , commented_inner , commented_time , setComment_exist }) => {
 
     // let [ top , setTop ] = useState ({top:'480px'})
     // let [ click_and_more_comments , setClick_and_more_comments ] = useState ('查看更多留言...')
     let [ loading , setLoading ] = useState (<Loading_effect />)
     const [ get_exist_comment , setGet_exist_comment] = useState(false)
     let [ fillter_comments , setFiltered_comments ] = useState([])
-    let [ data , setDate ] = useState(null)
+    let [ data , setData ] = useState(null)
     
 
     useEffect(()=>{
@@ -39,6 +39,7 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , inner , 
     },[top])
 
     const get_all_user_comments = async() => {
+        console.log('我要看')
         if(get_exist_comment===true) return 
         // 這邊要打資料ㄧㄛ
         console.log(inner)
@@ -47,9 +48,11 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , inner , 
 
         const docRef = doc(db, "comments", inner['公廁名稱']+id);
         const docSnap = await getDoc(docRef);
+
         let info=[]
         if (docSnap.exists()) {
             let res=docSnap.data().data
+
             res=res.reverse()
             let i=0
             // let info=[]
@@ -69,6 +72,12 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , inner , 
             // console.log('順序1')
             console.log(info)
             console.log(JSON.stringify(info))
+            if(JSON.stringify(info)==JSON.stringify([])){
+                console.log('沒留言')
+                setLoading(null)
+                setFiltered_comments(['null'])
+                return
+            } 
         } else {
             console.log("目前沒有任何留言");
             setLoading(null)
@@ -106,7 +115,8 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , inner , 
             <div className='more_comments' onClick={more_comments_onClick}>{click_and_more_comments}</div>
             <div style={top} className='more_comments_board'>
                 <div style={{display:'block'}}>
-                    { commented===undefined ? 
+                    { data }          
+                    { commented===undefined || null ? 
                         (<></>) : 
                         (
                             <>
@@ -117,6 +127,13 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , inner , 
                                     commented_inner={commented_inner}
                                     inner={inner}
                                     get_user_data={get_user_data}
+                                    setFiltered_comments={setFiltered_comments}
+                                    setGet_exist_comment={setGet_exist_comment}
+                                    // setCommented={setCommented}
+                                    setTop={setTop}
+                                    setComment_exist={setComment_exist}
+                                    setCommented={setCommented}
+                                    setClick_and_more_comments={setClick_and_more_comments}
                                 />
                                 <hr style={{border:'1px solid #000'}}/>
                             </>
@@ -134,12 +151,20 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , inner , 
                             }
                             return(
                                 <MoreCommentsComments 
+                                    key={item['create_at']['seconds']}
                                     url={item['user_img']}
                                     background={item['background']}
                                     user_Name={item['user_Name']}
                                     commented_time={item['time']}
                                     commented_inner={item['user_Comments']}
                                     inner={inner}
+                                    setFiltered_comments={setFiltered_comments}
+                                    setGet_exist_comment={setGet_exist_comment}
+                                    // setCommented={setCommented}
+                                    setTop={setTop}
+                                    setCommented={setCommented}
+                                    setComment_exist={setComment_exist}
+                                    setClick_and_more_comments={setClick_and_more_comments}
                                 />
                             )
                         }) 

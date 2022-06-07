@@ -1,18 +1,21 @@
-import React , { useState , useEffect } from 'react'
+import React , { useState , useEffect , useContext } from 'react'
 import './comments.css'
 import LoginStatus from '../../Component/LoginStatus/loginStatus'
 import Loading_effect from '../../Component/LoadingEffect/loadingEffect'
 import { db } from '../../connection_firebase/connection_firebase'
 import { serverTimestamp , setDoc , addDoc , arrayUnion , arrayRemove , collection , getDocs , doc, query, orderBy , where, startAfter , updateDoc , limit , startAt } from "firebase/firestore";
 import More_Comments from '../MapArea/MoreComments/more_comments'
+// import { AlertFrame } from '../../Component/ContextFolder/context_folder'
+// import { AlertBox } from '../../Component/AlertBox/alert_box'
 
 const Comments = ({ url , info_board , inner , get_user_data , comment_exist , setComment_exist , 
                     confirm_hover , setConfirm_hover , confirm_botton , setConfirm_botton ,
-                    top , setTop , click_and_more_comments , setClick_and_more_comments  }) => {
+                    top , setTop , click_and_more_comments , setClick_and_more_comments , setCommented }) => {
     // console.log('哇啦哇啦',url)
     // let [ top , setTop ] = useState ({top:'480px'})
     // let [ click_and_more_comments , setClick_and_more_comments ] = useState ('查看更多留言...')
     // let [ loading , setLoading ] = useState (<Loading_effect />)
+    // const { alert_status ,setAlert_status ,alert_text, setAlert_text, success, error, clear } = useContext(AlertFrame)
     const [ user_img_display , setUser_img_display] = useState({display:'none'})
     const [ user_img_comments_width, setUser_img_comments_width ] = useState({width:'236px',paddingLeft:'0px'})
     const [ user_img_input_width, setUser_img_input_width ] = useState({width:'236px'})
@@ -145,7 +148,9 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
         console.log('按下')
         console.log(user_comments)
         if(get_user_data===false){
-            console.log('還沒有讀到')
+            // setAlert_status('ERROR')
+            // setAlert_text('請縣登入會員')
+            console.log('請登入會員')
             return 
         }
         if(user_comments===''){
@@ -190,7 +195,9 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
                 setClick_and_more_comments={setClick_and_more_comments}
                 url={url}
                 inner={inner}
-                 get_user_data={get_user_data}
+                get_user_data={get_user_data}
+                setComment_exist={setComment_exist}
+                setCommented={setCommented}
             />
         </div>
     )

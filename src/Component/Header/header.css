@@ -34,13 +34,7 @@
     font-size:16px;
 }
 
-.menu-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.menu-signIn-or-out {
+.menu_login_botton {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,29 +47,7 @@
     width:90px;
 }
 
-.menu-signIn-or-out:hover {
+.menu_login_botton:hover{
     cursor:pointer;
     font-size:17px;
-}
-
-/* .menu-login-info {
-    display: flex;
-} */
-
-.menu-login_name {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* background-color: rgb(212, 123, 7); */
-    margin-left: 20px;
-    width: auto;
-    padding: 0px 10px 0px;
-    font-size: 14px;
-}
-
-.menu-login_photo {
-    /* background-color: fuchsia; */
-    height:40px;
-    width: 40px;
-    border-radius: 100px;
 }

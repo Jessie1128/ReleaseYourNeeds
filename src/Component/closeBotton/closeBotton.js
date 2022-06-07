@@ -1,7 +1,9 @@
-import React from 'react';
+import React , { useContext } from 'react';
+import { AlertFrame } from '../ContextFolder/context_folder';
 
-const CloseBotton = ({ setMarker_info , setInfo_board }) =>{
+const CloseBotton = ({ setMarker_info , setInfo_board , setLogin_board , setAlert_box }) =>{
 
+    const { clear } =useContext(AlertFrame)
     let close_wrapper={
         display: 'flex',
         justifyContent: 'center',
@@ -36,12 +38,22 @@ const CloseBotton = ({ setMarker_info , setInfo_board }) =>{
         e.stopPropagation();
         console.log(e)
         console.log(e.target)
+        console.log(setMarker_info)
+        console.log(setInfo_board)
+        console.log(setLogin_board)
         if( setMarker_info != undefined ){
             console.log('有了 setMarker_info')
             setMarker_info('')
         }else if( setInfo_board != undefined ){
             console.log('有了 setInfo_board')
             setInfo_board('')
+        }else if( setLogin_board != undefined ){
+            console.log('我要關掉')
+            setLogin_board('')
+        }else if ( setAlert_box != undefined){
+            console.log('我要關掉這邊要執行')
+            clear()
+            setAlert_box('')
         }
     }
 

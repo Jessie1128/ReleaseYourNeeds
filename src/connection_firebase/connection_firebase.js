@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { v4 } from 'uuid'
-import { collection , getDoc , getDocs , doc, setDoc , serverTimestamp , query, orderBy } from "firebase/firestore";
 
 
 const firebaseConfig = {
@@ -15,5 +15,6 @@ const firebaseConfig = {
 
 const connect = initializeApp(firebaseConfig);
 const db = getFirestore(connect);
-    
-export { firebaseConfig , connect , db }
+const auth = getAuth(connect);
+
+export { firebaseConfig , connect , db , auth }

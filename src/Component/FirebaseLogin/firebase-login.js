@@ -1,17 +1,20 @@
-import React, { useState , useRef , useEffect } from "react";
+import React, { useState , useRef , useEffect , useContext } from "react";
 // import { GoogleAuthProvider } from "firebase/auth";
 // import { getAuth } from "firebase/auth";
 import { firebaseConfig , db } from "../../connection_firebase/connection_firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider , signOut , onAuthStateChanged } from "firebase/auth";
 import { collection , getDocs , doc, setDoc , query , where , updateDoc } from "firebase/firestore";
 import '../Header/header.css'
+import './firebase-login.css'
 import { async } from "@firebase/util";
 // import UserStatus from "../CheckUserStatus/check_user_status";
-import LoginStatus from '../LoginStatus/loginStatus'
+import LoginStatus from "../LoginStatus/loginStatus";
+import { LoginThrouht } from "../ContextFolder/context_folder";
 // import GoogleLogin from "react-google-login";
 
 const FirebaseLogin = ({ login_status , login_name , login_photo , dis , setLogin_status, setLogin_name , setLogin_photo , setDis }) => {
 
+    const { throught , setThrought } = useContext(LoginThrouht)
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
 
@@ -19,7 +22,6 @@ const FirebaseLogin = ({ login_status , login_name , login_photo , dis , setLogi
         console.log(data)
         try {
             let get_user = collection(db, "user");
-    
             let res = query(get_user, where("user_email", "==", data['email'])); 
             console.log('底加',res) 
             let snapshot = await getDocs(res);
@@ -40,7 +42,7 @@ const FirebaseLogin = ({ login_status , login_name , login_photo , dis , setLogi
                     ['user_collection']:[],
                 });
                 console.log("新增成功");
-                window.location.reload()
+                // window.location.reload()
                 return "新增成功";
             }else{
                 console.log('有存過了ㄧㄛ')
@@ -59,10 +61,10 @@ const FirebaseLogin = ({ login_status , login_name , login_photo , dis , setLogi
                         user_displayName: data['displayName']
                     });
                     console.log("更新成功");
-                    window.location.reload()  
+                    // window.location.reload()  
                     return "更新成功";
                 }else{
-                    window.location.reload()
+                    // window.location.reload()
                     console.log('資料完全一樣')
                 }
             }
@@ -194,6 +196,7 @@ const FirebaseLogin = ({ login_status , login_name , login_photo , dis , setLogi
         })
         .then(result=>{
             console.log('逼逼八八',result)
+            setThrought('google')
             console.log('應該先做一個登入成功視窗，重新整理畫面我在想一些辦法')
             // window.location.reload()
         })
@@ -226,6 +229,7 @@ const FirebaseLogin = ({ login_status , login_name , login_photo , dis , setLogi
             setLogin_name('')
             setLogin_photo('')
             setDis({display:"none"})
+            setThrought(null)
         }).catch((error) => {
             console.log('error',error)
         });
@@ -242,13 +246,19 @@ const FirebaseLogin = ({ login_status , login_name , login_photo , dis , setLogi
         }else{
             console.log(state)
             start_logout()
-            window.location.reload()
+            // window.location.reload()
         }
     }
 
     return (
         <div className='menu-login'>
-            <div className='menu-signIn-or-out' onClick={check_if_login}>{login_status}</div>
+            { login_status==='SIGN IN'? (
+                <div className='menu-signIn-or-out' onClick={check_if_login}>LOGIN WITH GOOGLE</div>
+            ):login_status==='LOG OUT'?(
+                <div className='menu-signout' onClick={check_if_login}>{login_status}</div>
+            ):(
+                <div className='menu-signIn-or-out' onClick={check_if_login}>{login_status}</div>
+            )}
             <div className="menu-login-info" style={dis}>
                 <div className='menu-login_name' >{login_name}</div>
                 <img className='menu-login_photo' src={login_photo}/>

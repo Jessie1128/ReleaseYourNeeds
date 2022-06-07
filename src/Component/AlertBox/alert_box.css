@@ -1,14 +1,51 @@
 .alert_box {
-    position: sticky;
-    top:180px;
+    display: flex;
+    /* height:50px;
+    width:250px; */
+    border-radius: 5px;
     margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    position: absolute;
+    top:180px;
+    left:-50%;
+    right:-50%; 
     z-index: 300;
-    width:250px;
-    height:150px;
     font-size: 16px;
     font-weight: bold;
-    background-color:blueviolet;
+    /* background: rgb(57, 62, 65, 0.4); */
     border: #000000 ;
     box-shadow: inset 0 1px 1px rgba(46, 46, 46, 0.075),
         0 0 8px rgba(49, 49, 49, 0.6);
+}
+
+.alert_box_block {
+    display: block;
+}
+
+.alert_box_inner {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.alert_box_text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    height: auto;
+    /* height: ; */
+    margin-top: 5px;
+    /* margin-bottom: 20px; */
+}
+
+.alert_box_close{
+    display: flex;
+    justify-content: end;
+    height: 24px;
+    width: 250px;
+    position: relative;
+    /* align-items: center; */
 }
