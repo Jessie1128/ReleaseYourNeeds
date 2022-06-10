@@ -2,7 +2,7 @@
     width:250px;
     height: 24px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .login_board {
@@ -84,6 +84,7 @@
     border: #9a9999;
     padding: 5px 20px 5px;
     height:20px;
+    width: 126px;
 }
 
 .email_password:hover, 
@@ -97,6 +98,7 @@
     /* box-sizing: border-box; */
     border:#000000 1.5px solid;
     height:18px;
+    width: 123px;
 }
 
 .email_password_register {
@@ -107,6 +109,7 @@
     border: #9a9999;
     padding: 5px 20px 5px;
     height:20px;
+    width: 126px;
 }
 
 .start_login_without_google {
@@ -260,3 +263,27 @@
     height:24px;
 }
 
+@media screen and (max-width: 620px) {
+    .E_and_P_login_name {
+        display: none;
+    }
+
+    .E_and_P_frame {
+        margin-left: 10px;
+        height: 30px;
+    }
+
+    .E_and_P_logout {
+        height:28px;
+        font-size: 14px;
+    }
+
+    .E_and_P_logout:hover {
+        font-size: 15px;
+    }
+
+    .E_and_P_no_photo {
+        height: 18px;
+        width: 18px;
+    }
+}

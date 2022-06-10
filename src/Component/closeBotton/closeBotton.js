@@ -1,8 +1,10 @@
 import React , { useContext } from 'react';
 import { AlertFrame } from '../ContextFolder/context_folder';
+import { Brightness } from '../ContextFolder/context_folder';
 
 const CloseBotton = ({ setMarker_info , setInfo_board , setLogin_board , setAlert_box }) =>{
 
+    const { bright , setBright } = useContext(Brightness)
     const { clear } =useContext(AlertFrame)
     let close_wrapper={
         display: 'flex',
@@ -49,6 +51,7 @@ const CloseBotton = ({ setMarker_info , setInfo_board , setLogin_board , setAler
             setInfo_board('')
         }else if( setLogin_board != undefined ){
             console.log('我要關掉')
+            setBright({filter: 'brightness(1.0)'})
             setLogin_board('')
         }else if ( setAlert_box != undefined){
             console.log('我要關掉這邊要執行')

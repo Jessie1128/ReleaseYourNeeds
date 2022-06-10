@@ -1,10 +1,10 @@
 import React , { useState , useEffect } from 'react'
 import './review_comments.css'
 import LoginStatus from '../LoginStatus/loginStatus'
-import Loading_effect from '../../Component/LoadingEffect/loadingEffect'
-import { db } from '../../connection_firebase/connection_firebase'
+import Loading_effect from '../../../Component/LoadingEffect/loadingEffect'
+import { db } from '../../../connection_firebase/connection_firebase'
 import { serverTimestamp , setDoc , addDoc , arrayUnion , arrayRemove , collection , getDocs , doc, query, orderBy , where, startAfter , updateDoc , limit , startAt } from "firebase/firestore";
-import More_Comments from '../../MapPage/MapArea/MoreComments/more_comments'
+import More_Comments from '../MoreComments/more_comments'
 
 const Review_Comments = ({ url , info_board , confirm_hover , setConfirm_hover , top , setTop , inner ,  get_user_data ,
                            click_and_more_comments , setClick_and_more_comments , commented , setCommented , setComment_exist }) => {

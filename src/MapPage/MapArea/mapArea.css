@@ -38,3 +38,117 @@
     /* grid-template-rows: repeat(3, 1fr); */
 }
 
+@media screen and (max-width: 1150px) {
+
+    .outside-frame{
+        max-width: 1050px;
+    }
+
+    .map-area {
+        width: 750px;
+    }
+}
+
+@media screen and (max-width: 1070px) {
+
+    .outside-frame{
+        max-width: 950px;
+    }
+
+    .map-area {
+        width: 650px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+
+    .outside-frame{
+        max-width: 900px;
+    }
+
+    .function-area{
+        width: 230px;
+    }
+}
+
+@media screen and (max-width: 930px) {
+
+    .function-area{
+        display: none;
+    }
+
+    .outside-frame{
+        max-width: 800px;
+    }
+
+    .map-area {
+        width: 800px;
+    }
+}
+
+@media screen and (max-width: 830px) {
+
+    .outside-frame{
+        max-width: 750px;
+    }
+
+    .map-area {
+        width: 750px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+
+    .outside-frame{
+        max-width: 700px;
+    }
+
+    .map-area {
+        width: 700px;
+    }
+}
+
+@media screen and (max-width: 720px) {
+
+    .outside-frame{
+        max-width: 650px;
+    }
+
+    .map-area {
+        width: 650px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+
+    .outside-frame{
+        max-width: 600px;
+    }
+
+    .map-area {
+        width: 600px;
+    }
+}
+
+@media screen and (max-width: 620px) {
+
+    .outside-frame{
+        /* max-width: 600px; */
+        min-width: 100%;
+        max-width: 100%;
+        border-radius: 0px;
+    }
+
+    .map-area {
+        /* width: 600px; */
+        min-width: 100%;
+        max-width: 100%;
+        top:0;
+        border-radius: 0px;
+        height: calc(100vh);
+    }
+
+    .menu {
+        margin: 10px 0px 10px 20px;
+    }
+}

@@ -1,0 +1,224 @@
+.comments_frame {
+    width: 250px;
+    border-radius: 5px;
+    background-color: rgb(138, 138, 138);
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    height:50px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.comments_frame:hover {
+    height:70px;
+    margin-bottom: 10px;
+}
+
+.user_img_frame {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    align-items: center;
+    /* width:20px;
+    height:20px; */
+}
+
+.user_img_src {
+    width:42px;
+    height:42px;
+    border-radius: 100%;
+}
+
+.user_img_no_photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    border-radius: 100px;
+    background: rgb(57 62 65 / 60%);
+    color: #dcdcdc;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 10px;
+    /* margin-right: 5px; */
+}
+
+.user_img_comments {
+    height: 36px;
+    border-radius: 5px;
+    background-color: rgb(188, 188, 188);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 236px;
+    padding-left: 0px;
+    margin-top: 2px;
+}
+
+.user_img_comments_login {
+    height: 36px;
+    border-radius: 5px;
+    background-color: rgb(188, 188, 188);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 190px;
+    margin-left: 5px;
+}
+
+.user_img_input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(220, 220, 220, 0.1);
+    color: #000;
+    border-radius: 5px;
+    border: none;
+    height: 26px;
+    padding-left: 10px;
+    word-break: break-all;
+    resize: none;
+    text-align: justify;
+    padding: 5px 10px 5px;
+    width: 236px;
+}
+
+.user_img_input_login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(220, 220, 220, 0.1);
+    color: #000;
+    border-radius: 5px;
+    border: none;
+    height: 26px;
+    padding-left: 10px;
+    word-break: break-all;
+    resize: none;
+    text-align: justify;
+    padding: 5px 10px 5px;
+    width: 190px;
+}
+
+::placeholder { /* CSS 3 標準 */
+    color: #000;
+}
+
+.user_img_input:hover,
+.user_img_input_login:hover {
+    cursor:pointer;
+}
+
+.user_img_input:focus,
+.user_img_input_login:focus {
+    border:#000 2px solid;
+    outline: none;
+}
+
+.user_img_confirm {
+    width:250px;
+    height:20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-top: 2px;
+}
+
+.user_img_confirm_text {
+    width:60px;
+    height:18px;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 7px;
+    background-color: #393E41;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.user_img_confirm_text:hover {
+    background-color: #dcdcdc;
+    color: #393E41;
+    /* color:#666666; */
+    cursor: pointer;
+}
+
+/* .more_comments_board:hover{
+    top:100px;
+} */
+
+
+/* user_img_input::-webkit-input-placeholder:after{
+    display:block;
+    content:"line@ \A line#"; 
+    color:red;
+} */
+/*  \A 表示换行  */
+
+
+
+
+
+@media screen and  (min-width:931px) and (max-width: 1050px) {
+    
+    .comments_frame {
+        width: 220px;
+    }
+
+    .user_img_comments {
+        width: 206px;
+    }
+    
+    .user_img_comments_login {
+        width: 160px;
+    }
+    
+    .user_img_input {
+        width: 236px;
+    }
+    
+    .user_img_input_login {
+        width: 160px;
+    }
+
+    .user_img_confirm {
+        width:220px;
+    }
+    
+}
+
+@media screen and (max-width: 780px) {
+
+    .comments_frame {
+        width: 220px;
+        margin-top: 5px;
+    }
+
+    .user_img_comments {
+        width: 206px;
+    }
+    
+    .user_img_comments_login {
+        width: 160px;
+    }
+    
+    .user_img_input {
+        width: 236px;
+    }
+    
+    .user_img_input_login {
+        width: 160px;
+    }
+
+    .user_img_confirm {
+        width:220px;
+    }
+
+}

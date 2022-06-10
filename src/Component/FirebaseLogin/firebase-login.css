@@ -5,6 +5,12 @@
     align-items: center;
 }
 
+.menu-login-with_google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .menu-signIn-or-out {
     display: flex;
     justify-content: center;
@@ -19,6 +25,24 @@
 }
 
 .menu-signIn-or-out:hover {
+    cursor:pointer;
+    font-size:14px;
+}
+
+.menu-login-google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#393E41;
+    color:#fff;
+    border-radius: 5px;
+    font-size:13px;
+    font-weight: bold;
+    height: 30px;
+    width:150px;
+}
+
+.menu-login-google:hover {
     cursor:pointer;
     font-size:14px;
 }
@@ -58,3 +82,48 @@
     cursor: pointer;
     font-size: 17px;
 }
+
+@media screen and (max-width: 620px) {
+
+    .menu-login_name {
+        display: none;
+    }
+
+    .menu-login_photo {
+        margin-left: 5px; 
+    }
+
+    .menu-login {
+        position: absolute;
+        left: -28px;
+        top:0px;
+    }
+
+    .menu-signout {
+        font-size: 14px;
+        height: 28px;
+    }
+
+    .menu-signout:hover {
+        font-size: 15px;
+    }
+
+    .menu-login_photo {
+        height:36px;
+        width: 36px;
+    }
+
+    /* .menu-login-with_google {
+        position: absolute;
+        top:10px;
+    } */
+}
+
+/* @media screen and (max-width: 420px) {
+
+    .menu-login {
+        position: absolute;
+        left:-70px;
+    }
+
+} */

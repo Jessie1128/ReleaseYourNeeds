@@ -1,5 +1,6 @@
 import React , { useContext , useEffect , useState } from 'react'
 import './search_place.css'
+import '../../../Component/rwd.css'
 import { Marker_Data } from '../../../Component/ContextFolder/context_folder'
 import Loading_effect from '../../../Component/LoadingEffect/loadingEffect'
 
@@ -67,7 +68,7 @@ const SearchPlace = () => {
         console.log(e.target.value)
         console.log(e.target.checked)
         if(e.target.checked){
-            
+
         }else{
 
         }
@@ -86,17 +87,17 @@ const SearchPlace = () => {
                         <div className='search_place_text'>以當前位置搜尋</div>
                         {/* <div className='search_place_filter'> */}
 
-                        <label for='無障礙廁所' class="container">提供無障礙廁所
+                        <label htmlFor='無障礙廁所' className="container">提供無障礙廁所
                             <input id="無障礙廁所" type="checkbox" onClick={info.bind(null,'無障礙廁所')} onChange={rrr}/>
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                         </label>
-                        <label for='親子廁所' class="container">提供親子廁所
+                        <label htmlFor='親子廁所' className="container">提供親子廁所
                             <input id="親子廁所" type="checkbox" onClick={info.bind(null,'親子廁所')} onChange={rrr}/>
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                         </label>
-                        <label for='貼心公廁' class="container">提供貼心公廁
+                        <label htmlFor='貼心公廁' className="container">提供貼心公廁
                             <input id="貼心公廁" type="checkbox" onClick={info.bind(null,'貼心公廁')} onChange={rrr}/>
-                            <span class="checkmark"></span>
+                            <span className="checkmark"></span>
                         </label>
 
 {/*                         

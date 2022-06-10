@@ -16,14 +16,48 @@ import BackToCurrent from '../../BackToCurrent/back_to_current';
 import { Marker_Data } from '../../../Component/ContextFolder/context_folder';
 import { Map_Marker } from '../../../Component/ContextFolder/context_folder';
 
-const containerStyle = {
-  width: '800px',
-  height: '600px',
+
+
+let containerStyle = {
+  width: '100%',
+  height: '100%',
   borderRadius: '5px',
 };
 
-const MapFrame = ({ setText , setBack_to_center }) => {
+const { innerWidth: width, innerHeight: height } = window;
+    if (width<=620){
+      containerStyle = {
+        width: '100%',
+        height: '100%',
+        borderRadius: '0px',
+      };
+    }
+    // const [ map_width , setMap_width ] = useState('')
+    // useEffect(()=>{
+    //   setMap_width(width)
+    //     console.log('螢幕寬',width)
+    //     console.log('螢幕高',height)
+    // },[map_width])
 
+const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) => {
+
+
+    // const { innerWidth: width, innerHeight: height } = window;
+    // if (width<=620){
+    //   containerStyle = {
+    //     width: '100%',
+    //     height: '100%',
+    //     borderRadius: '0px',
+    //   };
+    // }
+
+    // const { innerWidth: width, innerHeight: height } = window;
+    // const [ map_width , setMap_width ] = useState('')
+    // useEffect(()=>{
+    //   setMap_width(width)
+    //     console.log('螢幕寬',width)
+    //     console.log('螢幕高',height)
+    // },[map_width])
     const { marker_data , setMarker_data } = useContext(Marker_Data)
     // const { map_marker , setMap_Marker } = useContext(Map_Marker)
 
@@ -35,7 +69,8 @@ const MapFrame = ({ setText , setBack_to_center }) => {
     const [ info_board , setInfo_board] = useState('')
     const [ if_center_move , setIf_center_move ] = useState('')
     const map_obj = useRef()
-    const [ loading , setLoading ] = useState(<Loading_effect />)
+    let [ loading_effect_height , setLoading_effect_height ] = useState({height:'400px'})
+    const [ loading , setLoading ] = useState(<Loading_effect loading_effect_height={loading_effect_height}/>)
 
     const get_your_location = () => {
       // console.log(marker_data)
@@ -291,6 +326,7 @@ const MapFrame = ({ setText , setBack_to_center }) => {
 
     const onMapLoad = useCallback((ori_map) => {
       map_obj.current=ori_map;
+      // setHeightMAP(ori_map)
       setBack_to_center(ori_map)
       console.log("有沒有重新渲染")
       console.log(map_obj.current)
@@ -317,7 +353,7 @@ const MapFrame = ({ setText , setBack_to_center }) => {
     if( !isLoaded ) {
       // console.log("正在跑啊 正在跑啊 正在跑啊 正在跑啊 正在跑啊")
       return (
-        <Loading_effect />
+        <Loading_effect loading_effect_height={loading_effect_height}/>
         // <div className='loading_effect'>
           // <div className='loading_effect_inner'>Loading。。。</div>
         // </div>
@@ -395,8 +431,12 @@ const MapFrame = ({ setText , setBack_to_center }) => {
           filtered_marker.map(item => {
             let new_lat_lng={ "lat":item["緯度"], "lng":item["經度"] };
             let icon;
-            let key=Number((item["緯度"]))+Number((item["經度"]))
-            console.log(key)
+            {/* let num =(Math.random() * (0.120 - 0.0200) + 0.0200).toFixed(4)
+            num=Number(num) */}
+            let key_value=Number((item["緯度"]))+Number((item["經度"]))
+            {/* console.log('隨機',num)
+            console.log(typeof(num))
+            console.log(key) */}
             if(item['opened']=='ok'){
               icon=require('../../../source/current_opened.png')
             }else if(item['opened']=='pending'){
@@ -408,7 +448,7 @@ const MapFrame = ({ setText , setBack_to_center }) => {
               <MarkerForToilet
                 position={new_lat_lng}  
                 icon={icon}
-                key={Number((item["緯度"]))+Number((item["經度"]))}
+                key_value={key_value}
                 center={new_lat_lng} 
                 inner={item} 
                 setMarker_info={setMarker_info} 
@@ -448,10 +488,10 @@ const MapFrame = ({ setText , setBack_to_center }) => {
         {/* {loading} */}
         {info_board}
         {marker_info}
-        <div className='bottom_function'>
+        {/* <div className='bottom_function'> */}
           {/* {my_collection} */}
           <BackToCurrent if_center_move={if_center_move}  map_obj={map_obj} />
-        </div>
+        {/* </div> */}
       </GoogleMap>
     )
 }

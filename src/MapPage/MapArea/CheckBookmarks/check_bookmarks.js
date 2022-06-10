@@ -80,6 +80,7 @@ const CheckBookmarks = ({ info_board , get_user_data , inner , confirm_hover , s
                 setBookmarks_current(true)
                 setBookmarks_color(require('../../../source/mark_yellow.png')) 
             }
+            console.log(data['user'])
 
             if(inner['公廁名稱'] in data['user_comments']){
                 setConfirm_botton('顯示留言')   

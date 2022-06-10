@@ -12,8 +12,9 @@ import { GoogleMap, useLoadScript , Marker } from '@react-google-maps/api';
 // import Loading_effect from '../LoadingEffect/loadingEffect';
 // import { v4 } from 'uuid';
 import MarkerInfoLabel from '../../MarkerInfo/MarkerInfoLabel';
+import { v4 } from 'uuid';
 
-const MarkerForToilet = ({ key , position , icon , inner , setMarker_info , setInfo_board , info_board , map_obj , loading , setLoading }) => {
+const MarkerForToilet = ({ key_value , position , icon , inner , setMarker_info , setInfo_board , info_board , map_obj , loading , setLoading }) => {
     
     const [ hover , setHover ] = useState('')
     const [ hover_dis , setHover_dis ] = useState({display:'none'})
@@ -82,6 +83,24 @@ const MarkerForToilet = ({ key , position , icon , inner , setMarker_info , setI
             <MarkerInfoLabel 
                 center={position} 
                 inner={e} 
+                key={key_value+2}
+                // hover={hover}
+                setMarker_info={setMarker_info} 
+                setInfo_board={setInfo_board}
+                info_board={info_board}
+                map_obj={map_obj}
+                loading={loading}
+                setLoading={setLoading}
+            />
+        )
+    }
+
+    const render_marker_info_onClick = (e) => {  // for phone 
+        setMarker_info(
+            <MarkerInfoLabel 
+                center={position} 
+                inner={e} 
+                key={key_value+2}
                 // hover={hover}
                 setMarker_info={setMarker_info} 
                 setInfo_board={setInfo_board}
@@ -96,11 +115,12 @@ const MarkerForToilet = ({ key , position , icon , inner , setMarker_info , setI
     return(
         <>
             <Marker 
-                key={key}
+                key={key_value+3}
                 position={position}  
                 icon={icon}
                 inner={inner}
                 onMouseOver={render_marker_info_label.bind(null,inner)}
+                onClick={render_marker_info_onClick.bind(null,inner)}
             />
         </>
     )

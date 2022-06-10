@@ -1,6 +1,10 @@
 .infoBoardCloseBotton{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
+}
+
+.infoBoardPlaceInfo_for_rwd {
+    display: none;
 }
 
 .infoBoardFrame {
@@ -25,7 +29,7 @@
     /* background-color: aquamarine; */
     border-radius: 5px;
     display: grid;
-    justify-content: center;
+    justify-items: center;
     align-items: center;
 }
 
@@ -74,6 +78,7 @@
 
 .infoBoardPlaceInfo {
     width: 250px;
+    height: 154px;
     border-radius: 5px;
     background-color: rgb(138, 138, 138);
     margin-top: 20px;
@@ -94,12 +99,35 @@
     /* background-color: rgb(226, 43, 195); */
 }
 
-/* .placeAddBookmark {
+.placeInfoInner_sweet {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top:10px;
+    font-size: 14px;
+    height:14px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+
+.placeInfoInner:nth-child(1) {
+    font-size:16px;
+    height:16px;
+}
+
+/* .placeInfoInner:last-child(1) {
+    font-size:14px;
+} */
+
+/* 
+.placeAddBookmark {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     position: relative;
-    left:70px;
+    left:60px;
     top:-14px;
     width:40px;
     height:40px;
@@ -178,3 +206,134 @@
     color:#fff;
     border-radius: 5px;
 } */
+
+@media screen and  (min-width:931px) and (max-width: 1050px) {
+
+    .infoBoardFrame {
+        width:250px;
+    }
+
+    .infoBoardLoading {
+        width:220px;
+    }
+
+    .infoBoardPic {
+        width:220px;
+    }
+
+    .infoBoardPlaceInfo {
+        width:220px;
+    }
+
+    .placeInfoInner {
+        font-size: 12px;
+        height: 12px;
+    }
+
+    .placeInfoInner:nth-child(1) {
+        font-size:14px;
+    }
+
+    .placeInfoInner_sweet {
+        font-size: 12px;
+    }
+
+}
+
+/* @media screen and (min-width:721px) and (max-width: 930px) {
+
+    .infoBoardFrame {
+        width:3090px;
+    }
+
+    .infoBoardPic {
+        width:250px;
+    }
+
+    .infoBoardPic {
+        width:250px;
+    }
+
+} */
+
+/* @media screen and (max-width: 720px) {
+
+    .infoBoardFrame {
+        width:250px;
+    }
+
+    .infoBoardLoading {
+        width:220px;
+    }
+
+    .infoBoardPic {
+        width:220px;
+    }
+} */
+
+@media screen and (max-width: 780px) {
+
+    .infoBoardFrame {
+        width:250px;
+    }
+
+    .infoBoardLoading {
+        width:220px;
+    }
+
+    .infoBoardPic {
+        width:220px;
+    }
+
+    .infoBoardPlaceInfo {
+        width:220px;
+    }
+
+    .placeInfoInner {
+        font-size: 12px;
+        height:12px;
+    }
+
+    .placeInfoInner:nth-child(1) {
+        font-size:14px;
+    }
+
+    .placeInfoInner_sweet {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 620px) {
+
+    .infoBoardPlaceInfo_for_rwd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        background: rgb(138, 138, 138);
+        height: 26px;
+        width: 26px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        position: relative;
+        top: -10px;
+    }
+
+    .for_rwd_img {
+        background-color: rgb(57, 62, 65, 0.8);
+        border-radius: 5px;
+        height: 20px;
+        width: 20px;
+    }
+
+    .for_rwd_img:hover {
+        cursor: pointer;
+        background-color: #000000;
+    }
+
+    .infoBoardFrame {
+        top:100px;
+        margin-left: 10px;
+    }
+
+}

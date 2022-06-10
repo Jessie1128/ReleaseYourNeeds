@@ -52,4 +52,14 @@ module.exports = {
         },
       ]
     },
+
+    "plugins": [
+      // ...
+      "react-hooks"
+    ],
+    "rules": {
+      // ...
+      "react-hooks/rules-of-hooks": "error", // 檢查 Hook 的規則
+      "react-hooks/exhaustive-deps": "warn" // 檢查 effect 的相依性
+    }
 };

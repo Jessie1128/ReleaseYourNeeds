@@ -34,6 +34,21 @@
     margin-right: 5px;
 }
 
+.review_user_no_photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    border-radius: 100px;
+    background: rgb(57 62 65 / 60%);
+    color: #dcdcdc;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 10px;
+    margin-right: 5px;
+}
+
 .review_user_img_comments {
     /* margin-left: 5px; */
     /* width:190px; */
@@ -68,7 +83,7 @@
     font-size: 11px;
     font-weight: normal;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     color: #393E41;
 }
 
@@ -76,7 +91,7 @@
     font-size: 13px;
     font-weight: normal;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-top: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -103,8 +118,8 @@
     width:250px;
     height:20px;
     display: flex;
-    justify-content: end;
-    align-items: end;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
 .review_user_img_confirm_text {
@@ -126,4 +141,36 @@
     color: #393E41;
     /* color:#666666; */
     cursor: pointer;
+}
+
+@media screen and  (min-width:931px) and (max-width: 1050px) {
+
+    .review_comments_frame {
+        width: 220px;
+    }
+
+    .review_user_img_comments {
+        width: 160px;
+    }
+
+    .review_user_img_confirm {
+        width: 220px;
+    }
+    
+}
+
+@media screen and (max-width: 780px) {
+
+    .review_comments_frame {
+        width: 220px;
+    }
+
+    .review_user_img_comments {
+        width: 160px;
+    }
+
+    .review_user_img_confirm {
+        width: 220px;
+    }
+
 }

@@ -80,7 +80,8 @@
 .inner_img_frame {
     /* display: flex;
     align-items: flex-start; */
-    display: block;
+    display: flex;
+    justify-content: center;
     width:40px;
     height: 40px;
     padding: 0px 2px 2px;
@@ -89,9 +90,26 @@
 }
 
 .inner_img {
-    width:40px;
-    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 34px;
+    height: 34px;
     border-radius: 100%;
+}
+
+.inner_img_no_photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15px;
+    width: 15px;
+    border-radius: 100px;
+    background: rgb(57 62 65 / 90%);
+    color: #dcdcdc;
+    font-size: 20px;
+    font-weight: normal;
+    padding: 10px;
 }
 
 .inner_text {
@@ -108,8 +126,14 @@
     font-size: 11px;
     font-weight: normal;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     color: #393E41;
+    height: 11px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .edit_review_user_inner {
@@ -124,7 +148,7 @@
     padding: 2px;
     line-height:16px;
     /* display: flex;
-    justify-content: start; */
+    justify-content: flex-start; */
     /* margin-top: 4px; */
     /* resize:none; */
     border: none;
@@ -139,7 +163,7 @@
 
 .inner_edit {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .inner_confirm {
@@ -167,7 +191,7 @@
     font-size: 13px;
     font-weight: normal;
     /* display: flex;
-    justify-content: start; */
+    justify-content: flex-start; */
     margin-top: 4px;
     line-height:16px;
     padding: 2px;
@@ -180,7 +204,7 @@
 
 .show_full_mes {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -227,6 +251,45 @@
     align-items: center;
 }
 
+.delete_hint {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+}
 
 /* background: rgb(128, 141, 142, 0.9);
 background: rgb(58, 68, 69, 0.3); */
+
+
+@media screen and  (min-width:931px) and (max-width: 1050px) {
+
+    .more_comments_board {
+        left: 12px;
+        width: 222px;
+    }
+
+    .user_commemnts{
+        width:210px;
+    }
+    
+    .user_comment_inner {
+        width:200px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+
+    .more_comments_board {
+        left: 12px;
+        width: 222px;
+    }
+
+    .user_commemnts{
+        width:210px;
+    }
+    
+    .user_comment_inner {
+        width:200px;
+    }
+
+}

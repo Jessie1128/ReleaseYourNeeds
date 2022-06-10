@@ -10,13 +10,17 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , setComme
 
     // let [ top , setTop ] = useState ({top:'480px'})
     // let [ click_and_more_comments , setClick_and_more_comments ] = useState ('查看更多留言...')
-    let [ loading , setLoading ] = useState (<Loading_effect />)
+    let [ loading , setLoading ] = useState (<Loading_effect loading_effect_height={{height:'200px'}}/>)
     const [ get_exist_comment , setGet_exist_comment] = useState(false)
     let [ fillter_comments , setFiltered_comments ] = useState([])
     let [ data , setData ] = useState(null)
-    
+    // let [ E_and_P_noPhoto , setE_and_P_noPhoto ] = useState(null) // 這邊先處理 E&P 的暫定大頭照
+
 
     useEffect(()=>{
+        console.log(url)
+        console.log(get_user_data)
+        // if(get_user_data==='')return
         console.log('我會每次都有嗎')
         setTop({top:'480px'})
         setClick_and_more_comments('查看更多評論...')
@@ -70,7 +74,7 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , setComme
                 i++
             })
             // console.log('順序1')
-            console.log(info)
+            console.log('順序1',info)
             console.log(JSON.stringify(info))
             if(JSON.stringify(info)==JSON.stringify([])){
                 console.log('沒留言')
@@ -100,9 +104,12 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , setComme
         if(click_and_more_comments==='查看更多評論...'){
             setClick_and_more_comments('關閉留言')
             setTop({top:'22px'})
+            // get_all_user_comments()
+            console.log('我要叫留言')
         }else{
             setClick_and_more_comments('查看更多評論...')
             setTop({top:'480px'})
+            console.log('我不要叫留言')
         }
     }
 

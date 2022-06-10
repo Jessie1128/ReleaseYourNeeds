@@ -5,9 +5,9 @@ import { collection , getDocs , doc, setDoc , query , where } from "firebase/fir
 import { async } from "@firebase/util";
 import { LoginThrouht } from "../ContextFolder/context_folder";
 
-const LoginStatus=(login_user)=>{
+const LoginStatus = () => {
 
-    const { throught , setThrought } = useContext(LoginThrouht)
+    // const { throught } = useContext(LoginThrouht)
     // console.log(throught)
     let auth = getAuth();
     let state 
@@ -17,11 +17,11 @@ const LoginStatus=(login_user)=>{
     return new Promise ((reslove,reject)=>{
         onAuthStateChanged(auth, (login_user) => {
             console.log(login_user)
-            console.log(throught)
+            // console.log(throught)
             if (login_user) {
                 console.log(login_user)
                 console.log('目前登陸中')
-                console.log(throught)
+                // console.log(throught)
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 const uid = login_user.uid;
@@ -33,13 +33,13 @@ const LoginStatus=(login_user)=>{
                 }
                 state = true
                 reslove({state,login_user})
-                return
+                // return
             } else {
                 console.log(login_user)
                 console.log('蛤')
                 state = false
                 reslove(state)
-                return
+                // return
             }
         });
         console.log('會嗎')

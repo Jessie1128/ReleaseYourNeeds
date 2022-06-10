@@ -1,0 +1,176 @@
+@media screen and (max-width: 1150px) {
+
+    /* for mapArea.css.css ======================================== */
+    /* .outside-frame{
+        max-width: 1050px;
+    }
+
+    .map-area {
+        width: 750px;
+    } */
+    /* ---------------------------------------------------------end */
+
+    /* for back_to_current.css.css ================================ */
+    /* .bottom_function {
+        left:530px;
+    } */
+    /* ---------------------------------------------------------end */
+}
+
+@media screen and (max-width: 1050px) {
+
+    /* for mapArea.css.css ======================================== */
+    /* .outside-frame{
+        max-width: 950px;
+    }
+
+    .map-area {
+        width: 650px;
+    } */
+    /* ---------------------------------------------------------end */
+
+    /* for back_to_current.css.css ================================ */
+    /* .bottom_function {
+        left:430px;
+    } */
+    /* ---------------------------------------------------------end */
+
+    /* for infoBoard.css.css ================================ */
+    /* .infoBoardFrame {
+        width:250px;
+    } */
+    /* ---------------------------------------------------------end */
+}
+
+@media screen and (max-width: 1000px) {
+
+    /* for mapArea.css.css ======================================== */
+    /* .outside-frame{
+        max-width: 900px;
+    }
+
+    .function-area{
+        width: 230px;
+    } */
+    /* ---------------------------------------------------------end */
+
+    /* for search_place.css ======================================= */
+    /* .function-search-bar { 
+        width:170px;
+    }
+
+    .search_place {
+        width: 196px;
+    }
+
+    .search_place_hr {
+        width:170px;
+    } */
+    /* ---------------------------------------------------------end */
+
+}
+
+@media screen and (max-width: 930px) {
+
+    /* for mapArea.css.css ======================================== */
+    /* .function-area{
+        display: none;
+    }
+
+    .outside-frame{
+        max-width: 800px;
+    }
+
+    .map-area {
+        width: 800px;
+    } */
+    /* ---------------------------------------------------------end */
+
+    /* for back_to_current.css.css ================================ */
+    /* .bottom_function {
+        left:580px;
+    } */
+    /* ---------------------------------------------------------end */
+}
+
+@media screen and (max-width: 830px) {
+
+    /* for mapArea.css.css ======================================== */
+    /* .outside-frame{
+        max-width: 750px;
+    }
+
+    .map-area {
+        width: 750px;
+    } */
+    /* ---------------------------------------------------------end */
+
+    /* for back_to_current.css.css ================================ */
+    /* .bottom_function {
+        left:530px;
+    } */
+    /* ---------------------------------------------------------end */
+}
+
+@media screen and (max-width: 780px) {
+
+    /* for mapArea.css.css ======================================== */
+    /* .outside-frame{
+        max-width: 700px;
+    }
+
+    .map-area {
+        width: 700px;
+    } */
+    /* ---------------------------------------------------------end */
+
+    /* for back_to_current.css.css ================================ */
+    /* .bottom_function {
+        left:480px;
+    } */
+    /* ---------------------------------------------------------end */
+}
+
+@media screen and (max-width: 720px) {
+
+    /* for mapArea.css.css ======================================== */
+    /* .outside-frame{
+        max-width: 650px;
+    }
+
+    .map-area {
+        width: 650px;
+    } */
+    /* ---------------------------------------------------------end */
+
+    /* for back_to_current.css.css ================================ */
+    /* .bottom_function {
+        left:430px;
+    } */
+    /* ---------------------------------------------------------end */
+
+    /* for infoBoard.css.css ================================ */
+    /* .infoBoardFrame {
+        width:250px;
+    } */
+    /* ---------------------------------------------------------end */
+}
+
+@media screen and (max-width: 680px) {
+
+    /* for mapArea.css.css ======================================== */
+    /* .outside-frame{
+        max-width: 600px;
+    }
+
+    .map-area {
+        width: 600px;
+    } */
+    /* ---------------------------------------------------------end */
+
+    /* for back_to_current.css.css ================================ */
+    /* .bottom_function {
+        left:380px;
+    } */
+    /* ---------------------------------------------------------end */
+}

@@ -11,7 +11,7 @@
     top:180px;
     left:-50%;
     right:-50%; 
-    z-index: 300;
+    z-index: 500;
     font-size: 16px;
     font-weight: bold;
     /* background: rgb(57, 62, 65, 0.4); */
@@ -38,14 +38,15 @@
     height: auto;
     /* height: ; */
     margin-top: 5px;
+    /* z-index: 500; */
     /* margin-bottom: 20px; */
 }
 
 .alert_box_close{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     height: 24px;
-    width: 250px;
+    width: 300px;
     position: relative;
     /* align-items: center; */
 }

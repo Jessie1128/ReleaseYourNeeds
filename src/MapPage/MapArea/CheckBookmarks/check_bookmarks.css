@@ -1,6 +1,6 @@
 .placeAddBookmark {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     position: relative;
     left:70px;
@@ -27,4 +27,21 @@
     align-items: center;
     color:#fff;
     border-radius: 5px;
+}
+
+@media screen and  (min-width:931px) and (max-width: 1050px) {
+
+    .placeAddBookmark {
+        left:60px;
+    }
+
+}
+
+
+@media screen and (max-width: 780px) {
+
+    .placeAddBookmark {
+        left:60px;
+    }
+    
 }

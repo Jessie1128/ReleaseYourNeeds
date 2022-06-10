@@ -9,33 +9,36 @@ import { hover } from '@testing-library/user-event/dist/hover';
 const MarkerInfoLabel = ({ hover_dis , center , inner , info_board , setMarker_info , setInfo_board , map_obj , loading , setLoading }) => {
     // const MarkerInfoLabel = ({ inner }) => {
 
-    let info_frame = {
-        width: '190px',
-        height: '52px',
-        backgroundColor: ' rgb(162, 156, 155, 0.8)', 
-        borderRadius: '5px',
-    }
+    // let info_frame = {
+    //     width: '190px',
+    //     height: '52px',
+    //     backgroundColor: ' rgb(162, 156, 155, 0.8)', 
+    //     borderRadius: '5px',
+    //     zIndex: '50',
+    // }
 
-    let info_style = {
-        display: 'flex',
-        width: '190px',
-        height: '24px',
-        fontSize: '14px',
-    }
+    // let info_style = {
+    //     display: 'flex',
+    //     width: '190px',
+    //     height: '24px',
+    //     fontSize: '14px',
+    //     zIndex: '50',
+    // }
 
-    let info_info = {
-        display: '-webkit-box',
-        WebkitLineClamp: '1',
-        WebkitBoxOrient: 'vertical', 
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        width: '170px',
-        height: '23px',
-        padding: '2px 2px 0px 5px',
-        // textAlign: 'justify',
-        textDecoration:'underline',
-        textUnderlineOffset:'3px',
-    };
+    // let info_info = {
+    //     display: '-webkit-box',
+    //     WebkitLineClamp: '1',
+    //     WebkitBoxOrient: 'vertical', 
+    //     overflow: 'hidden',
+    //     textOverflow: 'ellipsis',
+    //     width: '170px',
+    //     height: '20px',
+    //     padding: '2px 2px 0px 5px',
+    //     // textAlign: 'justify',
+    //     textDecoration:'underline',
+    //     textUnderlineOffset:'3px',
+    //     zIndex: '50',
+    // };
 
 
     // let close_wrapper={
@@ -59,22 +62,23 @@ const MarkerInfoLabel = ({ hover_dis , center , inner , info_board , setMarker_i
     //     color: 'rgb(78, 79, 78, 0.6)',
     // }
 
-    let more_info = {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        // borderRadius: '5px',
-        width: '90px',
-        fontSize: '12px',
-        color: 'rgb(78, 79, 78, 0.9)',
-        // background: 'rgb(231, 185, 19, 0.6)',
-        // padding: '1px 0px',
-        paddingLeft: '2px',
-        margin: '6px 0px 2px 0px',
-    }
+    // let more_info = {
+    //     display: 'flex',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //     // borderRadius: '5px',
+    //     width: '90px',
+    //     fontSize: '12px',
+    //     color: 'rgb(78, 79, 78, 0.9)',
+    //     // background: 'rgb(231, 185, 19, 0.6)',
+    //     // padding: '1px 0px',
+    //     paddingLeft: '2px',
+    //     margin: '6px 0px 2px 0px',
+    //     zIndex: '50',
+    // }
 
     let info_frame_MouseOnClick = (e) =>{
-        e.stopPropagation();
+        // e.stopPropagation();
     }
 
     // let close_MouseOver = (e) => {
@@ -118,6 +122,20 @@ const MarkerInfoLabel = ({ hover_dis , center , inner , info_board , setMarker_i
         )
     }
 
+    let moreInfo_onTouchStart = (e) => {
+        console.log(inner)
+        setInfo_board(
+            <InfoBoard  
+                setInfo_board={setInfo_board} 
+                inner={inner} 
+                map_obj={map_obj} 
+                info_board={info_board}
+                loading={loading}
+                setLoading={setLoading}
+            />
+        )
+    }
+
     
 
     return (
@@ -128,19 +146,21 @@ const MarkerInfoLabel = ({ hover_dis , center , inner , info_board , setMarker_i
                 e.closeBoxURL=''
             }}
         >
-            <div style={info_frame} onClick={info_frame_MouseOnClick}>
-                <div style={info_style}>
-                    <div style={info_info}>
-                    {inner['公廁名稱']}
+            <div className='info_frame' onClick={info_frame_MouseOnClick}>
+                <div className='info_style'>
+                    <div className='info_info'>
+                        {inner['公廁名稱']}
                     </div>
                     <CloseBotton setMarker_info={setMarker_info}/>
                 </div>
                 <div style={{display:'flex'}}>
                     <div 
-                        style={more_info} 
+                        className='more_info'
                         onMouseOver={moreInfo_MouseOver} 
                         onMouseOut={moreInfo_MouseOut} 
-                        onClick={moreInfo_onClick}>
+                        onClick={moreInfo_onClick}
+                        onTouchStart={moreInfo_onTouchStart}
+                    >
                         查看更多資訊 ...
                     </div>
                 </div>             

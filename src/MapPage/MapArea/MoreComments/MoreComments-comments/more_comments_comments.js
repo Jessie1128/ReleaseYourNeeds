@@ -1,20 +1,52 @@
-import React , { useState , useEffect } from "react";
+import React , { useState , useEffect , useContext } from "react";
 import '../more_comments.css'
 import { deleteField , setDoc ,  deleteDoc , getDoc , getDocs , doc, query, orderBy , where, startAfter , updateDoc , limit , startAt, arrayRemove } from "firebase/firestore";
 import { db } from "../../../../connection_firebase/connection_firebase";
+import { E_and_P_user } from "../../../../Component/ContextFolder/context_folder";
+import { LoginThrouht } from "../../../../Component/ContextFolder/context_folder";
+// import { AlertFrame } from "../../../../Component/ContextFolder/context_folder";
+// import { Brightness } from "../../../../Component/ContextFolder/context_folder";
 
 const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Name , background , inner ,  get_user_data , 
                                 setFiltered_comments , setGet_exist_comment , setCommented , setTop , setComment_exist , setClick_and_more_comments }) => {
 
+    // const { error , success , clear } = useContext(AlertFrame)
+    // const { bright , setBright } = useContext(Brightness)
+    const { throught } = useContext(LoginThrouht)
+    const { e_and_p_user } = useContext(E_and_P_user)
     const [ edit_text , setEdit_text ] = useState(null)
     const [ editable , setEditable ] = useState(false)
     const [ editable_style , setEditable_style ] = useState('show_review_user_inner')
     let [ display , setDisplay ] = useState({display:'none'})
     const [ ori_text , setOri_text ] = useState(commented_inner)
+    // console.log(user_Name)
+    // console.log(url)
+    // console.log(url)
+    //     console.log(throught)
+
+    // let [ E_and_P_noPhoto , setE_and_P_noPhoto ] = useState(null) // 這邊先處理 E&P 的暫定大頭照
 
     useEffect(()=>{
-        // console.log(commented_inner)
-        // console.log(ori_text)
+        // console.log(url)
+        // console.log(throught)
+        // console.log('看看有幾個u',E_and_P_noPhoto)
+        // console.log(e_and_p_user)
+        // console.log(url)
+        // console.log(get_user_data)
+        // console.log(e_and_p_user['no_photo'])
+        // console.log('改')
+        if(get_user_data===undefined||get_user_data===''||get_user_data===null||get_user_data===false){
+            return
+        }
+        console.log('有')
+        // else if( url==='E&P_noPhotoYet'){
+        //     console.log(get_user_data)
+        //     console.log(get_user_data['login_user'])
+        //     console.log(get_user_data['login_user']['photoURL'])
+        //     setE_and_P_noPhoto(get_user_data['login_user']['email'].charAt(0))
+        //     console.log('幹',get_user_data['login_user']['email'].charAt(0))
+        //     console.log(E_and_P_noPhoto)
+        // }
         setOri_text(commented_inner)
     },[commented_inner])
 
@@ -115,17 +147,9 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
     }
 
     const delete_mes = async(e) => {
-        // console.log(e)
-        // console.log('我要刪掉留言')
-        // console.log(inner)
-        // console.log(get_user_data)
-        // console.log(get_user_data['login_user']['email'])
         let email = get_user_data['login_user']['email']
         let place = inner['公廁名稱']
         let id=(inner['公廁名稱'].length)*(inner['緯度']+inner['經度'])
-        // console.log(place)
-        // console.log(id)
-        // await deleteDoc(doc(db, "user", "DC"));
 
         try {
             let data = doc( db, 'user', email );
@@ -155,11 +179,24 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
             setComment_exist(false)
             setCommented(null)
             setClick_and_more_comments('查看更多評論...')
+            // setBright({filter: 'brightness(0.6)'})
+            // success('刪除留言成功')
+            // setTimeout(() => {
+            //     clear()
+            //     // setBright({filter: 'brightness(1.0)'})
+            //     console.log("Delayed for 0.8 second.");
+            // }, "1000")
             // setTop({top:'480px'})
             // reverse_array(new_res)
-        } catch (error) {
-            console.log(error)
+        } catch (e) {
+            console.log(e)
             console.log('這邊要做刪除留言 失敗 提示框')
+            // error('刪除失敗！請再試一次')
+            // setTimeout(() => {
+            //     clear()
+            //     setBright({filter: 'brightness(1.0)'})
+            //     console.log("Delayed for 1.5 second.");
+            // }, "1500")
         }
     }
 
@@ -167,17 +204,33 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
         <>
             <div className='user_commemnts'>
                 <div className='user_comment_inner'>
-                    <div className='inner_img_frame'>
-                        <img src={url} className='inner_img'></img>
-                    </div>
+                    { url === '' && user_Name !='' ? (
+                        <div className='inner_img_frame'>
+                            <div className='inner_img_no_photo'>{user_Name.charAt(0)}</div>   {/* 這邊是給測試帳號的照片 */}
+                        </div>
+                    )
+                    :url === 'E&P_noPhotoYet'? (     
+                        <div className='inner_img_frame'>
+                            <div className='inner_img_no_photo'>{e_and_p_user['no_photo']}</div>  {/* 這邊是給 E&P 登陸的帳號照片，.charAt(0)設定會報錯，待解決  */}
+                        </div>     
+                    )
+                    :(
+                        <div className='inner_img_frame'>
+                            <img src={url} className='inner_img'></img>
+                        </div>
+                    )}
                     <div className='inner_text' style={background}>
-                        { user_Name===undefined? 
-                            (
-                                <div className='show_review_user_time'>{commented_time}</div>
-                            ):(
-                                <div className='show_review_user_time'>{user_Name} ({commented_time})</div>
-                            )
+                    {/* user_Name===undefined?  當初是為了 正在登陸的用戶回應您用 做的判斷 */}
+                        { user_Name===undefined? (
+                            <div className='show_review_user_time'>您於 {commented_time}</div>
+                        ):url != 'E&P_noPhotoYet'? (
+                            <div className='show_review_user_time'>{user_Name} ({commented_time})</div>
+                        ):(
+                            <div className='show_review_user_time'>{user_Name} ({commented_time})</div>
+                        )
                         }
+                        {/* 這邊是做編輯的按鈕 ☟*/}
+                        {/* user_Name===undefined?  當初是為了 正在登陸的用戶回應您用 做的判斷 */}
                         { user_Name===undefined? 
                             (   
                                 // <div className="contentEditable_style">
@@ -204,11 +257,15 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
                                 <div className='show_review_user_inner'>{commented_inner}</div>
                             )
                         }
+                        {/* user_Name===undefined?  當初是為了 正在登陸的用戶回應您用 做的判斷 */}
                         { user_Name===undefined? 
                             (
                                 <div className='show_full_mes'>
                                     {/* <div className='show_full_mes_img' onClick={edit_mes}>
                                         <img className='full_mes_img' src={require('../../../../source/edit.png')}></img>
+                                    </div> */}
+                                    {/* <div className="delete_hint">
+                                        (點選刪除留言)
                                     </div> */}
                                     <div className='show_full_mes_img' onClick={delete_mes.bind(null,commented_inner)}>
                                         <img className='full_mes_img' src={require('../../../../source/delete.png')}></img>

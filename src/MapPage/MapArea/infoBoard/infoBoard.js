@@ -1,22 +1,25 @@
 import React from 'react';
-import { Fragment , useState , useEffect , useRef } from 'react'
+import { Fragment , useState , useEffect , useRef , useContext } from 'react'
 import { InfoBox } from '@react-google-maps/api';
 import './infoBoard.css'
+import '../../../Component/rwd.css'
 import CloseBotton from '../../../Component/closeBotton/closeBotton';
 import { GoogleMap, useLoadScript , Marker } from '@react-google-maps/api';
 import { collection , getDocs , doc, setDoc } from "firebase/firestore";
 import { async } from '@firebase/util';
 import Loading_effect from '../../../Component/LoadingEffect/loadingEffect';
 import GetData from '../GetDataFromGoogleApi/get_data_from_google_api';
-import Comments from '../../Comments/comments';
+import Comments from '../Comments/comments';
 import LoginStatus from '../../../Component/LoginStatus/loginStatus';
 import { db } from '../../../connection_firebase/connection_firebase';
 import CheckBookmarks from '../CheckBookmarks/check_bookmarks';
-import Review_Comments from '../../../Component/ReviewComments/review_comments';
+import Review_Comments from '../ReviewComments/review_comments';
+import { LoginThrouht } from '../../../Component/ContextFolder/context_folder';
 
 
 const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading , loading }) => {
 
+    const { throught } = useContext(LoginThrouht)
     const [ loading_pic , setLoading_pic ] = useState(<Loading_effect/>)
     const [ open_status , setOpen_status ] = useState('')
     const [ weekly_open , setWeekly_open ] = useState('')
@@ -34,6 +37,10 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
     let [ top , setTop ] = useState ({top:'480px'})
     let [ click_and_more_comments , setClick_and_more_comments ] = useState ('查看更多留言...')
     const [ commented , setCommented ] = useState (null)
+    const [ for_rwd , setFor_rwd ] = useState('hamburger')
+    const [ open_or_not , setOpen_or_not ] = useState(false)
+    const [ rwd_info_frame_height , setRwd_info_frame_height ] = useState({height:'436px'})
+    const [ rwd_info_inner_height , setRwd_info_inner_height ] = useState({height:'76px',overflow:'hidden'})
 
     let day=new Date().getDay()
     // let open_status
@@ -100,6 +107,7 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
 
     let user_data = async() => {
         let data = await state()
+        console.log(data)
         setGet_user_data(data)
         // let data_cookie = document.cookie
         // console.log('data_cookie',data_cookie)
@@ -112,14 +120,45 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
             setLogin_user_photoUrl('')
             return 
         }
+        if(data['login_user']['photoURL']===null){ //這邊先暫定給 email_password 登陸用戶預設照片的文字
+            console.log('要改')
+            setLogin_user_photoUrl('E&P_noPhotoYet')
+            return
+        }
         console.log(data['state'])
         console.log(data['login_user'])
         console.log(data['login_user']['photoURL'])
         setLogin_user_photoUrl(data['login_user']['photoURL'])
     }
 
+
+    const onTouchStart_for_rwd_img = () => {
+        if(open_or_not){
+            setOpen_or_not(false) 
+            setRwd_info_frame_height({height:'436px'})
+            setRwd_info_inner_height({height:'76px',overflow:'hidden'})
+        }else{
+            setOpen_or_not(true) 
+            setRwd_info_frame_height({height:'480px'})
+            setRwd_info_inner_height({height:'154px'})
+        }
+    }
+
+    const onClick_for_rwd_img = () => {
+        if(open_or_not){
+            setOpen_or_not(false) 
+            setRwd_info_frame_height({height:'436px'})
+            setRwd_info_inner_height({height:'76px',overflow:'hidden'})
+        }else{
+            setOpen_or_not(true) 
+            setRwd_info_frame_height({height:'480px'})
+            setRwd_info_inner_height({height:'154px'})
+        }
+    }
+
     useEffect(()=>{
         console.log('神魔鬼東東',inner)
+        console.log('神魔鬼東東throught',throught)
         setComment_exist(false)
         if(photo_url===undefined){
             console.log('空空空空空空空')
@@ -174,7 +213,7 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
 
 
     return (
-        <div className='infoBoardFrame'>
+        <div className='infoBoardFrame' style={rwd_info_frame_height}>
             <div className='infoBoardCloseBotton'>
                 <CloseBotton setInfo_board ={ setInfo_board }/>
             </div>
@@ -185,8 +224,8 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
                     <img className='infoBoardSrc' src={photo_url}/>
                 </div>
                 </div>
-                <div className='infoBoardPlaceInfo'>
-                    <div className='placeInfoInner' style={{fontSize:'16px',fontWeight:'bold',height:'16px'}}>{inner['公廁名稱']}</div>
+                <div className='infoBoardPlaceInfo' style={rwd_info_inner_height}>
+                    <div className='placeInfoInner' style={{fontWeight:'bold'}}>{inner['公廁名稱']}</div>
                     <div className='placeInfoInner' style={{fontWeight:'bold'}}>{open_status} 
                         <span style={{color:'black',marginLeft:'12px',fontWeight:'normal'}}>{weekly_open}</span>
                     </div>
@@ -194,7 +233,7 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
                     <div className='placeInfoInner'>無障礙廁所座數：{inner['無障礙廁所座數']} 座</div>
                     <div className='placeInfoInner'>親子廁所座數：{inner['親子廁所座數']} 座</div>
                     <div style={{display:'flex',width:'100%'}}>
-                        <div className='placeInfoInner' style={{paddingBottom:'10px'}}>貼心公廁座數：{inner['貼心公廁']} 座</div>
+                        <div className='placeInfoInner_sweet'>貼心公廁座數：{inner['貼心公廁']} 座</div>
                         <CheckBookmarks 
                             info_board={info_board} 
                             get_user_data={get_user_data} 
@@ -209,6 +248,12 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
                             setCommented={setCommented}
                         />
                     </div>
+                </div>
+                <div className='infoBoardPlaceInfo_for_rwd'>
+                    <img className='for_rwd_img' src={require(`../../../source/${for_rwd}.png`)} 
+                        onTouchStart={onTouchStart_for_rwd_img}
+                        onClick={onClick_for_rwd_img}
+                    ></img>
                 </div>
                 {confirm_botton==='ENTER' ? 
                     (
