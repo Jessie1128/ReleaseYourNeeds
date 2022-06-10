@@ -178,6 +178,8 @@
     
     .user_img_comments_login {
         width: 160px;
+        margin-left: 5px;
+        /* padding-left: 10px; */
     }
     
     .user_img_input {
@@ -198,7 +200,7 @@
 
     .comments_frame {
         width: 220px;
-        margin-top: 5px;
+        /* margin-top: 5px; */
     }
 
     .user_img_comments {
@@ -207,6 +209,7 @@
     
     .user_img_comments_login {
         width: 160px;
+        margin-left: 5px;
     }
     
     .user_img_input {
@@ -221,4 +224,10 @@
         width:220px;
     }
 
+}
+
+@media screen and (max-width: 620px) {
+    .comments_frame {
+        margin-top: 5px;
+    }
 }

@@ -213,4 +213,9 @@
         font-size: 17px;
     }
 
+    .button_rwd {
+        color: #fff;
+        text-decoration: none;
+    }
+
 }

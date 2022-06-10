@@ -213,88 +213,171 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
 
 
     return (
-        <div className='infoBoardFrame' style={rwd_info_frame_height}>
-            <div className='infoBoardCloseBotton'>
-                <CloseBotton setInfo_board ={ setInfo_board }/>
-            </div>
-            <div className='infoBoardTop'>
-                <div className='infoBoardLoading'>
-                    { loading_pic }
-                    <div className='infoBoardPic'>
-                    <img className='infoBoardSrc' src={photo_url}/>
+        <>
+            <div className='info_display'>
+            <div className='infoBoardFrame'>
+                <div className='infoBoardCloseBotton'>
+                    <CloseBotton setInfo_board ={ setInfo_board }/>
                 </div>
-                </div>
-                <div className='infoBoardPlaceInfo' style={rwd_info_inner_height}>
-                    <div className='placeInfoInner' style={{fontWeight:'bold'}}>{inner['公廁名稱']}</div>
-                    <div className='placeInfoInner' style={{fontWeight:'bold'}}>{open_status} 
-                        <span style={{color:'black',marginLeft:'12px',fontWeight:'normal'}}>{weekly_open}</span>
+                <div className='infoBoardTop'>
+                    <div className='infoBoardLoading'>
+                        { loading_pic }
+                        <div className='infoBoardPic'>
+                        <img className='infoBoardSrc' src={photo_url}/>
                     </div>
-                    <div className='placeInfoInner'>{inner['公廁地址']}</div>
-                    <div className='placeInfoInner'>無障礙廁所座數：{inner['無障礙廁所座數']} 座</div>
-                    <div className='placeInfoInner'>親子廁所座數：{inner['親子廁所座數']} 座</div>
-                    <div style={{display:'flex',width:'100%'}}>
-                        <div className='placeInfoInner_sweet'>貼心公廁座數：{inner['貼心公廁']} 座</div>
-                        <CheckBookmarks 
-                            info_board={info_board} 
-                            get_user_data={get_user_data} 
-                            inner={inner}
-                            comment_exist={comment_exist}
-                            setComment_exist={setComment_exist}
-                            confirm_hover={confirm_hover}
-                            setConfirm_hover={setConfirm_hover}
-                            confirm_botton={confirm_botton}
-                            setConfirm_botton={setConfirm_botton}
-                            commented={commented}
-                            setCommented={setCommented}
-                        />
+                    </div>
+                    <div className='infoBoardPlaceInfo'>
+                        <div className='placeInfoInner' style={{fontWeight:'bold'}}>{inner['公廁名稱']}</div>
+                        <div className='placeInfoInner' style={{fontWeight:'bold'}}>{open_status} 
+                            <span style={{color:'black',marginLeft:'12px',fontWeight:'normal'}}>{weekly_open}</span>
+                        </div>
+                        <div className='placeInfoInner'>{inner['公廁地址']}</div>
+                        <div className='placeInfoInner'>無障礙廁所座數：{inner['無障礙廁所座數']} 座</div>
+                        <div className='placeInfoInner'>親子廁所座數：{inner['親子廁所座數']} 座</div>
+                        <div style={{display:'flex',width:'100%'}}>
+                            <div className='placeInfoInner_sweet'>貼心公廁座數：{inner['貼心公廁']} 座</div>
+                            <CheckBookmarks 
+                                info_board={info_board} 
+                                get_user_data={get_user_data} 
+                                inner={inner}
+                                comment_exist={comment_exist}
+                                setComment_exist={setComment_exist}
+                                confirm_hover={confirm_hover}
+                                setConfirm_hover={setConfirm_hover}
+                                confirm_botton={confirm_botton}
+                                setConfirm_botton={setConfirm_botton}
+                                commented={commented}
+                                setCommented={setCommented}
+                            />
+                        </div>
+                    </div>
+                    {confirm_botton==='ENTER' ? 
+                        (
+                            <Comments 
+                                url={login_user_photoUrl}
+                                info_board={info_board}
+                                get_user_data={get_user_data}
+                                inner={inner}
+                                comment_exist={comment_exist}
+                                setComment_exist={setComment_exist}
+                                confirm_hover={confirm_hover}
+                                setConfirm_hover={setConfirm_hover}
+                                confirm_botton={confirm_botton}
+                                setConfirm_botton={setConfirm_botton}
+                                top={top}
+                                setTop={setTop}
+                                setCommented={setCommented}
+                                click_and_more_comments={click_and_more_comments}
+                                setClick_and_more_comments={setClick_and_more_comments}
+                            />
+                        ) : 
+                        (
+                            <Review_Comments 
+                                url={login_user_photoUrl}
+                                info_board={info_board}
+                                confirm_hover={confirm_hover}
+                                setConfirm_hover={setConfirm_hover}
+                                top={top}
+                                setTop={setTop}
+                                click_and_more_comments={click_and_more_comments}
+                                setClick_and_more_comments={setClick_and_more_comments}
+                                commented={commented}
+                                setCommented={setCommented}
+                                inner={inner}
+                                get_user_data={get_user_data}
+                                setComment_exist={setComment_exist}
+                            />
+                        )
+                    }
+                </div>
+            </div>
+            </div>
+                {/* =============================================================== */}
+            <div className='info_display_rwd'>
+                <div className='infoBoardFrame' style={rwd_info_frame_height}>
+                    <div className='infoBoardCloseBotton'>
+                        <CloseBotton setInfo_board ={ setInfo_board }/>
+                    </div>
+                    <div className='infoBoardTop'>
+                        <div className='infoBoardLoading'>
+                            { loading_pic }
+                            <div className='infoBoardPic'>
+                            <img className='infoBoardSrc' src={photo_url}/>
+                        </div>
+                        </div>
+                        <div className='infoBoardPlaceInfo' style={rwd_info_inner_height}>
+                            <div className='placeInfoInner' style={{fontWeight:'bold'}}>{inner['公廁名稱']}</div>
+                            <div className='placeInfoInner' style={{fontWeight:'bold'}}>{open_status} 
+                                <span style={{color:'black',marginLeft:'12px',fontWeight:'normal'}}>{weekly_open}</span>
+                            </div>
+                            <div className='placeInfoInner'>{inner['公廁地址']}</div>
+                            <div className='placeInfoInner'>無障礙廁所座數：{inner['無障礙廁所座數']} 座</div>
+                            <div className='placeInfoInner'>親子廁所座數：{inner['親子廁所座數']} 座</div>
+                            <div style={{display:'flex',width:'100%'}}>
+                                <div className='placeInfoInner_sweet'>貼心公廁座數：{inner['貼心公廁']} 座</div>
+                                <CheckBookmarks 
+                                    info_board={info_board} 
+                                    get_user_data={get_user_data} 
+                                    inner={inner}
+                                    comment_exist={comment_exist}
+                                    setComment_exist={setComment_exist}
+                                    confirm_hover={confirm_hover}
+                                    setConfirm_hover={setConfirm_hover}
+                                    confirm_botton={confirm_botton}
+                                    setConfirm_botton={setConfirm_botton}
+                                    commented={commented}
+                                    setCommented={setCommented}
+                                />
+                            </div>
+                        </div>
+                        <div className='infoBoardPlaceInfo_for_rwd'>
+                            <img className='for_rwd_img' src={require(`../../../source/${for_rwd}.png`)} 
+                                onTouchStart={onTouchStart_for_rwd_img}
+                                onClick={onClick_for_rwd_img}
+                            ></img>
+                        </div>
+                        {confirm_botton==='ENTER' ? 
+                            (
+                                <Comments 
+                                    url={login_user_photoUrl}
+                                    info_board={info_board}
+                                    get_user_data={get_user_data}
+                                    inner={inner}
+                                    comment_exist={comment_exist}
+                                    setComment_exist={setComment_exist}
+                                    confirm_hover={confirm_hover}
+                                    setConfirm_hover={setConfirm_hover}
+                                    confirm_botton={confirm_botton}
+                                    setConfirm_botton={setConfirm_botton}
+                                    top={top}
+                                    setTop={setTop}
+                                    setCommented={setCommented}
+                                    click_and_more_comments={click_and_more_comments}
+                                    setClick_and_more_comments={setClick_and_more_comments}
+                                />
+                            ) : 
+                            (
+                                <Review_Comments 
+                                    url={login_user_photoUrl}
+                                    info_board={info_board}
+                                    confirm_hover={confirm_hover}
+                                    setConfirm_hover={setConfirm_hover}
+                                    top={top}
+                                    setTop={setTop}
+                                    click_and_more_comments={click_and_more_comments}
+                                    setClick_and_more_comments={setClick_and_more_comments}
+                                    commented={commented}
+                                    setCommented={setCommented}
+                                    inner={inner}
+                                    get_user_data={get_user_data}
+                                    setComment_exist={setComment_exist}
+                                />
+                            )
+                        }
                     </div>
                 </div>
-                <div className='infoBoardPlaceInfo_for_rwd'>
-                    <img className='for_rwd_img' src={require(`../../../source/${for_rwd}.png`)} 
-                        onTouchStart={onTouchStart_for_rwd_img}
-                        onClick={onClick_for_rwd_img}
-                    ></img>
-                </div>
-                {confirm_botton==='ENTER' ? 
-                    (
-                        <Comments 
-                            url={login_user_photoUrl}
-                            info_board={info_board}
-                            get_user_data={get_user_data}
-                            inner={inner}
-                            comment_exist={comment_exist}
-                            setComment_exist={setComment_exist}
-                            confirm_hover={confirm_hover}
-                            setConfirm_hover={setConfirm_hover}
-                            confirm_botton={confirm_botton}
-                            setConfirm_botton={setConfirm_botton}
-                            top={top}
-                            setTop={setTop}
-                            setCommented={setCommented}
-                            click_and_more_comments={click_and_more_comments}
-                            setClick_and_more_comments={setClick_and_more_comments}
-                        />
-                    ) : 
-                    (
-                        <Review_Comments 
-                            url={login_user_photoUrl}
-                            info_board={info_board}
-                            confirm_hover={confirm_hover}
-                            setConfirm_hover={setConfirm_hover}
-                            top={top}
-                            setTop={setTop}
-                            click_and_more_comments={click_and_more_comments}
-                            setClick_and_more_comments={setClick_and_more_comments}
-                            commented={commented}
-                            setCommented={setCommented}
-                            inner={inner}
-                            get_user_data={get_user_data}
-                            setComment_exist={setComment_exist}
-                        />
-                    )
-                }
             </div>
-        </div>
+        </>
     )
 }
 

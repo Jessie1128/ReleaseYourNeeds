@@ -110,6 +110,7 @@ const MarkerInfoLabel = ({ hover_dis , center , inner , info_board , setMarker_i
 
     let moreInfo_onClick = (e) => {
         console.log(inner)
+        e.stopPropagation();
         setInfo_board(
             <InfoBoard  
                 setInfo_board={setInfo_board} 
@@ -124,6 +125,7 @@ const MarkerInfoLabel = ({ hover_dis , center , inner , info_board , setMarker_i
 
     let moreInfo_onTouchStart = (e) => {
         console.log(inner)
+        e.stopPropagation();
         setInfo_board(
             <InfoBoard  
                 setInfo_board={setInfo_board} 

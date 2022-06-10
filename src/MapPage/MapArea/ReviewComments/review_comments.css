@@ -174,3 +174,9 @@
     }
 
 }
+
+@media screen and (max-width: 620px) {
+    .review_comments_frame {
+        margin-top:5px;
+    }
+}

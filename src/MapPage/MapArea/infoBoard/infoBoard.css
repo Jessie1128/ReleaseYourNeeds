@@ -1,3 +1,11 @@
+.info_display {
+    display: block;
+}
+
+.info_display_rwd {
+    display: none;
+}
+
 .infoBoardCloseBotton{
     display: flex;
     justify-content: flex-end;
@@ -96,6 +104,8 @@
     font-size: 14px;
     height:14px;
     padding-left: 5px;
+    display: flexbox;
+    align-items: center;
     /* background-color: rgb(226, 43, 195); */
 }
 
@@ -114,7 +124,7 @@
 
 .placeInfoInner:nth-child(1) {
     font-size:16px;
-    height:16px;
+    height:17px;
 }
 
 /* .placeInfoInner:last-child(1) {
@@ -304,6 +314,14 @@
 }
 
 @media screen and (max-width: 620px) {
+
+    .info_display {
+        display: none;
+    }
+    
+    .info_display_rwd {
+        display: block;
+    }
 
     .infoBoardPlaceInfo_for_rwd {
         display: flex;

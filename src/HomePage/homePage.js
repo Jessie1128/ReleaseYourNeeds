@@ -46,7 +46,9 @@ const HomePage = () => {
     return (
         <div className='body_background'>
             <Header />
-            <div className='rwd_to_next_page'>前往搜尋頁面</div>   {/*  ←← for rwd botton */}
+            <div className='rwd_to_next_page'>
+                <nav> <Link to="/map" className='button_rwd'>前往搜尋頁面</Link> </nav>
+            </div>   {/*  ←← for rwd botton */}
             <div className='home_area_color' style={bright}>
                 <div className='home_area'>
                     <div className='intro'>
