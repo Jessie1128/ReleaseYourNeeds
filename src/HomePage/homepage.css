@@ -95,7 +95,7 @@
     padding: 10px;
     margin: 10px;
     position: absolute;
-    top: 470px;
+    top: 540px;  /* for 上線版本 */
 }
 
 .ps_text_frame {
