@@ -17,7 +17,7 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
                     
     const { e_and_p_user , setE_and_p_user } = useContext(E_and_P_user)
     const { for_display , setFor_display } =useContext(ForDisplay)
-    const { alert_status ,setAlert_status ,alert_text, setAlert_text, success, error, clear, loading } = useContext(AlertFrame)
+    const { alert_text, success, error, clear, loading } = useContext(AlertFrame)
     const { throught , setThrought } = useContext(LoginThrouht)
     const { bright , setBright } = useContext(Brightness)
     const [ account , setAccount ] = useState('haveAccount')
@@ -27,8 +27,17 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
     const [ height , setHeight ] = useState(null)
     const [ margin , setMargin ] = useState({marginTop:'10px'})
     const [ hint , setHint ] = useState(null)
-    // const [ mes , setMes ] = useState(null)
     const [ login_board_bright , setLogin_board_bright ] = useState(null)
+
+
+    useEffect(()=>{
+        if( throught===null && JSON.stringify(for_display)===JSON.stringify({display: ''}) ){     // for login box alertBox 被關掉 filter 會變
+            console.log('??????????????????????????????????')
+            setBright({filter: 'brightness(0.6)'})
+        }else{
+            return
+        }
+    },[for_display,alert_text])
 
     const auth = getAuth();
     const creat_account = (e) => {
@@ -61,9 +70,9 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
     // },[mes])
 
 
-    useEffect(()=>{
-        setFor_display(null)
-    },[])
+    // useEffect(()=>{
+    //     setFor_display(null)
+    // },[for_display])
 
     const name_input = (e) => {
         console.log(name_value)
@@ -103,6 +112,13 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
             setName_value('')
             setThrought('E&P_login') //這邊之後會在 header 做 render 
             setE_and_p_user(info) //這邊之後會在 header 做 render 
+            success('登陸成功')
+            setFor_display({display:'none'})
+            setTimeout(() => {
+                clear()
+                setBright({filter: 'brightness(1.0)'})
+                console.log("Delayed for 2 second.");
+            }, "1500")
         } catch (e) {
             console.log(e)
             error('系統忙碌中！請稍後再試')

@@ -3,10 +3,13 @@ import './alert_box.css'
 import { AlertFrame } from '../ContextFolder/context_folder'
 import Loading_effect from '../LoadingEffect/loadingEffect'
 import CloseBotton from '../closeBotton/closeBotton'
+import { ForDisplay } from '../ContextFolder/context_folder'
+import LoginBoard from '../LoginBoard/login_board'
 
 const Alert_Box = () => {
 
-    const {  alert_status ,setAlert_status ,alert_text, setAlert_text, success, error, clear } = useContext(AlertFrame)
+    const { setFor_display } = useContext(ForDisplay)
+    const { alert_status , alert_text } = useContext(AlertFrame)
     let [ display , setDisplay ] = useState({display:'none'})
     let [ loading , setloading ] = useState(null) 
     let [ height , setHeight ] = useState(null)
@@ -17,6 +20,7 @@ const Alert_Box = () => {
     let [ loading_effect_height , setLoading_effect_height ] = useState({height:'50px'})
     let [ top , setTop ] = useState(null)
     const [ alert_box_block_height , setAlert_box_block_height ] = useState(null)
+    let [ go_login_dis , setGo_login_dis ] = useState({display:'none'})
 
     useEffect(()=>{
         console.log('這邊')
@@ -30,6 +34,7 @@ const Alert_Box = () => {
     },[alert_box])
 
     useEffect(()=>{
+        console.log('要顯示')
         console.log('這邊')
         // setDisplay({display:'none'})
         if( alert_status===null || alert_text===null ){
@@ -72,7 +77,22 @@ const Alert_Box = () => {
             // setBackground({background:'rgb(57, 62, 65, 0.4)'})
             setloading(<Loading_effect loading_effect_height={loading_effect_height}/>)
         }
+        // else if( alert_status === 'GO_LOGIN'){
+        //     setloading(null)
+        //     setDisplay({display:'flex'})
+        //     setHeight({height:'80px'})
+        //     setWidth({width:'300px'})
+        //     setTop({top:'-2px'})
+        //     setAlert_box_block_height({height:'77px'})
+        //     setBackground({background:'rgb(165 171 175)'})
+        //     setGo_login_dis({display:''})
+        // }
     },[alert_status,alert_text])
+
+    // const go_login_start = () => {
+    //     console.log('有')
+    //     setFor_display({display:''})
+    // }
 
 
     return(
@@ -87,6 +107,9 @@ const Alert_Box = () => {
                     </div>
                     {loading}
                 </div>
+                {/* <div className='alert_box_go_login' style={go_login_dis} onClick={go_login_start}>
+                    <div className='alert_box_go_login_inner'>點此前往 登陸 / 註冊</div>
+                </div> */}
             </div>
         </div>
     )

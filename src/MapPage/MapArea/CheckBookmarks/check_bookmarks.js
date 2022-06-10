@@ -4,6 +4,8 @@ import { db } from '../../../connection_firebase/connection_firebase'
 import AlertBox from '../../../Component/AlertBox/alert_box'
 import { arrayUnion , arrayRemove , collection , getDocs , doc, query, orderBy , where, startAfter , updateDoc , limit , startAt } from "firebase/firestore";
 import firebase from "firebase/compat/app";
+import { AlertFrame } from '../../../Component/ContextFolder/context_folder';
+import { Brightness } from '../../../Component/ContextFolder/context_folder';
 // import { firestore } from 'firebase/firestore'
 // import firestore from "firebase/firestore";
 
@@ -11,6 +13,8 @@ const CheckBookmarks = ({ info_board , get_user_data , inner , confirm_hover , s
                           confirm_botton , setConfirm_botton ,  commented , setCommented }) => {
 
     // const { value , setValue } = useContext(AlertBox);
+    const { success } = useContext(AlertFrame)
+    const { setBright } = useContext(Brightness)
     const [ bookmarks_text , setBookmarks_text ] = useState ('')
     const [ bookmarks_color , setBookmarks_color ] =useState (require('../../../source/mark_white.png'))
     const [ color , setColor ] = useState({background:'none'})
@@ -38,6 +42,8 @@ const CheckBookmarks = ({ info_board , get_user_data , inner , confirm_hover , s
             console.log(get_user_data)
             if(get_user_data===false){
                 console.log('還沒有讀到')
+                success('請先登錄會員')
+                setBright({filter: 'brightness(0.6)'})
                 return 
             }
             // setBookmarks_current(true)

@@ -4,7 +4,7 @@ import { Brightness } from '../ContextFolder/context_folder';
 
 const CloseBotton = ({ setMarker_info , setInfo_board , setLogin_board , setAlert_box }) =>{
 
-    const { bright , setBright } = useContext(Brightness)
+    const { setBright } = useContext(Brightness)
     const { clear } =useContext(AlertFrame)
     let close_wrapper={
         display: 'flex',
@@ -57,6 +57,7 @@ const CloseBotton = ({ setMarker_info , setInfo_board , setLogin_board , setAler
             console.log('我要關掉這邊要執行')
             clear()
             setAlert_box('')
+            setBright({filter: 'brightness(1.0)'})
         }
     }
 

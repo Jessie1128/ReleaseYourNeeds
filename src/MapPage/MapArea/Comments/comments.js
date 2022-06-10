@@ -9,6 +9,8 @@ import More_Comments from '../MoreComments/more_comments'
 // import { AlertBox } from '../../Component/AlertBox/alert_box'
 import { LoginThrouht } from '../../../Component/ContextFolder/context_folder'
 import { E_and_P_user } from '../../../Component/ContextFolder/context_folder'
+import { AlertFrame } from '../../../Component/ContextFolder/context_folder' 
+import { Brightness } from '../../../Component/ContextFolder/context_folder'
 
 const Comments = ({ url , info_board , inner , get_user_data , comment_exist , setComment_exist , 
                     confirm_hover , setConfirm_hover , confirm_botton , setConfirm_botton ,
@@ -20,6 +22,8 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
     // const { alert_status ,setAlert_status ,alert_text, setAlert_text, success, error, clear } = useContext(AlertFrame)
     const { e_and_p_user } = useContext(E_and_P_user)
     const { throught } = useContext(LoginThrouht)
+    const { success , clear } = useContext(AlertFrame)
+    const { setBright } = useContext(Brightness)
     const [ user_img_display , setUser_img_display] = useState({display:'none'})
     const [ user_img_comments_width_css, setUser_img_comments_width_css ] = useState('user_img_comments')
     const [ user_img_input_width_css, setUser_img_input_width_css ] =useState('user_img_input')
@@ -64,7 +68,6 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
     // },[width])
 
     useEffect(()=>{
-
         // function getWindowDimensions() {
         // console.log('螢幕寬',width)
         // console.log('螢幕高',height)
@@ -221,17 +224,25 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
     const user_img_confirm_text_click = () => {
         console.log('按下')
         console.log(user_comments)
+        console.log(get_user_data)
         if(get_user_data===false){
             // setAlert_status('ERROR')
             // setAlert_text('請縣登入會員')
+            success('請先登錄會員')
+            setBright({filter: 'brightness(0.6)'})
             console.log('請登入會員')
-            return 
-        }
-        if(user_comments===''){
+        }else if(user_comments===''){
+            success('哎呀！留言內容不能是空白的')
+            // setBright({filter: 'brightness(0.6)'})
             console.log('這邊要做沒有輸入文字的警告')
-            return
+            setTimeout(() => {                            
+                clear()
+                setBright({filter: 'brightness(1.0)'})
+                console.log("Delayed for 2 second.");
+            }, "1000")   
+        }else{
+            insert_comment_to_db(user_comments)
         }
-        insert_comment_to_db(user_comments)
     }
 
     const user_comments_typing = (e) => {

@@ -4,14 +4,18 @@ import './back_to_current.css'
 import Lil_bookmarks from './Lil_bookmarks/lil_bookmarks'
 import { Google_user } from '../../Component/ContextFolder/context_folder'
 import { E_and_P_user } from "../../Component/ContextFolder/context_folder";
+import { AlertFrame } from '../../Component/ContextFolder/context_folder'
+import { Brightness } from '../../Component/ContextFolder/context_folder'
 
 const BackToCurrent = ({ if_center_move , map_obj }) => {
 
     const { google_user } = useContext(Google_user)
     const { e_and_p_user } = useContext(E_and_P_user)
+    const { success } = useContext(AlertFrame)
+    const { setBright } = useContext(Brightness)
 
-    console.log('lililililililik',google_user)
-    console.log('lililililililik',e_and_p_user)
+    // console.log('lililililililik',google_user)
+    // console.log('lililililililik',e_and_p_user)
     
     let [ dis_current , setDis_current ] = useState({display:'none'})
     let [ dis_bookmarks , setDis_bookmarks ] = useState({display:'none'})
@@ -47,7 +51,11 @@ const BackToCurrent = ({ if_center_move , map_obj }) => {
 
     const onClick_bookmarks = () => {
         console.log('要想一下怎麼設計 bookmarks')
-
+        if( google_user===null && e_and_p_user===null ){
+            success('請先登錄會員')
+            setBright({filter: 'brightness(0.6)'})
+            return
+        }
         setBookmarks_click(<Lil_bookmarks/>)
     }
 
@@ -60,6 +68,11 @@ const BackToCurrent = ({ if_center_move , map_obj }) => {
     }
 
     const onClick_comments = () => {
+        if( google_user===null && e_and_p_user===null ){
+            success('請先登錄會員')
+            setBright({filter: 'brightness(0.6)'})
+            return
+        }
         console.log('要想一下怎麼設計 comments')
     }
 

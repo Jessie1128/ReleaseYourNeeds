@@ -23,7 +23,7 @@ const App = () => {
 
   const [ should_reload , setShould_reload ] = useState(null)
 
-  const [ for_display , setFor_display ] = useState(null)
+  const [ for_display , setFor_display ] = useState(null)   // ← 專門給登陸框用
 
   const [ google_user , setGoogle_user ] = useState(null)
 
@@ -42,6 +42,7 @@ const App = () => {
   const [ alert_status , setAlert_status ] = useState(null);
 
   const success = (text) => {
+    console.log('我有呼叫')
     setAlert_text(text);
     setAlert_status('SUCCESS');
   };
@@ -58,10 +59,10 @@ const App = () => {
     setAlert_status('LOADING');
   }
 
-  const redirect = (text) => {
-    setAlert_text(text);
-    setAlert_status('REDIRECT');
-  }
+  // const go_login = (text) => {
+  //   setAlert_text(text);
+  //   setAlert_status('GO_LOGIN');
+  // }
 
   const clear = () => {
     console.log('clear')
@@ -121,15 +122,15 @@ const App = () => {
 
   return (
     // <ShouldReload.Provider value={{ should_reload , setShould_reload }}>
+    <AlertFrame.Provider value={{
+      alert_status , setAlert_status , alert_text, setAlert_text , success , error , clear , loading 
+    }}>
     <Google_user.Provider value={{ google_user , setGoogle_user }}>
     <E_and_P_user.Provider value={{ e_and_p_user , setE_and_p_user }}>
-    <ForDisplay.Provider value={{ for_display , setFor_display }}>
     <LoginThrouht.Provider value={{ throught , setThrought }}>
     <Brightness.Provider value={{ bright , setBright }}>
-    <AlertFrame.Provider value={{
-      alert_status , setAlert_status , alert_text, setAlert_text , success , error , clear , loading , redirect
-    }}>
     <Marker_Data.Provider value={ marker_data_value }>
+    <ForDisplay.Provider value={{ for_display , setFor_display }}>
     {/* <AlertProvider> */}
     {/* <Alert_Box.Provider> */}
     {/* <Map_Marker.Provider value={{  map_marker , setMap_Marker }}> */}
@@ -144,13 +145,13 @@ const App = () => {
     {/* </Map_Marker.Provider> */}
     {/* </Alert_Box.Provider> */}
     {/* </AlertProvider> */}
+    </ForDisplay.Provider>
     </Marker_Data.Provider>
-    </AlertFrame.Provider>
     </Brightness.Provider>
     </LoginThrouht.Provider>
-    </ForDisplay.Provider>
     </E_and_P_user.Provider>
     </Google_user.Provider>
+    </AlertFrame.Provider>
     // </ShouldReload.Provider>
   );
 }

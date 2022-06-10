@@ -8,6 +8,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import LoginStatus from '../Component/LoginStatus/loginStatus';
 import { useEffect , useContext , useState } from 'react';
 import { Brightness } from '../Component/ContextFolder/context_folder';
+import { Alert_Box } from '../Component/AlertBox/alert_box';
 
 const MapPage = () =>{
 
@@ -31,10 +32,11 @@ const MapPage = () =>{
     // const [ login_name , setLogin_name ] = useState('') // 先從header拉過來，借用一下
 
     return (
-        <div style={bodyBackground}>
-            <Header />
-            <MapArea />
-        </div>
+            <div style={bodyBackground}>
+                <Alert_Box/>
+                <Header />
+                <MapArea />
+            </div>
     )
 }
 

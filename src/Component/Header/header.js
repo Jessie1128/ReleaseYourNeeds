@@ -9,6 +9,7 @@ import { E_and_P_user } from '../ContextFolder/context_folder'
 import { clear } from '@testing-library/user-event/dist/clear'
 import { AlertFrame } from '../ContextFolder/context_folder'
 import { ForDisplay } from '../ContextFolder/context_folder'
+import { Alert_Box } from '../AlertBox/alert_box';
 import { db } from "../../connection_firebase/connection_firebase";
 import { collection , getDocs , query , where  } from "firebase/firestore";
 import { getAuth , signOut } from "firebase/auth";
@@ -18,7 +19,7 @@ const Header = () =>{
 
     const { setGoogle_user } = useContext(Google_user)
     const { for_display , setFor_display } =useContext(ForDisplay)
-    const { alert_status ,setAlert_status ,alert_text, setAlert_text, success, error, clear, loading } = useContext(AlertFrame)
+    const { success, error, clear } = useContext(AlertFrame)
     const { e_and_p_user , setE_and_p_user } = useContext(E_and_P_user)
     const { bright , setBright } = useContext(Brightness)
     const { throught , setThrought } = useContext(LoginThrouht)
@@ -31,9 +32,11 @@ const Header = () =>{
     const [ e_and_p_user_photo , setE_and_p_user_photo ] = useState(null)
     
     // let res
+
     let state = async() => {
         let res = await LoginStatus()
         console.log(res)
+        setFor_display({display:'none'})
         if(res['state']===true && res['login_user']['displayName']===null ){
             console.log(res['login_user'])
             console.log(res['login_user']['displayName'])
@@ -122,16 +125,16 @@ const Header = () =>{
     useEffect(()=>{
         if( e_and_p_user===null || e_and_p_user==='' || e_and_p_user===undefined ) return
         clear()
-        success('登陸成功')
-        setFor_display({display:'none'})
+        // success('登陸成功')                    ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊      
+        // setFor_display({display:'none'})      ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊
         console.log('我要看這邊',e_and_p_user)
         console.log('我要看這邊',e_and_p_user['displayName'])
         console.log('我要看這邊',e_and_p_user['user'])
-        setTimeout(() => {
-            clear()
-            setBright({filter: 'brightness(1.0)'})
-            console.log("Delayed for 2 second.");
-        }, "1500")
+        // setTimeout(() => {                              ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊
+        //     clear()
+        //     setBright({filter: 'brightness(1.0)'})
+        //     console.log("Delayed for 2 second.");
+        // }, "1500")                                      ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊
     },[e_and_p_user])
 
     const login_or_logout = () => {

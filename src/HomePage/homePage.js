@@ -8,6 +8,7 @@ import LoginStatus from '../Component/LoginStatus/loginStatus';
 import { useContext , useEffect } from 'react';
 import { AlertFrame } from '../Component/ContextFolder/context_folder';
 import { Brightness } from '../Component/ContextFolder/context_folder';
+import { Alert_Box } from '../Component/AlertBox/alert_box';
 
 const HomePage = () => {
 
@@ -45,6 +46,7 @@ const HomePage = () => {
 
     return (
         <div className='body_background'>
+            <Alert_Box/>
             <Header />
             <div className='rwd_to_next_page'>
                 <nav> <Link to="/map" className='button_rwd'>前往搜尋頁面</Link> </nav>
