@@ -4,6 +4,7 @@ import { arrayUnion , arrayRemove , collection , getDocs , doc, query, orderBy ,
 import { Google_user } from "../../../Component/ContextFolder/context_folder";
 import { E_and_P_user } from "../../../Component/ContextFolder/context_folder";
 import { LoginThrouht } from "../../../Component/ContextFolder/context_folder";
+import './lil_bookmarks.css'
 
 const Lil_bookmarks = () => {
 
@@ -55,7 +56,7 @@ const Lil_bookmarks = () => {
 //     }
 
     return (
-        <div></div>
+        <div className='lil_bookmarks'>hihi</div>
     )
 }
 

@@ -14,8 +14,9 @@ import { v4 } from 'uuid';
 import MarkerForToilet from './MarkerForToilet/marker_for_toilet';
 import BackToCurrent from '../../BackToCurrent/back_to_current';
 import { Marker_Data } from '../../../Component/ContextFolder/context_folder';
+import { AlertFrame } from '../../../Component/ContextFolder/context_folder';
+import { Brightness } from '../../../Component/ContextFolder/context_folder';
 import { Map_Marker } from '../../../Component/ContextFolder/context_folder';
-
 
 
 let containerStyle = {
@@ -58,6 +59,8 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
     //     console.log('螢幕寬',width)
     //     console.log('螢幕高',height)
     // },[map_width])
+    const { error } = useContext(AlertFrame)
+    const { setBright } = useContext(Brightness)
     const { marker_data , setMarker_data } = useContext(Marker_Data)
     // const { map_marker , setMap_Marker } = useContext(Map_Marker)
 
@@ -107,10 +110,10 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
         let min_lng=Number((center['lng']-range).toFixed(6))
         let max_lat=Number((center['lat']+range).toFixed(6))
         let max_lng=Number((center['lng']+range).toFixed(6))
-        // let get_res = collection(db, "test-source");
-        // let res = query(get_res, limit(15))
-        let get_res = collection(db, "source");
-        let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
+        let get_res = collection(db, "test-source");
+        let res = query(get_res, limit(15))
+        // let get_res = collection(db, "source");
+        // let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
         let snapshot = await getDocs(res);
         let i=0
         let result=[]
@@ -165,10 +168,10 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
           min_lng=Number((center['lng']-0.003).toFixed(6))
           max_lat=Number((center['lat']+0.003).toFixed(6))
           max_lng=Number((center['lng']+0.003).toFixed(6))
-          const new_marker = result.filter(item => {
-              return item['經度'] >= min_lng && item['經度'] <= max_lng && item['緯度'] >= min_lat && item['緯度'] <= max_lat
-          });
-          // const new_marker = result
+          // const new_marker = result.filter(item => {
+          //     return item['經度'] >= min_lng && item['經度'] <= max_lng && item['緯度'] >= min_lat && item['緯度'] <= max_lat
+          // });
+          const new_marker = result
           return new_marker
         })
         // .then((marker)=>{
@@ -317,6 +320,11 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
         }else{
           let res = await get_data_from_firebase(center)
           console.log("成功吧寶貝",res)
+          if( JSON.stringify(res) === JSON.stringify([]) ){
+            setBright({filter: 'brightness(0.6)'})
+            error('哎呀！此地區附近沒有任何廁所')
+            return
+          }
           get_current_time(res)
         }
       }

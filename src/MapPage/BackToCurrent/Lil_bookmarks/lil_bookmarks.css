@@ -1,0 +1,20 @@
+.lil_bookmarks {
+    position: absolute;
+    background-color: darkgreen;
+    z-index: 500;
+    width: 200px;
+    height: 50px;
+}
+
+@media screen and (max-width: 620px) {
+    
+    .lil_bookmarks {
+        position: absolute;
+        background-color: darkgreen;
+        /* z-index: 500; */
+        width: 200px;
+        height: 50px;
+        top: 110px;
+        left: 110px;
+    }
+}

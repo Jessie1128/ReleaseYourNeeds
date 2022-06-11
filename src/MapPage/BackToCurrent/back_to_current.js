@@ -89,63 +89,66 @@ const BackToCurrent = ({ if_center_move , map_obj }) => {
     }
 
     return (
-        <div className='bottom_function'>
-            {/* <div className='bottom_function-icon'> */}
-                <div className='bottom_function-frame'>
-                    <div className='bottom_function_function'>
-                        <div className='arrow-up' style={dis_current}>
-                            <div className='function-text' style={dis_current}>返回當前位置</div>
-                        </div>
-                        <img 
-                            className='bottom_map-back-to-current' 
-                            src={require('../../source/direction.png')} 
-                            onMouseOver={onMouseOver_current}
-                            onMouseOut={onMouseOut_current}
-                            onClick={()=>{
-                                map_obj.current.panTo(if_center_move)
-                            }}
-                        />
-                    </div>
-                    <div className='bottom_function_function'>
-                        <div className='arrow-up' style={dis_bookmarks}>
-                            <div className='function-text' style={dis_bookmarks}>已儲存的地點</div>
-                        </div>    
-                        <img 
-                            className='bottom_map-back-to-current' 
-                            src={require('../../source/bookmark_coll.png')} 
-                            onMouseOver={onMouseOver_bookmarks}
-                            onMouseOut={onMouseOut_bookmarks}
-                            onClick={onClick_bookmarks}
-                        />
-                    </div>
-                    <div className='bottom_function_function'>
-                        <div className='arrow-up' style={dis_comments}>
-                            <div className='function-text' style={dis_comments}>已寫下的留言</div>
-                        </div>
-                        <img 
-                            className='bottom_map-back-to-current' 
-                            src={require('../../source/comment_coll.png')} 
-                            onMouseOver={onMouseOver_comments}
-                            onMouseOut={onMouseOut_comments}
-                            onClick={onClick_comments}
-                        />
-                    </div>
-                    <div className='bottom_function_filter'>
-                        {/* <div className='filter_text' style={dis_filter}>進階篩選</div> */}
-                            <div className='arrow-up' style={dis_filter}>
-                                <div className='filter_text' style={dis_filter}>進階篩選</div>
+        <>
+            <div className='bottom_function'>
+                {/* <div className='bottom_function-icon'> */}
+                    <div className='bottom_function-frame'>
+                        <div className='bottom_function_function'>
+                            <div className='arrow-up' style={dis_current}>
+                                <div className='function-text' style={dis_current}>返回當前位置</div>
                             </div>
-                        <img 
-                            className='bottom_filter_text' 
-                            src={require('../../source/filter.png')} 
-                            onMouseOver={onMouseOver_filter}
-                            onMouseOut={onMouseOut_filter}
-                            onClick={onClick_filter}
-                        />
+                            <img 
+                                className='bottom_map-back-to-current' 
+                                src={require('../../source/direction.png')} 
+                                onMouseOver={onMouseOver_current}
+                                onMouseOut={onMouseOut_current}
+                                onClick={()=>{
+                                    map_obj.current.panTo(if_center_move)
+                                }}
+                            />
+                        </div>
+                        <div className='bottom_function_function'>
+                            <div className='arrow-up' style={dis_bookmarks}>
+                                <div className='function-text' style={dis_bookmarks}>已儲存的地點</div>
+                            </div>    
+                            <img 
+                                className='bottom_map-back-to-current' 
+                                src={require('../../source/bookmark_coll.png')} 
+                                onMouseOver={onMouseOver_bookmarks}
+                                onMouseOut={onMouseOut_bookmarks}
+                                onClick={onClick_bookmarks}
+                            />
+                        </div>
+                        <div className='bottom_function_function'>
+                            <div className='arrow-up' style={dis_comments}>
+                                <div className='function-text' style={dis_comments}>已寫下的留言</div>
+                            </div>
+                            <img 
+                                className='bottom_map-back-to-current' 
+                                src={require('../../source/comment_coll.png')} 
+                                onMouseOver={onMouseOver_comments}
+                                onMouseOut={onMouseOut_comments}
+                                onClick={onClick_comments}
+                            />
+                        </div>
+                        <div className='bottom_function_filter'>
+                            {/* <div className='filter_text' style={dis_filter}>進階篩選</div> */}
+                                <div className='arrow-up' style={dis_filter}>
+                                    <div className='filter_text' style={dis_filter}>進階篩選</div>
+                                </div>
+                            <img 
+                                className='bottom_filter_text' 
+                                src={require('../../source/filter.png')} 
+                                onMouseOver={onMouseOver_filter}
+                                onMouseOut={onMouseOut_filter}
+                                onClick={onClick_filter}
+                            />
+                        </div>
                     </div>
-                </div>
-            {/* </div> */}
-        </div>
+                {/* </div> */}
+            </div>
+            <Lil_bookmarks/>
+        </>
     )
 }
 
