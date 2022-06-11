@@ -1,7 +1,7 @@
 import React , { useState , useContext } from 'react'
 import { GoogleMap } from '@react-google-maps/api'
 import './back_to_current.css'
-import Lil_bookmarks from './Lil_bookmarks/lil_bookmarks'
+// import Lil_bookmarks from './Lil_bookmarks/lil_bookmarks'
 import { Google_user } from '../../Component/ContextFolder/context_folder'
 import { E_and_P_user } from "../../Component/ContextFolder/context_folder";
 import { AlertFrame } from '../../Component/ContextFolder/context_folder'
@@ -56,7 +56,7 @@ const BackToCurrent = ({ if_center_move , map_obj }) => {
             setBright({filter: 'brightness(0.6)'})
             return
         }
-        setBookmarks_click(<Lil_bookmarks/>)
+        // setBookmarks_click(<Lil_bookmarks/>)
     }
 
     const onMouseOver_comments = () => {
@@ -147,7 +147,7 @@ const BackToCurrent = ({ if_center_move , map_obj }) => {
                     </div>
                 {/* </div> */}
             </div>
-            <Lil_bookmarks/>
+            {/* <Lil_bookmarks/> */}
         </>
     )
 }
