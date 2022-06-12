@@ -102,20 +102,44 @@ const CheckBookmarks = ({ info_board , get_user_data , inner , confirm_hover , s
             if(data['user_collection'][0]===undefined){
                 console.log('沒有任何資料')
             }else{
-                data['user_collection'].map(item=>{
-                    console.log(item)
-                    console.log(item['info']['place']===inner['公廁名稱'])
-                    console.log(item['info']['place']+'='+inner['公廁名稱'])
+
+                // let i=0
+                for (const item of data['user_collection']) {
                     if(item['info']['place']===inner['公廁名稱']){
                         setBookmarks_current(true)
                         setBookmarks_color(require('../../../source/mark_yellow.png')) 
+                        console.log('我有存啊')
                         return
                     }else{
                         setBookmarks_current(false)
                         setBookmarks_color(require('../../../source/mark_white.png')) 
-                        return
                     }
-                })
+                    // if(i==2){
+                    //     return
+                    // }
+                    console.log(item)
+                    console.log(item['info']['place']===inner['公廁名稱'])
+                    console.log(item['info']['place']+'='+inner['公廁名稱'])
+                    // console.log(i)
+                    // i++
+
+                }
+
+                // data['user_collection'].map(item=>{
+                //     console.log(item)
+                //     console.log(item['info']['place']===inner['公廁名稱'])
+                //     console.log(item['info']['place']+'='+inner['公廁名稱'])
+                //     if(item['info']['place']===inner['公廁名稱']){
+                //         setBookmarks_current(true)
+                //         setBookmarks_color(require('../../../source/mark_yellow.png')) 
+                //         console.log('我有存啊')
+                //         return
+                //     }else{
+                //         setBookmarks_current(false)
+                //         setBookmarks_color(require('../../../source/mark_white.png')) 
+                //         return
+                //     }
+                // })
             }
             // else{
             //     setBookmarks_current(true)
