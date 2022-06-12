@@ -49,7 +49,6 @@ const App = () => {
     
   const error = (text) => {
     console.log('我有呼叫')
-  // window.scroll(0, 0);
     setAlert_text(text);
     setAlert_status('ERROR');
   };
@@ -70,55 +69,6 @@ const App = () => {
     setAlert_status(null);
   };
 
-  // const [ alert , set_alert ] = useState ('測試看看')
-  // const [ alert_status , setAlert_status ] = useState(null);
-  // const [ alert_text, setAlert_text ] = useState(null);
-  
-  // const success = (text) => {
-  //   // window.scroll(0, 0);
-  //   setAlert_text(text);
-  //   setAlert_status('SUCCESS');
-  // };
-
-  // const error = (text) => {
-  //   // window.scroll(0, 0);
-  //   setAlert_text(text);
-  //   setAlert_status('ERROR');
-  // };
-  
-  // const clear = () => {
-  //   setAlert_text(null);
-  //   setAlert_status(null);
-  // };
-
-  // const NotificationProvider = (props) => {
-  //   // const [notification, setNotification] = useState(null);
-  //   // const [notificationText, setNotificationText] = useState(null);
-  //   // const success = (text) => {
-  //   //     window.scroll(0, 0);
-  //   //     setNotificationText(text);
-  //   //     setNotification(STATES.SUCCESS);
-  //   // };
-  //   // const error = (text) => {
-  //   //     window.scroll(0, 0);
-  //   //     setNotificationText(text);
-  //   //     setNotification(STATES.ERROR);
-  //   // };
-  //   // const clear = () => {
-  //   //     setNotificationText(null);
-  //   //     setNotification(null);
-  //   // };
-  //   // return (
-  //   //     <NotificationContext.Provider
-  //   //     value={{
-  //   //         success, error, clear, notification, notificationText,
-  //   //     }}
-  //   //     >
-  //   //     {props.children}
-  //   //     </NotificationContext.Provider>
-  //   // );
-  //   };
-
 
   return (
     // <ShouldReload.Provider value={{ should_reload , setShould_reload }}>
@@ -131,20 +81,12 @@ const App = () => {
     <Brightness.Provider value={{ bright , setBright }}>
     <Marker_Data.Provider value={ marker_data_value }>
     <ForDisplay.Provider value={{ for_display , setFor_display }}>
-    {/* <AlertProvider> */}
-    {/* <Alert_Box.Provider> */}
-    {/* <Map_Marker.Provider value={{  map_marker , setMap_Marker }}> */}
       <div className="App">
-      {/* <AlertBox> */}
         <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="map" element={<MapPage />} />
         </Routes>
-      {/* </AlertBox> */}
       </div>
-    {/* </Map_Marker.Provider> */}
-    {/* </Alert_Box.Provider> */}
-    {/* </AlertProvider> */}
     </ForDisplay.Provider>
     </Marker_Data.Provider>
     </Brightness.Provider>

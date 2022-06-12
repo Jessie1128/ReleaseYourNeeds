@@ -67,6 +67,8 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
     //     console.log('螢幕高',height)
     // },[width])
 
+   
+
     useEffect(()=>{
         // function getWindowDimensions() {
         // console.log('螢幕寬',width)
@@ -204,7 +206,7 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
                 // user_collection: firebase.firestore.FieldValue.arrayUnion([inner['公廁名稱']])
             },{ merge : true })
 
-            await setDoc(doc(db, "comments", inner['公廁名稱']+id), {
+            await setDoc(doc(db, "comments", inner['公廁名稱']), {
                 'data': arrayUnion(info_in_array)
                 // user_collection: firebase.firestore.FieldValue.arrayUnion([inner['公廁名稱']])
             },{ merge : true })
@@ -212,6 +214,12 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
             console.log(inner['公廁名稱'])
             console.log(get_user_data)
             console.log('我存好了')
+            success('新增留言成功')
+            setBright({filter: 'brightness(0.8)'})
+            setTimeout(()=>{
+                clear()
+                setBright({filter: 'brightness(1.0)'})
+            },'1500')
             console.log('這邊要做 成功留言 提示框')
             setComment_exist(true)
         } catch (error) {
@@ -229,10 +237,11 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
             // setAlert_status('ERROR')
             // setAlert_text('請縣登入會員')
             success('請先登錄會員')
-            setBright({filter: 'brightness(0.6)'})
+            setBright({filter: 'brightness(0.8)'})
             console.log('請登入會員')
         }else if(user_comments===''){
             success('哎呀！留言內容不能是空白的')
+            setBright({filter: 'brightness(0.8)'})
             // setBright({filter: 'brightness(0.6)'})
             console.log('這邊要做沒有輸入文字的警告')
             setTimeout(() => {                            
@@ -257,7 +266,7 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
             >
                 <div>
                     <div className='user_img_frame'>
-                        { get_user_data===false?(
+                        { get_user_data===false || throught===null?(
                             <></>
                         ):url === 'E&P_noPhotoYet' ? (
                             <div className='user_img_no_photo' style={user_img_display}>{E_and_P_noPhoto}</div>
@@ -287,6 +296,7 @@ const Comments = ({ url , info_board , inner , get_user_data , comment_exist , s
                 setClick_and_more_comments={setClick_and_more_comments}
                 url={url}
                 inner={inner}
+                comment_exist={comment_exist}
                 get_user_data={get_user_data}
                 setComment_exist={setComment_exist}
                 setCommented={setCommented}

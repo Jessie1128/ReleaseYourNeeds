@@ -1,16 +1,19 @@
-import React , { useState , useEffect } from 'react'
+import React , { useState , useEffect , useContext } from 'react'
 import './review_comments.css'
 import LoginStatus from '../LoginStatus/loginStatus'
 import Loading_effect from '../../../Component/LoadingEffect/loadingEffect'
 import { db } from '../../../connection_firebase/connection_firebase'
 import { serverTimestamp , setDoc , addDoc , arrayUnion , arrayRemove , collection , getDocs , doc, query, orderBy , where, startAfter , updateDoc , limit , startAt } from "firebase/firestore";
 import More_Comments from '../MoreComments/more_comments'
+import { LoginThrouht } from '../../Component/ContextFolder/context_folder' 
 
 const Review_Comments = ({ url , info_board , confirm_hover , setConfirm_hover , top , setTop , inner ,  get_user_data ,
-                           click_and_more_comments , setClick_and_more_comments , commented , setCommented , setComment_exist }) => {
+                           click_and_more_comments , setClick_and_more_comments , commented , setCommented , setComment_exist , style_css }) => {
 
+    const { throught } = useContext(LoginThrouht)
     const [ commented_inner , setCommented_inner ] = useState(null)
     const [ commented_time , setCommented_time ] = useState(null)
+    console.log(throught)
 
     useEffect(()=>{
         if(commented===null) return
@@ -39,7 +42,11 @@ const Review_Comments = ({ url , info_board , confirm_hover , setConfirm_hover ,
     }
 
     return (
-        <div style={{display:'block'}}>
+        // <>
+        //     {throught===null || get_user_data===false?(
+        //         <></>
+        //     ):(
+        <div style={style_css}>
             <div className='review_comments_frame'
                 onMouseOver={comments_frame_mouseOver}
                 onMouseOut={comments_frame_mouseOut}
@@ -75,6 +82,8 @@ const Review_Comments = ({ url , info_board , confirm_hover , setConfirm_hover ,
                 setComment_exist={setComment_exist}
             />
         </div>
+        //     )}
+        // </>
     )
 }
 

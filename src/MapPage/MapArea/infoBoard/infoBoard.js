@@ -15,11 +15,13 @@ import { db } from '../../../connection_firebase/connection_firebase';
 import CheckBookmarks from '../CheckBookmarks/check_bookmarks';
 import Review_Comments from '../ReviewComments/review_comments';
 import { LoginThrouht } from '../../../Component/ContextFolder/context_folder';
+import { AlertFrame } from '../../../Component/ContextFolder/context_folder';
 
 
 const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading , loading }) => {
 
     const { throught } = useContext(LoginThrouht)
+    const { alert_text } =useContext(AlertFrame)
     const [ loading_pic , setLoading_pic ] = useState(<Loading_effect/>)
     const [ open_status , setOpen_status ] = useState('')
     const [ weekly_open , setWeekly_open ] = useState('')
@@ -41,10 +43,40 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
     const [ open_or_not , setOpen_or_not ] = useState(false)
     const [ rwd_info_frame_height , setRwd_info_frame_height ] = useState({height:'436px'})
     const [ rwd_info_inner_height , setRwd_info_inner_height ] = useState({height:'76px',overflow:'hidden'})
+    // const [ review_dis , setReview_dis ] = useState({display:''})
+    // const [ comments_dis , setComments_dis ] = useState({display:'none'})
 
     let day=new Date().getDay()
     // let open_status
     // let weekly_open
+    // useEffect(()=>{
+    //     console.log(throught)
+    //     if(throught===null||get_user_data===false){
+    //         // setReview_dis({display:''})
+    //         // setComments_dis({display:'none'})
+    //         console.log('我他媽眼睛要瞎ㄌㄚ')
+    //     }else{
+    //         // setReview_dis({display:'none'})
+    //         // setComments_dis({display:''})
+    //     }
+
+    // },[throught])
+
+    useEffect(()=>{
+        console.log(comment_exist )
+        if(alert_text===null) return 
+        if( alert_text==='登出成功' || alert_text==='登陸成功' ){
+            init_loadBoard()
+            user_data()
+            setComment_exist(false)
+            console.log('要做reload')
+        }
+        if( alert_text==='刪除留言成功') {
+            init_loadBoard()
+            user_data()
+            console.log('要做reload，重新載入留言')
+        }
+    },[alert_text])
 
     let init_loadBoard = () => {
         console.log('哇每開戲呀')
@@ -170,6 +202,7 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
         user_data()
     },[info_board])
 
+
     useEffect(()=>{
         console.log('這邊有')
         if(comment_exist===false){
@@ -183,6 +216,14 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
         }
 
     },[comment_exist])
+
+    // useEffect(()=>{
+    //     if( alert_text==='刪除留言成功'){
+    //         console.log('成功刪掉留言')
+    //     }else{
+
+    //     }
+    // },[alert_text])
 
     // const bookmarks_onOver = () => {
     //     if(!bookmarks_current){
@@ -336,9 +377,10 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
                                 onClick={onClick_for_rwd_img}
                             ></img>
                         </div>
-                        {confirm_botton==='ENTER' ? 
+                        {confirm_botton==='ENTER' || throught===null? 
                             (
                                 <Comments 
+                                    // style_css={review_dis} 
                                     url={login_user_photoUrl}
                                     info_board={info_board}
                                     get_user_data={get_user_data}
@@ -358,6 +400,7 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
                             ) : 
                             (
                                 <Review_Comments 
+                                    // style_css={comments_dis}
                                     url={login_user_photoUrl}
                                     info_board={info_board}
                                     confirm_hover={confirm_hover}

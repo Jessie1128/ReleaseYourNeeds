@@ -17,6 +17,7 @@ import { Marker_Data } from '../../../Component/ContextFolder/context_folder';
 import { AlertFrame } from '../../../Component/ContextFolder/context_folder';
 import { Brightness } from '../../../Component/ContextFolder/context_folder';
 import { Map_Marker } from '../../../Component/ContextFolder/context_folder';
+import GetCurrentTime from '../../GetCurrentTime/get_current_time';
 import { clear } from '@testing-library/user-event/dist/clear';
 
 
@@ -41,8 +42,8 @@ const { innerWidth: width, innerHeight: height } = window;
     //     console.log('螢幕高',height)
     // },[map_width])
 
-const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) => {
-
+const MapFrame = ({ setText , setBack_to_center , filtered_marker , setFiltered_marker , 
+  bookmarks_click , setBookmarks_click , comments_click , setComments_click , map_obj }) => {
 
     // const { innerWidth: width, innerHeight: height } = window;
     // if (width<=620){
@@ -68,12 +69,11 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
     const [ center , setCenter ] = useState ('')
     const [ label , setLabel ] = useState ('目前位置')
     // const [ map_obj , setMap_obj ] = useState ('')
-    const [ filtered_marker , setFiltered_marker ] = useState ([])
     const [ marker_info , setMarker_info ] = useState('')
     const [ info_board , setInfo_board] = useState('')
     const [ if_center_move , setIf_center_move ] = useState('')
-    const map_obj = useRef()
-    let [ loading_effect_height , setLoading_effect_height ] = useState({height:'400px'})
+    // const map_obj = useRef()
+    let [ loading_effect_height , setLoading_effect_height ] = useState({height:'500px'})
     const [ loading , setLoading ] = useState(<Loading_effect loading_effect_height={loading_effect_height}/>)
 
     const get_your_location = () => {
@@ -111,7 +111,7 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
         let min_lng=Number((center['lng']-range).toFixed(6))
         let max_lat=Number((center['lat']+range).toFixed(6))
         let max_lng=Number((center['lng']+range).toFixed(6))
-        // let get_res = collection(db, "test-source");
+        // let get_res = collection(db, "test-source");          // for testing
         // let res = query(get_res, limit(15))
         let get_res = collection(db, "source");
         let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
@@ -172,7 +172,7 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
           const new_marker = result.filter(item => {
               return item['經度'] >= min_lng && item['經度'] <= max_lng && item['緯度'] >= min_lat && item['緯度'] <= max_lat
           });
-          // const new_marker = result
+          // const new_marker = result         // for testing
           return new_marker
         })
         // .then((marker)=>{
@@ -194,10 +194,10 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
       if (minutes<10){
         minutes='0'+minutes
       }
-      console.log(hours)
-      console.log(minutes) 
-      console.log(typeof(hours))
-      console.log(typeof(minutes))
+      // console.log(hours)
+      // console.log(minutes) 
+      // console.log(typeof(hours))
+      // console.log(typeof(minutes))
       let times=stringify(hours)+stringify(minutes)
       times=times.replace('"', '')
       times=times.replace('"', '')
@@ -301,10 +301,10 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
         }
       })
       
-      console.log(JSON.stringify(filtered_marker))  
-      console.log('好了')
+      // console.log(JSON.stringify(filtered_marker))  
+      // console.log('好了')
       setFiltered_marker(filtered_marker)
-      console.log('好了好了好了')
+      // console.log('好了好了好了')
     }
 
 
@@ -330,7 +330,10 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
             },'1500')
             return
           }
-          get_current_time(res)
+          let next_step = new GetCurrentTime ( res , map_obj , setFiltered_marker)
+          next_step.get_current_time()
+          console.log(next_step)
+          // get_current_time(res)
         }
       }
       get_marker_info()
@@ -364,27 +367,12 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
     }).isLoaded
 
     if( !isLoaded ) {
-      // console.log("正在跑啊 正在跑啊 正在跑啊 正在跑啊 正在跑啊")
       return (
         <Loading_effect loading_effect_height={loading_effect_height}/>
-        // <div className='loading_effect'>
-          // <div className='loading_effect_inner'>Loading。。。</div>
-        // </div>
       )
-    } //else {
-    //   // console.log("跑出來了 跑出來了 跑出來了 跑出來了 跑出來了")
-    //   // console.log(isLoaded)
-    // }
-
-    // if( loadError ) return 'Error when Loading !'
+    }
 
     return (
-      // <div style={{
-      //   width: '600px',
-      //   height: '600px',
-      //   // background: '#fff',
-      //   borderRadius: '5px',
-      // }}>88888888</div>
       <GoogleMap
         zoom={15}
         center={center}
@@ -404,24 +392,6 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
           // // console.log(ori_map)
           // setBack_to_center(ori_map)}          
         }
-        
-        // onZoomChanged={()=>{
-        //   if(map_obj.current.zoom===undefined){
-        //     return
-        //   }else{
-        //     if(map_obj.current.zoom<=13){
-        //       setFiltered_marker(<Marker option={{visible: false}}/>)
-        //     }
-        //   }
-        //   // console.log('change')
-        //   // console.log(map_obj.current.zoom)
-        // }}
-
-        // onDrag={()=>{
-        //   // console.log("我正在拖曳")
-
-        // }}
-
 
         onClick={(e) => {
           console.log('google map 被點擊')
@@ -472,7 +442,6 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
                 loading={loading}
                 setLoading={setLoading}
               />
-              
             )
           })
         }
@@ -481,30 +450,28 @@ const MapFrame = ({ setText , setBack_to_center , login_name , setLogin_name }) 
           position={center}
           icon={require('../../../source/current_place.png')}
           onLoad={()=>{
-            // setIf_center_move(center)
             setMarker_info(<MarkerInfo center={center} inner={label} />)  
           }}
 
           onMouseOver={()=>{
-            console.log('rrrrrrr')
-            // setIf_center_move(center)
-            // setMarker_info(<MarkerInfo center={center} inner={label} />)  
           }}
 
           onClick={(e) => {
-            // console.log(e.latLng)
-            // console.log("latitude = ", e.latLng.lat());
-            // console.log("longitude = ", e.latLng.lng());
           }}
         >
         </Marker>
-        {/* {loading} */}
         {info_board}
         {marker_info}
-        {/* <div className='bottom_function'> */}
-          {/* {my_collection} */}
-          <BackToCurrent if_center_move={if_center_move}  map_obj={map_obj} />
-        {/* </div> */}
+          <BackToCurrent 
+            if_center_move={if_center_move}  
+            map_obj={map_obj} 
+            filtered_marker={filtered_marker}
+            setFiltered_marker={setFiltered_marker}
+            bookmarks_click={bookmarks_click} 
+            setBookmarks_click={setBookmarks_click}
+            comments_click={comments_click}
+            setComments_click={setComments_click}
+          />
       </GoogleMap>
     )
 }
@@ -513,25 +480,3 @@ export default MapFrame;
 
 
 
-
-{/* <Marker 
-  position={new_lat_lng}  
-  icon={icon}
-  key={Number((item["緯度"]))+Number((item["經度"]))}
-  onMouseOver={(e)=>{
-    console.log('觸發')
-    setMarker_info(
-      <MarkerInfoLabel 
-        center={new_lat_lng} 
-        inner={item} 
-        setMarker_info={setMarker_info} 
-        // map_obj={map_obj}
-        setInfo_board={setInfo_board}
-        info_board={info_board}
-        map_itself={map_obj}
-        loading={loading}
-        setLoading={setLoading}
-      />
-    )  
-  }}
-/>  */}

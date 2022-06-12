@@ -2,7 +2,8 @@ import React , { useContext } from 'react';
 import { AlertFrame } from '../ContextFolder/context_folder';
 import { Brightness } from '../ContextFolder/context_folder';
 
-const CloseBotton = ({ setMarker_info , setInfo_board , setLogin_board , setAlert_box }) =>{
+const CloseBotton = ({ setMarker_info , setInfo_board , setLogin_board , setAlert_box , 
+                       setDis_comment_box , setDis_bookmarks_box }) =>{
 
     const { setBright } = useContext(Brightness)
     const { clear } =useContext(AlertFrame)
@@ -58,6 +59,10 @@ const CloseBotton = ({ setMarker_info , setInfo_board , setLogin_board , setAler
             clear()
             setAlert_box('')
             setBright({filter: 'brightness(1.0)'})
+        }else if ( setDis_comment_box != undefined ){
+            setDis_comment_box({display:'none'})
+        }else if ( setDis_bookmarks_box != undefined ){
+            setDis_bookmarks_box({display:'none'})
         }
     }
 

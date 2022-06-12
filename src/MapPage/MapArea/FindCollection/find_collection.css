@@ -1,0 +1,148 @@
+.find_coll_frame {
+    display: grid;
+    grid-auto-flow: row;
+    justify-content: center;
+}
+
+.rwd-area {
+    display: none;
+}
+
+.find_coll_coll {
+    display: block;
+    background: #cdcdcd;
+    width: 230px;
+    /* height: 280px; */
+    border-radius: 5px;
+    margin-top: 14px;
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.find_coll_comm {
+    display: block;
+    background: #cdcdcd;
+    width: 230px;
+    /* height: 280px; */
+    border-radius: 5px;
+    margin-top: 14px;
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+/* .find_coll_inner {
+    height:60px;
+} */
+
+.find_coll_text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    width:100px;
+    height:18px;
+    margin: 10px 20px 5px;
+    padding: 5px;
+    color:#dcdcdc;
+    background-color: rgb(57, 62, 65, 0.6);
+    border-radius: 5px;
+}
+
+.find_coll_hr {
+    width:200px;
+    border: 1px solid #393E41;
+    margin-top: -4px;
+}
+
+.find_coll_open {
+    display: flex;
+}
+
+.find_coll_open_text {
+    font-size: 12px;
+    font-weight: normal;
+    width: 60px;
+    height: 20px;
+    margin-top: 24px;
+    color: #393E41;
+}
+
+.find_coll_open_text:hover {
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+}
+
+.find_coll_fetch {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    width: 200px;
+    height: 224px;
+    /* background: rgb(57, 62, 65, 0.3); */
+}
+
+.find_coll_start {
+    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 190px;
+    height: 216px;
+}
+
+.plz_login {
+    font-size: 14px;
+    font-weight: normal;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+
+@media screen and (max-width: 1000px) {
+
+    .find_coll_coll {
+        width: 200px;
+    }
+    
+    .find_coll_comm {
+        width: 200px;
+    }
+
+    .find_coll_text {
+        font-size: 14px;
+        width:90px;
+        margin-right: 10px;
+    }
+
+    .find_coll_hr {
+        width:180px;
+    }
+
+    .plz_login {
+        font-size: 13px;
+    }
+
+    .find_coll_fetch {
+        width: 180px;
+    }
+
+    .find_coll_start {
+        width: 170px;
+    }
+
+}
+
+@media screen and (max-width: 930px) {
+
+    .function-area {
+        display: none;
+    }
+
+}
+

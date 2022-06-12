@@ -80,7 +80,7 @@ const FirebaseLogin = ({ login_status , login_name , login_photo , dis ,
                 }
             }
 
-            
+            setGoogle_user(data)
             console.log('底加底加',user_exist)
             
             // const newData = doc(db, "user", 'abc@gmail.com');
@@ -207,7 +207,6 @@ const FirebaseLogin = ({ login_status , login_name , login_photo , dis ,
         })
         .then(result=>{
             console.log('逼逼八八',result)
-            setGoogle_user(result)
             setThrought('google')
             console.log('應該先做一個登入成功視窗，重新整理畫面我在想一些辦法')
             success('登陸成功')

@@ -61,27 +61,27 @@ const SearchPlace = () => {
         // console.log(filter_info)
     }
 
-    const rrr = (e) => {
-        console.log(e)
-        console.log(e.target)
-        console.log(e.target.id)
-        console.log(e.target.value)
-        console.log(e.target.checked)
-        if(e.target.checked){
+    // const rrr = (e) => {
+    //     console.log(e)
+    //     console.log(e.target)
+    //     console.log(e.target.id)
+    //     console.log(e.target.value)
+    //     console.log(e.target.checked)
+    //     if(e.target.checked){
 
-        }else{
+    //     }else{
 
-        }
-    }
+    //     }
+    // }
 
     return(
          <div className='function-area'>
             <div className='function-icon'>
                 <input className="function-search-bar" placeholder='輸入關鍵字'></input>
             </div>
-            { marker_data===undefined? ( 
+            {/* { marker_data===undefined? ( 
                 {loading}
-            ):(
+            ):( */}
                 <div className='search_place_frame'>
                     <div className='search_place'>
                         <div className='search_place_text'>以當前位置搜尋</div>
@@ -100,7 +100,7 @@ const SearchPlace = () => {
                             <span className="checkmark"></span>
                         </label>
 
-{/*                         
+                        {/*                         
                         <div className='checkbox_frame'>
                             <input type="checkbox" className='search_place_circle' onClick={info.bind(null,'無障礙廁所')}></input>
                         </div>
@@ -123,7 +123,7 @@ const SearchPlace = () => {
                         {/* </div> */}
                     </div>
                 </div>
-            )}
+            {/* )} */}
         </div>
     )
 }

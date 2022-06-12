@@ -3,7 +3,10 @@ import '../more_comments.css'
 import { deleteField , setDoc ,  deleteDoc , getDoc , getDocs , doc, query, orderBy , where, startAfter , updateDoc , limit , startAt, arrayRemove } from "firebase/firestore";
 import { db } from "../../../../connection_firebase/connection_firebase";
 import { E_and_P_user } from "../../../../Component/ContextFolder/context_folder";
+import { Google_user } from "../../../../Component/ContextFolder/context_folder";
+import { AlertFrame } from "../../../../Component/ContextFolder/context_folder";
 import { LoginThrouht } from "../../../../Component/ContextFolder/context_folder";
+import { Brightness } from "../../../../Component/ContextFolder/context_folder";
 // import { AlertFrame } from "../../../../Component/ContextFolder/context_folder";
 // import { Brightness } from "../../../../Component/ContextFolder/context_folder";
 
@@ -13,42 +16,53 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
     // const { error , success , clear } = useContext(AlertFrame)
     // const { bright , setBright } = useContext(Brightness)
     const { throught } = useContext(LoginThrouht)
+    const { setBright } = useContext(Brightness)
     const { e_and_p_user } = useContext(E_and_P_user)
+    const { google_user } = useContext(Google_user)
+    const { success , alert_text , clear } = useContext(AlertFrame)
     const [ edit_text , setEdit_text ] = useState(null)
     const [ editable , setEditable ] = useState(false)
     const [ editable_style , setEditable_style ] = useState('show_review_user_inner')
     let [ display , setDisplay ] = useState({display:'none'})
     const [ ori_text , setOri_text ] = useState(commented_inner)
-    // console.log(user_Name)
-    // console.log(url)
-    // console.log(url)
-    //     console.log(throught)
 
-    // let [ E_and_P_noPhoto , setE_and_P_noPhoto ] = useState(null) // 這邊先處理 E&P 的暫定大頭照
 
     useEffect(()=>{
-        // console.log(url)
-        // console.log(throught)
-        // console.log('看看有幾個u',E_and_P_noPhoto)
-        // console.log(e_and_p_user)
-        // console.log(url)
-        // console.log(get_user_data)
-        // console.log(e_and_p_user['no_photo'])
-        // console.log('改')
         if(get_user_data===undefined||get_user_data===''||get_user_data===null||get_user_data===false){
             return
+        }else{
+
         }
-        console.log('有')
-        // else if( url==='E&P_noPhotoYet'){
-        //     console.log(get_user_data)
-        //     console.log(get_user_data['login_user'])
-        //     console.log(get_user_data['login_user']['photoURL'])
-        //     setE_and_P_noPhoto(get_user_data['login_user']['email'].charAt(0))
-        //     console.log('幹',get_user_data['login_user']['email'].charAt(0))
-        //     console.log(E_and_P_noPhoto)
-        // }
         setOri_text(commented_inner)
     },[commented_inner])
+
+    useEffect(()=>{
+        if( alert_text==='刪除留言成功'){
+            console.log('成功刪掉留言')
+            let email
+            if( e_and_p_user!=null){
+                console.log(e_and_p_user)
+                console.log('從帳號密碼登陸')
+                if(e_and_p_user['user']['email']===undefined){
+                    email=e_and_p_user['user']['login_user']['email']
+                }else{
+                    email=e_and_p_user['user']['email']
+                }
+                console.log(email)
+            }else{
+                console.log(google_user)
+                console.log('從google登陸')
+                if(email=google_user['email']===undefined){
+                    email=google_user['login_user']['email']
+                }else{
+                    email=google_user['email']
+                }
+            }
+            // get_comments_data(email)
+        }else{
+            return
+        }
+    },[alert_text])
 
     // const [ height , setHeight ] = useState(null)
 
@@ -146,6 +160,19 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
         // setTop({top:'480px'})
     }
 
+    const set_set = () => {
+        setTop({top:'480px'})
+        setComment_exist(false)
+        setCommented(null)
+        setClick_and_more_comments('查看更多評論...')
+        success('刪除留言成功')
+        setBright({filter: 'brightness(0.8)'})
+        setTimeout(()=>{
+            clear()
+            setBright({filter: 'brightness(1.0)'})
+        },'1500')
+    }
+
     const delete_mes = async(e) => {
         let email = get_user_data['login_user']['email']
         let place = inner['公廁名稱']
@@ -157,7 +184,7 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
                 user_comments : { [`${place}`] : deleteField() }
             } , { merge : true } );
 
-            const docRef = doc(db, "comments", inner['公廁名稱']+id);
+            const docRef = doc(db, "comments", inner['公廁名稱']);
             const docSnap = await getDoc( docRef );
             let res = docSnap.data()
             console.log(res)
@@ -166,19 +193,23 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
                 console.log('我這邊要直接回應沒有留言')
             } 
             console.log(new_res)
-            await updateDoc(doc(db, "comments", inner['公廁名稱']+id), {
+            let ans = await updateDoc(doc(db, "comments", inner['公廁名稱']), {
                 data: new_res
                 // user_collection: firebase.firestore.FieldValue.arrayUnion([inner['公廁名稱']])
             })
+            set_set()
+
+            console.log(ans)
+            
             console.log('這邊要做 成功 刪除留言提示框')
             if( JSON.stringify(new_res) == JSON.stringify([])){
                 console.log('我這邊要直接回應沒有留言')
             } 
-            setGet_exist_comment(false)
-            setTop({top:'480px'})
-            setComment_exist(false)
-            setCommented(null)
-            setClick_and_more_comments('查看更多評論...')
+            // setGet_exist_comment(false)
+            // setTop({top:'480px'})
+            // setComment_exist(false)
+            // setCommented(null)
+            // setClick_and_more_comments('查看更多評論...')
             // setBright({filter: 'brightness(0.6)'})
             // success('刪除留言成功')
             // setTimeout(() => {
@@ -188,6 +219,13 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
             // }, "1000")
             // setTop({top:'480px'})
             // reverse_array(new_res)
+
+            // success('刪除留言成功')
+            // setBright({filter: 'brightness(0.8)'})
+            // setTimeout(()=>{
+            //     clear()
+            //     setBright({filter: 'brightness(1.0)'})
+            // },'1500')
         } catch (e) {
             console.log(e)
             console.log('這邊要做刪除留言 失敗 提示框')
@@ -208,8 +246,7 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
                         <div className='inner_img_frame'>
                             <div className='inner_img_no_photo'>{user_Name.charAt(0)}</div>   {/* 這邊是給測試帳號的照片 */}
                         </div>
-                    )
-                    :url === 'E&P_noPhotoYet'? (     
+                    ):url === 'E&P_noPhotoYet'? (     
                         <div className='inner_img_frame'>
                             <div className='inner_img_no_photo'>{e_and_p_user['no_photo']}</div>  {/* 這邊是給 E&P 登陸的帳號照片，.charAt(0)設定會報錯，待解決  */}
                         </div>     

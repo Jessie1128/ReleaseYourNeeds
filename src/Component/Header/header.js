@@ -112,8 +112,9 @@ const Header = () =>{
         let auth = getAuth();
         let ans = await signOut(auth)
         console.log(ans)
-        success('登出成功！')
-        setBright({filter: 'brightness(0.6)'})
+        success('登出成功')
+        setE_and_p_user(null)
+        setBright({filter: 'brightness(0.8)'})
         setThrought(null)
         setTimeout(() => {
             clear()
@@ -122,20 +123,20 @@ const Header = () =>{
         }, "1500")
     }
 
-    useEffect(()=>{
-        if( e_and_p_user===null || e_and_p_user==='' || e_and_p_user===undefined ) return
-        clear()
-        // success('登陸成功')                    ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊      
-        // setFor_display({display:'none'})      ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊
-        console.log('我要看這邊',e_and_p_user)
-        console.log('我要看這邊',e_and_p_user['displayName'])
-        console.log('我要看這邊',e_and_p_user['user'])
-        // setTimeout(() => {                              ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊
-        //     clear()
-        //     setBright({filter: 'brightness(1.0)'})
-        //     console.log("Delayed for 2 second.");
-        // }, "1500")                                      ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊
-    },[e_and_p_user])
+    // useEffect(()=>{
+    //     if( e_and_p_user===null || e_and_p_user==='' || e_and_p_user===undefined ) return
+    //     clear()
+    //     // success('登陸成功')                    ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊      
+    //     // setFor_display({display:'none'})      ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊
+    //     console.log('我要看這邊',e_and_p_user)
+    //     console.log('我要看這邊',e_and_p_user['displayName'])
+    //     console.log('我要看這邊',e_and_p_user['user'])
+    //     // setTimeout(() => {                              ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊
+    //     //     clear()
+    //     //     setBright({filter: 'brightness(1.0)'})
+    //     //     console.log("Delayed for 2 second.");
+    //     // }, "1500")                                      ← ← ← ← ← 會造成驗證使用者是否登陸的時候，一直自己跳出來，不要放這邊
+    // },[e_and_p_user])
 
     const login_or_logout = () => {
         if(login_status==='SIGN IN'){

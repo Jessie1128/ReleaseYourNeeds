@@ -1,17 +1,19 @@
-import React , { Fragment , useState , useEffect } from 'react'
+import React , { Fragment , useState , useEffect , useContext } from 'react'
 import Loading_effect from '../../../Component/LoadingEffect/loadingEffect'
 import './more_comments.css'
 import { getDoc , getDocs , doc, query, orderBy , where, startAfter , updateDoc , limit , startAt } from "firebase/firestore";
 import { db } from '../../../connection_firebase/connection_firebase';
 import MoreCommentsComments from './MoreComments-comments/more_comments_comments';
+import { LoginThrouht } from '../../../Component/ContextFolder/context_folder'; 
 
-const More_Comments = ({ url , info_board ,  top , setTop , commented , setCommented , inner , get_user_data ,
+const More_Comments = ({ url , info_board ,  top , setTop , commented , setCommented , inner , get_user_data , comment_exist , 
                          click_and_more_comments , setClick_and_more_comments , commented_inner , commented_time , setComment_exist }) => {
 
     // let [ top , setTop ] = useState ({top:'480px'})
-    // let [ click_and_more_comments , setClick_and_more_comments ] = useState ('查看更多留言...')
+    // let [ click_and_more_comments , setClick_and_more_comments ] = useState ('查看更多留言...') 
     let [ loading , setLoading ] = useState (<Loading_effect loading_effect_height={{height:'200px'}}/>)
     const [ get_exist_comment , setGet_exist_comment] = useState(false)
+    const { throught } = useContext(LoginThrouht)
     let [ fillter_comments , setFiltered_comments ] = useState([])
     let [ data , setData ] = useState(null)
     // let [ E_and_P_noPhoto , setE_and_P_noPhoto ] = useState(null) // 這邊先處理 E&P 的暫定大頭照
@@ -44,19 +46,20 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , setComme
 
     const get_all_user_comments = async() => {
         console.log('我要看')
-        if(get_exist_comment===true) return 
+        // if(get_exist_comment===true) return 
         // 這邊要打資料ㄧㄛ
         console.log(inner)
         let id=(inner['公廁名稱'].length)*(inner['緯度']+inner['經度'])
         console.log(id)
 
-        const docRef = doc(db, "comments", inner['公廁名稱']+id);
+        const docRef = doc(db, "comments", inner['公廁名稱']);
         const docSnap = await getDoc(docRef);
+
 
         let info=[]
         if (docSnap.exists()) {
             let res=docSnap.data().data
-
+            console.log(res)
             res=res.reverse()
             let i=0
             // let info=[]
@@ -91,7 +94,7 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , setComme
         }
         console.log('順序2')
         // console.log(JSON.stringify(res))
-        setGet_exist_comment(true)
+        // setGet_exist_comment(true)
         setLoading('')
         setFiltered_comments(info)
     }
@@ -123,28 +126,30 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , setComme
             <div style={top} className='more_comments_board'>
                 <div style={{display:'block'}}>
                     { data }          
-                    { commented===undefined || null ? 
-                        (<></>) : 
-                        (
-                            <>
-                                <MoreCommentsComments 
-                                    url={url}
-                                    background={{background:'rgb(58, 68, 69, 0.3)'}}
-                                    commented_time={commented_time}
-                                    commented_inner={commented_inner}
-                                    inner={inner}
-                                    get_user_data={get_user_data}
-                                    setFiltered_comments={setFiltered_comments}
-                                    setGet_exist_comment={setGet_exist_comment}
-                                    // setCommented={setCommented}
-                                    setTop={setTop}
-                                    setComment_exist={setComment_exist}
-                                    setCommented={setCommented}
-                                    setClick_and_more_comments={setClick_and_more_comments}
-                                />
-                                <hr style={{border:'1px solid #000'}}/>
-                            </>
-                        ) 
+                    { get_user_data===false || throught===null ? (
+                        <></>
+                    ) :commented===undefined || null ? (
+                        <></>
+                    ) : (
+                        <>
+                            <MoreCommentsComments 
+                                url={url}
+                                background={{background:'rgb(58, 68, 69, 0.3)'}}
+                                commented_time={commented_time}
+                                commented_inner={commented_inner}
+                                inner={inner}
+                                get_user_data={get_user_data}
+                                setFiltered_comments={setFiltered_comments}
+                                setGet_exist_comment={setGet_exist_comment}
+                                // setCommented={setCommented}
+                                setTop={setTop}
+                                setComment_exist={setComment_exist}
+                                setCommented={setCommented}
+                                setClick_and_more_comments={setClick_and_more_comments}
+                            />
+                            <hr style={{border:'1px solid #000'}}/>
+                        </>
+                    ) 
                     }
                     { loading }
                     {   

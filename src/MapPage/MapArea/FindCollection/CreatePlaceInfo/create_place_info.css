@@ -1,0 +1,121 @@
+.frame_frame {
+    display: flex;
+    justify-content: center;
+}
+
+.coll_frame {
+    height: auto;
+    width:164px;
+    background: rgba(57, 62, 65, 0.3);
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    /* margin-left: 2px;
+    margin-right: 2px; */
+    padding:5px;
+    height: 46px;
+}
+
+.coll_frame_place {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    height: 14px;
+    font-weight: bold;
+    /* background: lawngreen; */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.coll_frame_cancel {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin-top: 8px;
+}
+
+.coll_cancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:50px;
+    margin-left: 0px;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    background: rgb(220, 220, 220, 0.7);
+    border-radius: 5px;
+}
+
+.coll_cancel:hover,
+.coll_go_there:hover {
+    cursor: pointer;
+    border: #393E41 2px solid;
+}
+
+.coll_go_there {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    width: 64px;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    background: rgb(220, 220, 220, 0.7);
+    border-radius: 5px;
+}
+/* .coll_hr {
+    width:160px;
+    border: 1px solid #393E41;
+    margin-top: 2px;
+} */
+
+
+@media screen and (max-width: 1000px) {
+    
+    .coll_frame {
+        width:146px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .coll_frame_place {
+        font-size: 13px;
+    }
+    
+    .coll_frame_cancel {
+        margin-left: 3px;
+    }
+
+    .coll_cancel {
+        margin-left: 0px;
+        padding: 5px 2px 5px;
+        font-size: 11px;
+    }
+    
+    .coll_go_there {
+        padding: 5px 2px 5px;
+        font-size: 11px;
+    }
+    /* .comm_text_place {
+        width:100px;
+    }
+    
+    .comm_text_time {
+        transform: scale(0.8); 
+        transform-origin: 0 0; 
+    }
+    
+    .comm_text_comments {
+        background: rgba(220, 220, 220, 0.7);
+        height: auto;
+        font-size: 12px;
+        padding: 5px 5px 5px;
+        border-radius: 5px;
+    } */
+
+}

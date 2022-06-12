@@ -107,6 +107,7 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
                 info['no_photo']=info['displayName'].charAt(0)
             }
             console.log('我希望資料完整',info)
+            clear()
             setEmail_value('')
             setPassword_value('')
             setName_value('')
@@ -117,6 +118,7 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
             setTimeout(() => {
                 clear()
                 setBright({filter: 'brightness(1.0)'})
+                // setFor_display({display:'none'})
                 console.log("Delayed for 2 second.");
             }, "1500")
         } catch (e) {
