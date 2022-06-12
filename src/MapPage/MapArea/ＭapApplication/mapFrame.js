@@ -111,10 +111,10 @@ const MapFrame = ({ setText , setBack_to_center , filtered_marker , setFiltered_
         let min_lng=Number((center['lng']-range).toFixed(6))
         let max_lat=Number((center['lat']+range).toFixed(6))
         let max_lng=Number((center['lng']+range).toFixed(6))
-        let get_res = collection(db, "test-source");          // for testing
-        let res = query(get_res, limit(15))
-        // let get_res = collection(db, "source");
-        // let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
+        // let get_res = collection(db, "test-source");          // for testing
+        // let res = query(get_res, limit(15))
+        let get_res = collection(db, "source");
+        let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
         let snapshot = await getDocs(res);
         let i=0
         let result=[]
@@ -169,10 +169,10 @@ const MapFrame = ({ setText , setBack_to_center , filtered_marker , setFiltered_
           min_lng=Number((center['lng']-0.003).toFixed(6))
           max_lat=Number((center['lat']+0.003).toFixed(6))
           max_lng=Number((center['lng']+0.003).toFixed(6))
-          // const new_marker = result.filter(item => {
-          //     return item['經度'] >= min_lng && item['經度'] <= max_lng && item['緯度'] >= min_lat && item['緯度'] <= max_lat
-          // });
-          const new_marker = result         // for testing
+          const new_marker = result.filter(item => {
+              return item['經度'] >= min_lng && item['經度'] <= max_lng && item['緯度'] >= min_lat && item['緯度'] <= max_lat
+          });
+          // const new_marker = result         // for testing
           return new_marker
         })
         // .then((marker)=>{
