@@ -31,6 +31,8 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
 
 
     useEffect(()=>{
+        setPassword_value('user22')
+        setEmail_value('user2@user2.com')
         if( throught===null && JSON.stringify(for_display)===JSON.stringify({display: ''}) ){     // for login box alertBox 被關掉 filter 會變
             console.log('??????????????????????????????????')
             setBright({filter: 'brightness(0.6)'})
@@ -47,7 +49,6 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
             setHeight(null)
             setHint(null)
             setMargin({marginTop:'10px'})
-            // setMes('')
             setEmail_value('')
             setPassword_value('')
             setName_value('')
@@ -57,7 +58,6 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
             setHeight(null)
             setHint(null)
             setMargin({marginTop:'10px'})
-            // setMes('')
             setEmail_value('')
             setPassword_value('')
             setName_value('')

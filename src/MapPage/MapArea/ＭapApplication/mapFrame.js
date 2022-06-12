@@ -61,6 +61,8 @@ const MapFrame = ({ setText , setBack_to_center , filtered_marker , setFiltered_
     //     console.log('螢幕寬',width)
     //     console.log('螢幕高',height)
     // },[map_width])
+    let test = new GoogleMap
+    console.log(test.options)
     const { error , clear} = useContext(AlertFrame)
     const { setBright } = useContext(Brightness)
     const { marker_data , setMarker_data } = useContext(Marker_Data)
@@ -111,10 +113,10 @@ const MapFrame = ({ setText , setBack_to_center , filtered_marker , setFiltered_
         let min_lng=Number((center['lng']-range).toFixed(6))
         let max_lat=Number((center['lat']+range).toFixed(6))
         let max_lng=Number((center['lng']+range).toFixed(6))
-        // let get_res = collection(db, "test-source");          // for testing
-        // let res = query(get_res, limit(15))
-        let get_res = collection(db, "source");
-        let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
+        let get_res = collection(db, "test-source");          // for testing
+        let res = query(get_res, limit(15))
+        // let get_res = collection(db, "source");
+        // let res = query(get_res, where("緯度", ">=", min_lat), where("緯度", "<=", max_lat));  
         let snapshot = await getDocs(res);
         let i=0
         let result=[]
@@ -165,14 +167,14 @@ const MapFrame = ({ setText , setBack_to_center , filtered_marker , setFiltered_
         })
         .then(()=>{
           console.log(marker_data)
-          min_lat=Number((center['lat']-0.003).toFixed(6))
-          min_lng=Number((center['lng']-0.003).toFixed(6))
-          max_lat=Number((center['lat']+0.003).toFixed(6))
-          max_lng=Number((center['lng']+0.003).toFixed(6))
-          const new_marker = result.filter(item => {
-              return item['經度'] >= min_lng && item['經度'] <= max_lng && item['緯度'] >= min_lat && item['緯度'] <= max_lat
-          });
-          // const new_marker = result         // for testing
+          min_lat=Number((center['lat']-0.005).toFixed(6))
+          min_lng=Number((center['lng']-0.005).toFixed(6))
+          max_lat=Number((center['lat']+0.005).toFixed(6))
+          max_lng=Number((center['lng']+0.005).toFixed(6))
+          // const new_marker = result.filter(item => {
+          //     return item['經度'] >= min_lng && item['經度'] <= max_lng && item['緯度'] >= min_lat && item['緯度'] <= max_lat
+          // });
+          const new_marker = result         // for testing
           return new_marker
         })
         // .then((marker)=>{
@@ -324,10 +326,10 @@ const MapFrame = ({ setText , setBack_to_center , filtered_marker , setFiltered_
           if( JSON.stringify(res) === JSON.stringify([]) ){
             setBright({filter: 'brightness(0.6)'})
             error('哎呀！此地點位置的500公尺內 沒有任何廁所')
-            setTimeout(()=>{
-              setBright({filter: 'brightness(1.0)'})
-              clear()
-            },'1500')
+            // setTimeout(()=>{
+            //   setBright({filter: 'brightness(1.0)'})
+            //   clear()
+            // },'1500')
             return
           }
           let next_step = new GetCurrentTime ( res , map_obj , setFiltered_marker)
@@ -379,6 +381,7 @@ const MapFrame = ({ setText , setBack_to_center , filtered_marker , setFiltered_
         mapContainerStyle={containerStyle}
         streetView={false}
         options={{
+          gestureHandling: 'greedy',  // 手機單指就可以移動
           styles: googleMapStyles,
           streetViewControl:false,
           mapTypeControl:false,

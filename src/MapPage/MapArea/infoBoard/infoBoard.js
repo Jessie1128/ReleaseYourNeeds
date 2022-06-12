@@ -41,8 +41,8 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
     const [ commented , setCommented ] = useState (null)
     const [ for_rwd , setFor_rwd ] = useState('hamburger')
     const [ open_or_not , setOpen_or_not ] = useState(false)
-    const [ rwd_info_frame_height , setRwd_info_frame_height ] = useState({height:'436px'})
-    const [ rwd_info_inner_height , setRwd_info_inner_height ] = useState({height:'76px',overflow:'hidden'})
+    const [ rwd_info_frame_height , setRwd_info_frame_height ] = useState({height:'480px'})
+    const [ rwd_info_inner_height , setRwd_info_inner_height ] = useState({height:'154px'})
     // const [ review_dis , setReview_dis ] = useState({display:''})
     // const [ comments_dis , setComments_dis ] = useState({display:'none'})
 
@@ -109,8 +109,8 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
             let photo_url_from_api = await url.get_photos();
             console.log( photo_url_from_api )
             if(photo_url_from_api==='no'){
-                setLoading_pic(require('../../../source/no_photo.png'))
-                setPhoto_url()
+                setLoading_pic('')
+                setPhoto_url(require('../../../source/no_photo.png'))
             }else{
                 console.log( photo_url_from_api )
                 setLoading_pic('')
@@ -167,24 +167,32 @@ const InfoBoard = ({ setInfo_board , inner , info_board , map_obj , setLoading ,
     const onTouchStart_for_rwd_img = () => {
         if(open_or_not){
             setOpen_or_not(false) 
-            setRwd_info_frame_height({height:'436px'})
-            setRwd_info_inner_height({height:'76px',overflow:'hidden'})
-        }else{
-            setOpen_or_not(true) 
             setRwd_info_frame_height({height:'480px'})
             setRwd_info_inner_height({height:'154px'})
+            // setRwd_info_frame_height({height:'436px'})
+            // setRwd_info_inner_height({height:'76px',overflow:'hidden'})
+        }else{
+            setOpen_or_not(true) 
+            setRwd_info_frame_height({height:'436px'})
+            setRwd_info_inner_height({height:'76px',overflow:'hidden'})
+            // setRwd_info_frame_height({height:'480px'})
+            // setRwd_info_inner_height({height:'154px'})
         }
     }
 
     const onClick_for_rwd_img = () => {
         if(open_or_not){
             setOpen_or_not(false) 
-            setRwd_info_frame_height({height:'436px'})
-            setRwd_info_inner_height({height:'76px',overflow:'hidden'})
-        }else{
-            setOpen_or_not(true) 
+            // setRwd_info_frame_height({height:'436px'})
+            // setRwd_info_inner_height({height:'76px',overflow:'hidden'})
             setRwd_info_frame_height({height:'480px'})
             setRwd_info_inner_height({height:'154px'})
+        }else{
+            setOpen_or_not(true) 
+            setRwd_info_frame_height({height:'436px'})
+            setRwd_info_inner_height({height:'76px',overflow:'hidden'})
+            // setRwd_info_frame_height({height:'480px'})
+            // setRwd_info_inner_height({height:'154px'})
         }
     }
 

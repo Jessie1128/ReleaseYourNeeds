@@ -74,6 +74,8 @@
     font-size: 12px;
     padding: 5px 5px 5px;
     border-radius: 5px;
+    line-height: 16px;
+    letter-spacing: 1px;
 }
 
 

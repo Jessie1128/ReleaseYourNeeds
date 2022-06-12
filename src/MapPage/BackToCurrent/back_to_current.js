@@ -320,6 +320,7 @@ const BackToCurrent = ({ if_center_move , map_obj , filtered_marker , setFiltere
                     info['key']=`${email}${JSON.stringify(data['user_comments'][item]['create_at']['seconds'])}rwd`
                     new_res.push(info)
                 })
+                console.log(time)
                 console.log(new_res)
                 console.log(JSON.stringify(new_res))
                 setComment_box_no_data_css({marginTop:'0px'})

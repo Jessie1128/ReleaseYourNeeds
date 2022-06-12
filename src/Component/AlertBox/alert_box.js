@@ -89,10 +89,6 @@ const Alert_Box = () => {
         // }
     },[alert_status,alert_text])
 
-    // const go_login_start = () => {
-    //     console.log('有')
-    //     setFor_display({display:''})
-    // }
 
 
     return(

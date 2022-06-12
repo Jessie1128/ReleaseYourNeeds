@@ -41,7 +41,7 @@
                             resolve(url[0])
                         }else{
                             console.log('api failed')
-                            reject('no')
+                            resolve('no')
                         }
                     })
                 }catch(error){
