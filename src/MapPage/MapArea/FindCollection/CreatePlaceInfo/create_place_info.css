@@ -76,6 +76,46 @@
 
 
 @media screen and (max-width: 1000px) {
+
+    .bookmarks_circle {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 16px;
+        height: 16px;
+        border-radius: 100%;
+        padding: 1px;
+        top: 5px;
+        right: 60px;
+    }
+
+    .comments_circle {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 17px;
+        height: 17px;
+        border-radius: 100%;
+        padding: 1px;
+        top: 5px;
+        right: 14px;
+    }
+
+    .circle_inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        width: 16px;
+        height: 16px;
+        color: #000;
+        font-weight: bold;
+        /* font-size: 12px; */
+        filter: blur(0px);
+        /* padding: 5px; */
+    }
     
     .coll_frame {
         width:146px;
@@ -85,6 +125,7 @@
 
     .coll_frame_place {
         font-size: 13px;
+        height: 13px;
     }
     
     .coll_frame_cancel {

@@ -1,12 +1,8 @@
-// import Source from '../source/source'
 import './mapPage.css'
 import React from 'react'
 import Header from '../Component/Header/header'
 import MapArea from './MapArea/mapArea'
-// import Source from '../source/source.js'
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import LoginStatus from '../Component/LoginStatus/loginStatus';
-import { useEffect , useContext , useState } from 'react';
+import { useEffect , useContext } from 'react';
 import { Brightness } from '../Component/ContextFolder/context_folder';
 import { Alert_Box } from '../Component/AlertBox/alert_box';
 

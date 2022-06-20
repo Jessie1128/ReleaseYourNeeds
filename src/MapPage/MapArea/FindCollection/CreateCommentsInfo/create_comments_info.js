@@ -14,9 +14,9 @@ const CreateComm = ({ item }) => {
     let tme_inner = `( ${item['time']} )`
 
     const delete_comm = async(e) => { 
-        console.log(e)
-        console.log(item['email'])
-        console.log(item['place'])
+        // console.log(e)
+        // console.log(item['email'])
+        // console.log(item['place'])
         try {
             let data = doc( db, 'user', item['email'] );
             await setDoc(data, {
@@ -26,9 +26,9 @@ const CreateComm = ({ item }) => {
             const docRef = doc(db, "comments", item['place']);
             const docSnap = await getDoc( docRef );
             let res = docSnap.data()
-            console.log(res)
+            // console.log(res)
             let new_res = res['data'].filter(ele=>ele['user_Email']!=item['email'])
-            console.log(new_res)
+            // console.log(new_res)
             await updateDoc(doc(db, "comments", item['place']), {
                 data: new_res
                 // user_collection: firebase.firestore.FieldValue.arrayUnion([inner['公廁名稱']])

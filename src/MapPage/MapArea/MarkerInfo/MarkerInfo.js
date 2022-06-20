@@ -1,11 +1,8 @@
 import React from 'react';
-import { InfoBoxComponent } from '@react-google-maps/api';
-import { InfoWindow , InfoBox } from '@react-google-maps/api';
-import { map } from '@firebase/util';
+import { InfoBox } from '@react-google-maps/api';
 
 const MarkerInfo = ({ center , inner }) => {
-    // console.log(InfoBox)
-    console.log(center)
+    // console.log(center)
     let info_style = {
       display: 'flex',
         justifyContent: 'center',

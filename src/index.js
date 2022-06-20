@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './Component/base.css'
-import { BrowserRouter , useState } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import APP from './route'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -101,6 +101,7 @@ input, textarea {
     border-radius: 5px;
     border: none;
     height: 26px;
+    font-size: 14px;
     padding-left: 10px;
     word-break: break-all;
     resize: none;
@@ -152,6 +153,10 @@ input, textarea {
     color: #393E41;
     /* color:#666666; */
     cursor: pointer;
+}
+
+.user_img_comments_width_css {
+    font-size: 14px;
 }
 
 /* .more_comments_board:hover{
@@ -233,5 +238,13 @@ input, textarea {
 @media screen and (max-width: 620px) {
     .comments_frame {
         margin-top: 5px;
+    }
+
+    .user_img_input_login {
+        font-size: 13px;
+    }
+
+    .user_img_input_width_css {
+        font-size: 10px;
     }
 }

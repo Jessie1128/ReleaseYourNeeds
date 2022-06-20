@@ -1,27 +1,31 @@
 import * as React from "react";
 import { useState , useMemo } from 'react'
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Homepage from './HomePage/homePage'
 import MapPage from './MapPage/mapPage'
-// import { useState } from "react";
-// import "./App.css";
 import { Marker_Data } from "./Component/ContextFolder/context_folder";
-import { Map_Marker } from "./Component/ContextFolder/context_folder";
+// import { Map_Marker } from "./Component/ContextFolder/context_folder";
 import { AlertFrame } from "./Component/ContextFolder/context_folder";
 import { LoginThrouht } from "./Component/ContextFolder/context_folder";
 import { Brightness } from "./Component/ContextFolder/context_folder";
 import { E_and_P_user } from "./Component/ContextFolder/context_folder";
 import { ForDisplay } from "./Component/ContextFolder/context_folder";
-import { ShouldReload } from "./Component/ContextFolder/context_folder";
+// import { ShouldReload } from "./Component/ContextFolder/context_folder";
 import { Google_user } from "./Component/ContextFolder/context_folder";  
-// import { AlertBox } from "./Component/AlertBox/alert_box";
-// import { Alert_Box } from "./Component/ContextFolder/context_folder";
-// import { AlertProvider } from "./Component/ContextFolder/context_folder";
+import { Plus_or_Minus } from "./Component/ContextFolder/context_folder";
 
 const App = () => {
 
+  const [ comment_plus , setComment_plus ] = useState({display:'none'})
+  const [ comment_minus , setComment_minus ] = useState({display:'none'})
+  const [ background_circle_comments , setBackground_circle_comments ] = useState({background:'none'})
 
-  const [ should_reload , setShould_reload ] = useState(null)
+  const [ bookmarks_plus , setBookmarks_plus ] = useState({display:'none'})
+  const [ bookmarks_minus , setBookmarks_minus ] = useState({display:'none'})
+  const [ background_circle_bookmarks , setBackground_circle_bookmarks ] = useState({background:'none'})
+
+
+  // const [ should_reload , setShould_reload ] = useState(null)
 
   const [ for_display , setFor_display ] = useState(null)   // ← 專門給登陸框用
 
@@ -42,13 +46,13 @@ const App = () => {
   const [ alert_status , setAlert_status ] = useState(null);
 
   const success = (text) => {
-    console.log('我有呼叫')
+    // console.log('我有呼叫')
     setAlert_text(text);
     setAlert_status('SUCCESS');
   };
     
   const error = (text) => {
-    console.log('我有呼叫')
+    // console.log('我有呼叫')
     setAlert_text(text);
     setAlert_status('ERROR');
   };
@@ -64,7 +68,7 @@ const App = () => {
   // }
 
   const clear = () => {
-    console.log('clear')
+    // console.log('clear')
     setAlert_text(null);
     setAlert_status(null);
   };
@@ -81,12 +85,17 @@ const App = () => {
     <Brightness.Provider value={{ bright , setBright }}>
     <Marker_Data.Provider value={ marker_data_value }>
     <ForDisplay.Provider value={{ for_display , setFor_display }}>
+    <Plus_or_Minus.Provider value={{ 
+      comment_plus , comment_minus , background_circle_comments , bookmarks_plus , bookmarks_minus ,  background_circle_bookmarks,
+      setComment_plus , setComment_minus , setBackground_circle_comments , setBookmarks_plus , setBookmarks_minus , setBackground_circle_bookmarks 
+    }}>
       <div className="App">
         <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="map" element={<MapPage />} />
         </Routes>
       </div>
+    </Plus_or_Minus.Provider>
     </ForDisplay.Provider>
     </Marker_Data.Provider>
     </Brightness.Provider>

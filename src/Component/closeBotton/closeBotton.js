@@ -39,23 +39,16 @@ const CloseBotton = ({ setMarker_info , setInfo_board , setLogin_board , setAler
 
     let close_MouseOnClick = (e) => {
         e.stopPropagation();
-        console.log(e)
-        console.log(e.target)
-        console.log(setMarker_info)
-        console.log(setInfo_board)
-        console.log(setLogin_board)
+        // console.log(e)
+        // console.log(e.target)
         if( setMarker_info != undefined ){
-            console.log('有了 setMarker_info')
             setMarker_info('')
         }else if( setInfo_board != undefined ){
-            console.log('有了 setInfo_board')
             setInfo_board('')
         }else if( setLogin_board != undefined ){
-            console.log('我要關掉')
             setBright({filter: 'brightness(1.0)'})
             setLogin_board('')
         }else if ( setAlert_box != undefined){
-            console.log('我要關掉這邊要執行')
             clear()
             setAlert_box('')
             setBright({filter: 'brightness(1.0)'})
@@ -68,7 +61,10 @@ const CloseBotton = ({ setMarker_info , setInfo_board , setLogin_board , setAler
 
     return (
         <div style={close_wrapper}>
-            <div style={close_icon} onMouseOver={close_MouseOver} onMouseOut={close_MouseOut} onClick={close_MouseOnClick} >&#10006;</div>
+            <div style={close_icon} 
+                onMouseOver={close_MouseOver} 
+                onMouseOut={close_MouseOut} 
+                onClick={close_MouseOnClick} >&#10006;</div>
         </div>
     )
 }

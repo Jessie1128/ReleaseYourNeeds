@@ -2,7 +2,7 @@ import React , { useState , useEffect , useContext } from 'react'
 import './login_board.css'
 import CloseBotton from '../closeBotton/closeBotton'
 import FirebaseLogin from '../FirebaseLogin/firebase-login'
-import { firebaseConfig , db , connect , auth } from "../../connection_firebase/connection_firebase";
+import { db } from "../../connection_firebase/connection_firebase";
 import { collection , getDoc , getDocs , doc, setDoc , query , where  } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword , signInWithEmailAndPassword , signOut } from "firebase/auth";
 import { AlertFrame } from '../ContextFolder/context_folder';
@@ -15,11 +15,11 @@ import { ForDisplay } from '../ContextFolder/context_folder';
 const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo , dis , 
                       setLogin_status, setLogin_name , setLogin_photo , setDis}) => {
                     
-    const { e_and_p_user , setE_and_p_user } = useContext(E_and_P_user)
+    const { setE_and_p_user } = useContext(E_and_P_user)
     const { for_display , setFor_display } =useContext(ForDisplay)
     const { alert_text, success, error, clear, loading } = useContext(AlertFrame)
     const { throught , setThrought } = useContext(LoginThrouht)
-    const { bright , setBright } = useContext(Brightness)
+    const { setBright } = useContext(Brightness)
     const [ account , setAccount ] = useState('haveAccount')
     const [ name_value , setName_value ] = useState('')
     const [ email_value , setEmail_value ] = useState('')
@@ -34,7 +34,7 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
         setPassword_value('user22')
         setEmail_value('user2@user2.com')
         if( throught===null && JSON.stringify(for_display)===JSON.stringify({display: ''}) ){     // for login box alertBox 被關掉 filter 會變
-            console.log('??????????????????????????????????')
+            // console.log('??????????????????????????????????')
             setBright({filter: 'brightness(0.6)'})
         }else{
             return
@@ -44,7 +44,6 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
     const auth = getAuth();
     const creat_account = (e) => {
         if(e.target.innerText==='點此註冊'){
-            console.log('我在這')
             setAccount('notHaveAccount')
             setHeight(null)
             setHint(null)
@@ -53,7 +52,6 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
             setPassword_value('')
             setName_value('')
         }else{
-            console.log('我在這')
             setAccount('haveAccount')
             setHeight(null)
             setHint(null)
@@ -64,23 +62,13 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
         }
     }
 
-    // useEffect(()=>{
-    //     if(mes!='')return
-    //     // setMes(null)
-    // },[mes])
-
-
-    // useEffect(()=>{
-    //     setFor_display(null)
-    // },[for_display])
-
     const name_input = (e) => {
-        console.log(name_value)
+        // console.log(name_value)
         setName_value(e.target.value) 
     }
 
     const email_input = (e) => {
-        console.log(email_value)
+        // console.log(email_value)
         setEmail_value(e.target.value) 
     }
 
@@ -89,7 +77,7 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
     }
 
     const get_e_and_p_user_name = async(user) => {
-        console.log(user)
+        // console.log(user)
         try {
             const q = query(collection(db, "user"), where("user_email", "==", user['email']));
             const snapshot = await getDocs(q);
@@ -97,16 +85,16 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
             info['user']=user
             snapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data());
-                console.log(doc.id)
-                console.log(doc.data())
+                // console.log(doc.id, " => ", doc.data());
+                // console.log(doc.id)
+                // console.log(doc.data())
                 let data=doc.data()
                 info['displayName']=data['user_displayName']
             });
             if(user['photoURL']===null){
                 info['no_photo']=info['displayName'].charAt(0)
             }
-            console.log('我希望資料完整',info)
+            // console.log(info)
             clear()
             setEmail_value('')
             setPassword_value('')
@@ -118,8 +106,6 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
             setTimeout(() => {
                 clear()
                 setBright({filter: 'brightness(1.0)'})
-                // setFor_display({display:'none'})
-                console.log("Delayed for 2 second.");
             }, "1500")
         } catch (e) {
             console.log(e)
@@ -128,19 +114,16 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
     }
 
     const start_login = () => {
-        console.log(email_value , password_value)
-        console.log('我現在要做登陸連結')
+        // console.log(email_value , password_value)
         signInWithEmailAndPassword(auth, email_value, password_value)
         .then((userCredential) => {
             const user = userCredential.user;
-            console.log(user)
+            // console.log(user)
             get_e_and_p_user_name(user)            
         })
         .catch((e) => {
             const errorCode = e.code;
             const errorMessage = e.message;
-            console.log(errorCode)
-            console.log(errorMessage)
             if(errorCode==='auth/user-not-found' || errorCode==='auth/invalid-email' || errorCode==='auth/wrong-password'){
                 clear()
                 error('登陸失敗，EMAIL 或 密碼 有誤')
@@ -158,36 +141,31 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
     const start_compare_exist_email = async() => {
         setThrought('E&P_register')
         const q = query(collection(db, "user"), where("user_email", "==", email_value));
-        console.log(email_value)
+        // console.log(email_value)
         const snapshot = await getDocs(q);
         let compare = []
         snapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            console.log(doc.id)
-            console.log(doc.data())
+            // console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id)
+            // console.log(doc.data())
             let data=doc.data()
             compare.push(data['user_email'])
         });
         if(JSON.stringify(compare)===JSON.stringify([])){
-            console.log('沒有相同伊妹兒')
             loading('註冊中，請稍候')
-            // setLogin_board_bright({filter: 'brightness(0.6)'})
         }else{
-            console.log('有一樣的完了')
-            console.log(compare)
-            // clear()
+            // console.log(compare)
             error('註冊失敗，此 EMAIL 已被使用')
             return
         }
-        console.log('我有執行完成')
         start_register()
     }
         
     const insert_user_info = async(res) => {
-        console.log(res)
-        console.log(res['email'])
-        console.log(name_value)
+        // console.log(res)
+        // console.log(res['email'])
+        // console.log(name_value)
         await setDoc(doc(db, "user", res['email']),{
             ['user_email']: res['email'],
             ['user_displayName']: name_value,
@@ -195,18 +173,13 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
             ['user_comments']:'',
             ['user_collection']:[],
         });
-        console.log("新增成功");
-        console.log('可以溜')
         let ans = await signOut(auth)
-        console.log(ans)
         clear()
         success('註冊成功，請用新帳戶登錄')
         setAccount('haveAccount')
         setHeight(null)
         setHint(null)
         setMargin({marginTop:'10px'})
-        // setMes('')
-        // setEmail_value('')
         setPassword_value('')
         setName_value('')
     }
@@ -235,18 +208,16 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
     //還沒完成
 
     const start_register = () => {
-        // setThrought('E&P_register')
-        console.log(name_value , email_value , password_value)
-        console.log(email_value, password_value)
-        // let auth = getAuth();
+        // console.log(name_value , email_value , password_value)
+        // console.log(email_value, password_value)
         createUserWithEmailAndPassword(auth, email_value, password_value)
         .then((userCredential) => {
             const user = userCredential.user;
-            console.log(user)
+            // console.log(user)
             return user
         })
         .then((res)=>{
-            console.log(res)
+            // console.log(res)
             insert_user_info(res)
         })
         .catch((e) => {
@@ -269,17 +240,16 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
                 clear()
                 error('註冊失敗')
             }
-            console.log(errorCode)
-            console.log(errorMessage)
+            // console.log(errorCode)
+            // console.log(errorMessage)
         });
     }
 
     const email_password_login = (e) => {
-        console.log(e.target.innerText)
-        console.log('進來了')
+        // console.log(e.target.innerText)
         if(e.target.innerText==='登陸'){
-            console.log(email_value)
-            console.log(password_value)
+            // console.log(email_value)
+            // console.log(password_value)
             if( email_value==='' || password_value==='' ){
                 setHint('哎呀！ 欄位不能是空白')
                 setHeight({height:'19px'})
@@ -289,8 +259,8 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
             start_login()
         }else if(e.target.innerText==='註冊'){
             if( email_value==='' || password_value==='' || name_value==='' ){
-                console.log(email_value)
-                console.log(password_value)
+                // console.log(email_value)
+                // console.log(password_value)
                 setHint('哎呀！ 欄位不能是空白')
                 setHeight({height:'19px'})
                 setMargin({marginTop:'0px'})
@@ -313,7 +283,6 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
                             <div className='login_without_google_frame'>
                                 <div className='login_text'>請輸入帳號密碼</div>
                                 <div className='login_text_input'>
-                                {/* value={mes} */}
                                     <input placeholder='輸入EMAIL' className='email_password' onChange={email_input} type='text' value={email_value}></input>
                                     <input placeholder='輸入PASSWORD' className='email_password' onChange={password_input} type='password' value={password_value}></input>
                                 </div>

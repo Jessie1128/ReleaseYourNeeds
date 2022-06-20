@@ -1,23 +1,19 @@
-import React , { useContext , useEffect , useState } from 'react'
+import React , { useContext , useEffect } from 'react'
 import './search_place.css'
 import '../../../Component/rwd.css'
 import { Marker_Data } from '../../../Component/ContextFolder/context_folder'
-import Loading_effect from '../../../Component/LoadingEffect/loadingEffect'
 
 const SearchPlace = () => {
 
-    const { marker_data , setMarker_data } = useContext(Marker_Data)
-    let [ loading , setLoading ] = useState(<Loading_effect/>)
-    // const [ filter_info , setFilter_info ] = useState([])
-    const [ checked , setChecked ] = useState([])
-    // let [ color , setColor ] = useState(null)
+    const { marker_data } = useContext(Marker_Data)
+    // let [ loading , setLoading ] = useState(<Loading_effect/>)
+    // const [ checked , setChecked ] = useState([])
     
     useEffect(()=>{
         if(marker_data===undefined){
-            console.log('還沒這麼快')
             return
         }else{
-            console.log(marker_data)
+            // console.log(marker_data)
         }
     },[marker_data])
 
@@ -60,19 +56,6 @@ const SearchPlace = () => {
         // })
         // console.log(filter_info)
     }
-
-    // const rrr = (e) => {
-    //     console.log(e)
-    //     console.log(e.target)
-    //     console.log(e.target.id)
-    //     console.log(e.target.value)
-    //     console.log(e.target.checked)
-    //     if(e.target.checked){
-
-    //     }else{
-
-    //     }
-    // }
 
     return(
          <div className='function-area'>

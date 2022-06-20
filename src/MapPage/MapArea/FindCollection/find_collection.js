@@ -2,7 +2,7 @@ import React , { useContext , useEffect , useState } from 'react'
 import './find_collection.css'
 import '../../../Component/rwd.css'
 import { db } from '../../../connection_firebase/connection_firebase'
-import { collection , getDocs , orderBy, query , where } from "firebase/firestore";
+import { collection , getDocs , query , where } from "firebase/firestore";
 import Loading_effect from '../../../Component/LoadingEffect/loadingEffect'
 import { AlertFrame } from '../../../Component/ContextFolder/context_folder'
 import { Brightness } from '../../../Component/ContextFolder/context_folder'
@@ -11,12 +11,16 @@ import { Google_user } from '../../../Component/ContextFolder/context_folder'
 import { stringify } from '@firebase/util';
 import CreateComm from './CreateCommentsInfo/create_comments_info';
 import CreateColl from './CreatePlaceInfo/create_place_info';
+import { Plus_or_Minus } from '../../../Component/ContextFolder/context_folder';
 
 
 const FindColl = ({ filtered_marker , setFiltered_marker , 
     bookmarks_click , setBookmarks_click , comments_click , setComments_click , map_obj }) => {
 
-    // const [ both_opened , setBoth_opened ] = useState(0) 
+    const { comment_plus , comment_minus , background_circle_comments , 
+            bookmarks_plus , bookmarks_minus ,  background_circle_bookmarks,
+            setComment_plus , setComment_minus , setBackground_circle_comments , 
+            setBookmarks_plus , setBookmarks_minus , setBackground_circle_bookmarks } = useContext(Plus_or_Minus)
     const { setBright } = useContext(Brightness)
     const { alert_text , error , clear } = useContext(AlertFrame)
     const { e_and_p_user } = useContext(E_and_P_user)
@@ -38,11 +42,12 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
     const [ comments_inner , setComments_inner ] = useState('- 請先登錄會員 -') 
     const [ comm_height , setComm_height ] = useState({height:'50px'})
 
+    const [ comm_circle_height , setComm_circle_height ] = useState({top: '80px'})
+
 
     useEffect(()=>{
         if(alert_text===null) return 
         if( alert_text==='登出成功' || alert_text==='登陸成功' ){
-            console.log('要做reload')
             setPlace_text('點擊展開')
             setPlace_dis({display:'none'})
             setLoading_place('')
@@ -51,6 +56,13 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
             setComments_text('點擊展開')
             setComments_dis({display:'none'})
             setLoading_comments('')
+            setComment_plus({display:'none'})
+            setComment_minus({display:'none'})
+            setBookmarks_minus({display:'none'})
+            setBookmarks_plus({display:'none'})
+            setBackground_circle_bookmarks({background: 'none'})
+            setBackground_circle_comments({background: 'none'})
+            setComm_circle_height({top: '80px'})
             if( e_and_p_user===null && google_user===null ){
                 setFilter_comments([])
                 setFilter_place([])
@@ -59,21 +71,27 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
             }
         }
         if( alert_text==='刪除留言成功' || alert_text==='新增留言成功'){
-            console.log('成功刪掉留言')
+            if(alert_text==='新增留言成功'){
+                setComment_plus({display:''})
+                setComment_minus({display:'none'})
+                setBackground_circle_comments({backgroundColor: 'rgb(229, 211, 82, 0.8)'})
+            }else if(alert_text==='刪除留言成功'){
+                setComment_plus({display:'none'})
+                setComment_minus({display:''})
+                setBackground_circle_comments({backgroundColor: 'rgba(213, 81, 72, 0.8)'})
+            }
             let email
             if( e_and_p_user!=null){
-                console.log(e_and_p_user)
-                console.log('從帳號密碼登陸')
+                // console.log(e_and_p_user)
+                // console.log('從帳號密碼登陸')
                 if(e_and_p_user['user']['email']===undefined){
                     email=e_and_p_user['user']['login_user']['email']
                 }else{
                     email=e_and_p_user['user']['email']
                 }
-                // email=e_and_p_user['user']['login_user']['email']
-                // console.log(email)
             }else{
-                console.log(google_user)
-                console.log('從google登陸')
+                // console.log(google_user)
+                // console.log('從google登陸')
                 if(email=google_user['email']===undefined){
                     email=google_user['login_user']['email']
                 }else{
@@ -83,18 +101,27 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
             get_comments_data(email)
         }
         if( alert_text==='收藏成功' || alert_text==='取消收藏成功'){
+            if(alert_text==='收藏成功'){
+                setBookmarks_plus({display:''})
+                setBookmarks_minus({display:'none'})
+                setBackground_circle_bookmarks({backgroundColor: 'rgb(229, 211, 82, 0.8)'})
+            }else if(alert_text==='取消收藏成功'){
+                setBookmarks_minus({display:''})
+                setBookmarks_plus({display:'none'})
+                setBackground_circle_bookmarks({backgroundColor: 'rgba(213, 81, 72, 0.8)'})
+            }
             let email
             if( e_and_p_user!=null){
-                console.log(e_and_p_user)
-                console.log('從帳號密碼登陸')
+                // console.log(e_and_p_user)
+                // console.log('從帳號密碼登陸')
                 if(e_and_p_user['user']['email']===undefined){
                     email=e_and_p_user['user']['login_user']['email']
                 }else{
                     email=e_and_p_user['user']['email']
                 }
             }else{
-                console.log(google_user)
-                console.log('從google登陸')
+                // console.log(google_user)
+                // console.log('從google登陸')
                 if(email=google_user['email']===undefined){
                     email=google_user['login_user']['email']
                 }else{
@@ -115,9 +142,8 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
             snapshot.forEach((doc) => {
                 data=doc.data()
             })
-            console.log(data['user_collection'])
+            // console.log(data['user_collection'])
             if(data['user_collection'].length===0){
-                console.log('沒資料')
                 setLoading_place('')
                 setPlace_inner('目前還沒有收藏的地點')
                 setLoading_place(null)
@@ -126,7 +152,8 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
             }else{
                 setLoading_place('')
                 setPlace_member_dis({display:'none'})
-                setFilter_place(data['user_collection'])
+                let rev=data['user_collection'].reverse()
+                setFilter_place(rev)
             }
         } catch (e) {
             console.log(e)    
@@ -135,32 +162,34 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
     }
 
     const find_info_coll_place = (e) => {
-        console.log(e)
+        // console.log(e)
         if(e.target.innerHTML==='點擊展開'){
             let email
-            console.log(filtered_marker)
+            // console.log(filtered_marker)
             setPlace_text('點擊收闔')
             setPlace_dis({display:''})
             setColl_height({height:'280px'})
-            console.log( e_and_p_user )
-            console.log( google_user )
+            setBookmarks_plus({display:'none'})
+            setBookmarks_minus({display:'none'})
+            setComm_circle_height({top: '310px'})
+            setBackground_circle_bookmarks({background: 'none'})
+            // console.log( e_and_p_user )
+            // console.log( google_user )
             if( e_and_p_user===null && google_user===null ){
-                console.log('還沒登陸')
                 setPlace_member_dis({display:''})
                 return
             }else{
                 if( e_and_p_user!=null){
-                    console.log(e_and_p_user)
-                    console.log('從帳號密碼登陸')
+                    // console.log(e_and_p_user)
+                    // console.log('從帳號密碼登陸')
                     if(e_and_p_user['user']['email']===undefined){
                         email=e_and_p_user['user']['login_user']['email']
                     }else{
                         email=e_and_p_user['user']['email']
                     }
-                    // email=e_and_p_user['user']['email']
                 }else{
-                    console.log(google_user)
-                    console.log('從google登陸')
+                    // console.log(google_user)
+                    // console.log('從google登陸')
                     if(email=google_user['email']===undefined){
                         email=google_user['login_user']['email']
                     }else{
@@ -168,7 +197,7 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
                     }
                     
                 }
-                console.log(email)
+                // console.log(email)
                 setPlace_member_dis({display:'none'})
                 get_place_data(email)
             }
@@ -177,6 +206,10 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
             setPlace_text('點擊展開')
             setPlace_dis({display:'none'})
             setLoading_place('')
+            setComm_circle_height({top: '80px'})
+            setBookmarks_plus({display:'none'})
+            setBookmarks_minus({display:'none'})
+            setBackground_circle_bookmarks({background: 'none'})
         }
     }
 
@@ -190,9 +223,8 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
             snapshot.forEach((doc) => {
                 data=doc.data()
             })
-            console.log(data['user_comments'])
+            // console.log(data['user_comments'])
             if(data['user_comments']==='' || JSON.stringify(data['user_comments']) === JSON.stringify({}) ){
-                console.log('沒資料')
                 setComments_inner('目前還沒有留下的留言')
                 setLoading_comments(null)
                 setFilter_comments([])
@@ -207,22 +239,15 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
                     time=data['user_comments'][item]['create_at']['seconds']
                     time=JSON.stringify(new Date(time*1000))
                     time=time.replaceAll('"','').split('T')
-
                     info['place']=item
                     info['comments']=data['user_comments'][item]['comments']
                     info['time']=time[0]
                     info['email']=email
-                    // info['seconds']=stringify(data['user_comments'][item]['create_at']['seconds'])
                     info['key']=`${email}${stringify(data['user_comments'][item]['create_at']['seconds'])}`
-
                     new_res.push(info)
-                    // console.log(item)
-                    // console.log(new_res)
-                    // console.log(info['key'])
-                    // console.log(typeof(info['key']))
                 })
-                console.log(new_res)
-                console.log(JSON.stringify(new_res))
+                // console.log(new_res)
+                // console.log(JSON.stringify(new_res))
                 setFilter_comments(new_res)
                 setLoading_comments('')
             }
@@ -242,25 +267,25 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
             setComments_text('點擊收闔')
             setComments_dis({display:''})
             setComm_height({height:'280px'})
+            setComment_minus({display:'none'})
+            setComment_plus({display:'none'})
+            setBackground_circle_comments({background: 'none'})
             let email
             if( e_and_p_user===null && google_user===null ){
-                console.log('還沒登陸')
                 setComments_member_dis({display:''})
                 return
             }else{
                 if( e_and_p_user!=null){
-                    console.log(e_and_p_user)
-                    console.log('從帳號密碼登陸')
+                    // console.log(e_and_p_user)
+                    // console.log('從帳號密碼登陸')
                     if(e_and_p_user['user']['email']===undefined){
                         email=e_and_p_user['user']['login_user']['email']
                     }else{
                         email=e_and_p_user['user']['email']
                     }
-                    // email=e_and_p_user['user']['login_user']['email']
-                    // console.log(email)
                 }else{
-                    console.log(google_user)
-                    console.log('從google登陸')
+                    // console.log(google_user)
+                    // console.log('從google登陸')
                     if(email=google_user['email']===undefined){
                         email=google_user['login_user']['email']
                     }else{
@@ -268,16 +293,17 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
                     }
                 }
                 setComments_member_dis({display:'none'})
-                // setLoading_comments(<Loading_effect loading_effect_height={{height:'150px'}}/>)
                 get_comments_data(email)
             }
-            console.log(email)
-            console.log('哇啦哇啦哇啦')
+            // console.log(email)
         }else{
             setComm_height({height:'50px'})
             setComments_text('點擊展開')
             setComments_dis({display:'none'})
             setLoading_comments('')
+            setComment_minus({display:'none'})
+            setComment_plus({display:'none'})
+            setBackground_circle_comments({background: 'none'})
         }
     }
 
@@ -287,11 +313,20 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
                 <div className='find_coll_frame'>
                     <div className='find_coll_coll' style={coll_height}>
                         <div className='find_coll_inner'>
-                            <div className='find_coll_open'>
-                                <div className='find_coll_text'>已儲存的地點</div>
-                                <div className='find_coll_open_text' onClick={find_info_coll_place}>{plcae_text}</div>
+                            <div className='find_coll_inner_frame'>
+
+                                <div className='find_coll_bookmarks_circle' style={background_circle_bookmarks}>
+                                    {/* <div className='circle_inner'>{bookmarks_circle_inner}</div> */}
+                                    <div className='find_coll_circle_inner' style={bookmarks_plus}>&#43;</div>
+                                    <div className='find_coll_circle_inner' style={bookmarks_minus}>&#8722;</div>
+                                </div>
+
+                                <div className='find_coll_open'>
+                                    <div className='find_coll_text'>已儲存的地點</div>
+                                    <div className='find_coll_open_text' onClick={find_info_coll_place}>{plcae_text}</div>
+                                </div>
                             </div>
-                            <hr className='find_coll_hr'/>
+                            {/* <hr className='find_coll_hr'/> */}
                             <div className='find_coll_fetch' style={place_dis}>
                                 <div className='find_coll_start'>
                                     {loading_place}
@@ -311,11 +346,18 @@ const FindColl = ({ filtered_marker , setFiltered_marker ,
                     </div>
                     <div className='find_coll_comm' style={comm_height}>
                         <div className='find_coll_inner'>
+                        <div className='find_coll_inner_frame'>
+                            <div className='find_coll_comments_circle' style={ Object.assign( {} , background_circle_comments , comm_circle_height )} >
+                                <div className='find_coll_circle_inner' style={comment_plus}>&#43;</div>
+                                <div className='find_coll_circle_inner' style={comment_minus}>&#8722;</div>
+                            </div>
+
                             <div className='find_coll_open'>
                                 <div className='find_coll_text'>已寫下的留言</div>
                                 <div className='find_coll_open_text' onClick={find_info_coll_comments}>{comments_text}</div>
                             </div>
-                            <hr className='find_coll_hr'/>
+                        </div>
+                            {/* <hr className='find_coll_hr'/> */}
                             <div className='find_coll_fetch' style={comments_dis}>
                                 <div className='find_coll_start'>
                                     {loading_comments}

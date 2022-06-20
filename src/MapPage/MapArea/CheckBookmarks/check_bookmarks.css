@@ -29,6 +29,11 @@
     border-radius: 5px;
 }
 
+.placeAddBookmark:hover,
+.bookmarks_img:hover {
+    cursor: pointer;
+}
+
 @media screen and  (min-width:931px) and (max-width: 1050px) {
 
     .placeAddBookmark {

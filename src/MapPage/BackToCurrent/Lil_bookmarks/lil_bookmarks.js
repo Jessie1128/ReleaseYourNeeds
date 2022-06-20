@@ -1,20 +1,20 @@
-import React , { useContext } from "react";
-import { db } from '../../../connection_firebase/connection_firebase'
-import { arrayUnion , arrayRemove , collection , getDocs , doc, query, orderBy , where, startAfter , updateDoc , limit , startAt } from "firebase/firestore";
-import { Google_user } from "../../../Component/ContextFolder/context_folder";
-import { E_and_P_user } from "../../../Component/ContextFolder/context_folder";
-import { LoginThrouht } from "../../../Component/ContextFolder/context_folder";
+import React from "react";
+// import { db } from '../../../connection_firebase/connection_firebase'
+// import { arrayUnion , arrayRemove , collection , getDocs , doc, query, orderBy , where, startAfter , updateDoc , limit , startAt } from "firebase/firestore";
+// import { Google_user } from "../../../Component/ContextFolder/context_folder";
+// import { E_and_P_user } from "../../../Component/ContextFolder/context_folder";
+// import { LoginThrouht } from "../../../Component/ContextFolder/context_folder";
 import './lil_bookmarks.css'
 
 const Lil_bookmarks = () => {
 
-    const { google_user } = useContext(Google_user)
-    const { e_and_p_user } = useContext(E_and_P_user)
-    const { throught } = useContext(LoginThrouht)
+    // const { google_user } = useContext(Google_user)
+    // const { e_and_p_user } = useContext(E_and_P_user)
+    // const { throught } = useContext(LoginThrouht)
 
-    console.log('google   lililililililik',google_user)
-    console.log('E&P      lililililililik',e_and_p_user)
-    console.log('lililililililik',throught)
+    // console.log('google   lililililililik',google_user)
+    // console.log('E&P      lililililililik',e_and_p_user)
+    // console.log('lililililililik',throught)
 //     console.log(user_email)
 //     let get_res = collection(db, "user");
 //     let res = query(get_res , where('user_email' , '==' , user_email ));  

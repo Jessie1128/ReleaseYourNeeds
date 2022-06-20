@@ -1,9 +1,15 @@
 .outside-background {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 80px);
     width: 100%;
     /* background-color: rgb(57, 62, 65,0.5); */
     background-color: rgb(162, 156, 155,0.7);
     /* background: rgb(57, 62, 65,0.5); */
+}
+
+.header_color {
+    /* height: calc(100vh - 80px); */
+    width: 100%;
+    background: rgb(57, 62, 65,0.5);
 }
 
 .outside-frame{

@@ -1,21 +1,16 @@
 import React , { useState , useEffect , useContext } from "react";
 import '../more_comments.css'
-import { deleteField , setDoc ,  deleteDoc , getDoc , getDocs , doc, query, orderBy , where, startAfter , updateDoc , limit , startAt, arrayRemove } from "firebase/firestore";
+import { deleteField , setDoc , toDate , getDoc , doc , updateDoc  } from "firebase/firestore";
 import { db } from "../../../../connection_firebase/connection_firebase";
 import { E_and_P_user } from "../../../../Component/ContextFolder/context_folder";
 import { Google_user } from "../../../../Component/ContextFolder/context_folder";
 import { AlertFrame } from "../../../../Component/ContextFolder/context_folder";
 import { LoginThrouht } from "../../../../Component/ContextFolder/context_folder";
 import { Brightness } from "../../../../Component/ContextFolder/context_folder";
-// import { AlertFrame } from "../../../../Component/ContextFolder/context_folder";
-// import { Brightness } from "../../../../Component/ContextFolder/context_folder";
 
 const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Name , background , inner ,  get_user_data , 
                                 setFiltered_comments , setGet_exist_comment , setCommented , setTop , setComment_exist , setClick_and_more_comments }) => {
 
-    // const { error , success , clear } = useContext(AlertFrame)
-    // const { bright , setBright } = useContext(Brightness)
-    const { throught } = useContext(LoginThrouht)
     const { setBright } = useContext(Brightness)
     const { e_and_p_user } = useContext(E_and_P_user)
     const { google_user } = useContext(Google_user)
@@ -30,134 +25,66 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
     useEffect(()=>{
         if(get_user_data===undefined||get_user_data===''||get_user_data===null||get_user_data===false){
             return
-        }else{
-
         }
         setOri_text(commented_inner)
     },[commented_inner])
 
     useEffect(()=>{
         if( alert_text==='刪除留言成功'){
-            console.log('成功刪掉留言')
             let email
             if( e_and_p_user!=null){
-                console.log(e_and_p_user)
-                console.log('從帳號密碼登陸')
+                // console.log(e_and_p_user)
+                // console.log('從帳號密碼登陸')
                 if(e_and_p_user['user']['email']===undefined){
                     email=e_and_p_user['user']['login_user']['email']
                 }else{
                     email=e_and_p_user['user']['email']
                 }
-                console.log(email)
             }else{
-                console.log(google_user)
-                console.log('從google登陸')
+                // console.log(google_user)
+                // console.log('從google登陸')
                 if(email=google_user['email']===undefined){
                     email=google_user['login_user']['email']
                 }else{
                     email=google_user['email']
                 }
             }
-            // get_comments_data(email)
         }else{
             return
         }
     },[alert_text])
 
-    // const [ height , setHeight ] = useState(null)
+    // const init_textarea = (e) => {
+    //     console.log(e)
+    // }
 
-    // <>
-    //     <div className='show_review_user_inner'>{commented_inner}</div>
-    //     <textarea readOnly className='edit_review_user_inner' placeholder={commented_inner} ></textarea> 
-    //     <textarea className='edit_review_user_inner'></textarea> 
-    // </>
-
-    // useEffect(()=>{
-    //     setEdit_text(
-    //         [<div className='show_review_user_inner'>{commented_inner}</div>]
-    //     )
-    // },[edit_text])
-
-    // <textarea className='edit_review_user_inner' placeholder={commented_inner}></textarea>\
-    // useEffect(()=>{
-    //     console.log('這邊')
-    // },[])
-
-    const init_textarea = (e) => {
-        console.log(e)
-    }
-
-    const edit_mes = (e) => {
-        console.log(e)
-        // setOri_text(e)
-        console.log('我要編輯留言')
-        setEditable(true)
-        setEditable_style('edit_review_user_inner')
-        setDisplay({display:'flex'})
-        // console.log(height)
-    }
+    // const edit_mes = (e) => {
+    //     console.log(e)
+    //     setEditable(true)
+    //     setEditable_style('edit_review_user_inner')
+    //     setDisplay({display:'flex'})
+    // }
 
     const confirm_onclick = (e) => {
-        console.log(e)
+        // console.log(e)
     }
 
     const cancel_onclick = () => {
         Promise.resolve().then(() => {
             setOri_text(commented_inner)
-            console.log('有')
         })
         .then(()=>{
             setEditable(false)
             setEditable_style('show_review_user_inner')
             setDisplay({display:'none'})
         })
-        // console.log(commented_inner)
-        // setOri_text(commented_inner)
-        // setEdit_text(commented_inner)
-        // setEditable(false)
-        // setEditable_style('show_review_user_inner')
-        // setDisplay({display:'none'})
-        // console.log(commented_inner)
-        // console.log(ori_text)
-        // setOri_text(commented_inner)
     }
-
-    // const text_on_click = (e) => {
-    //     console.log(e)
-    //     console.log(e.target.innerText)
-    //     console.log(e.target.offsetHeight)
-    // }
 
     const onInput = (e) => {
-        console.log(ori_text)
-        console.log(commented_inner)
+        // console.log(ori_text)
+        // console.log(commented_inner)
         setEdit_text(e.target.innerHTML)
-        console.log(edit_text)
-    }
-
-
-    const reverse_array = (new_res) => {
-        let info=[]
-        new_res=new_res.reverse()
-        let i=0
-        // let info=[]
-        new_res.map(item=>{
-            let time=item['create_at']['seconds']
-            console.log(time)
-            time=JSON.stringify(new Date(time*1000))
-            time=time.replaceAll('"','').split('T')
-            item['time']=time[0]
-            if( i%2 == 0 ){
-                item['background']={background:'rgb(128, 141, 142, 0.9)'}
-            }else{     
-                item['background']={background:'rgb(58, 68, 69, 0.3)'}
-            }
-            info.push(item)
-            i++
-        })
-        // setFiltered_comments(info)
-        // setCommented(null)
-        // setTop({top:'480px'})
+        // console.log(edit_text)
     }
 
     const set_set = () => {
@@ -187,54 +114,24 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
             const docRef = doc(db, "comments", inner['公廁名稱']);
             const docSnap = await getDoc( docRef );
             let res = docSnap.data()
-            console.log(res)
+            // console.log(res)
             let new_res = res['data'].filter(item=>item['user_Email']!=email)
             if( JSON.stringify(new_res) == []){
-                console.log('我這邊要直接回應沒有留言')
+                // console.log('我這邊要直接回應沒有留言')
             } 
-            console.log(new_res)
+            // console.log(new_res)
             let ans = await updateDoc(doc(db, "comments", inner['公廁名稱']), {
                 data: new_res
                 // user_collection: firebase.firestore.FieldValue.arrayUnion([inner['公廁名稱']])
             })
             set_set()
-
-            console.log(ans)
-            
-            console.log('這邊要做 成功 刪除留言提示框')
+            // console.log(ans)   
             if( JSON.stringify(new_res) == JSON.stringify([])){
-                console.log('我這邊要直接回應沒有留言')
+                // console.log('我這邊要直接回應沒有留言')
             } 
-            // setGet_exist_comment(false)
-            // setTop({top:'480px'})
-            // setComment_exist(false)
-            // setCommented(null)
-            // setClick_and_more_comments('查看更多評論...')
-            // setBright({filter: 'brightness(0.6)'})
-            // success('刪除留言成功')
-            // setTimeout(() => {
-            //     clear()
-            //     // setBright({filter: 'brightness(1.0)'})
-            //     console.log("Delayed for 0.8 second.");
-            // }, "1000")
-            // setTop({top:'480px'})
-            // reverse_array(new_res)
-
-            // success('刪除留言成功')
-            // setBright({filter: 'brightness(0.8)'})
-            // setTimeout(()=>{
-            //     clear()
-            //     setBright({filter: 'brightness(1.0)'})
-            // },'1500')
         } catch (e) {
             console.log(e)
-            console.log('這邊要做刪除留言 失敗 提示框')
-            // error('刪除失敗！請再試一次')
-            // setTimeout(() => {
-            //     clear()
-            //     setBright({filter: 'brightness(1.0)'})
-            //     console.log("Delayed for 1.5 second.");
-            // }, "1500")
+            // console.log('這邊要做刪除留言 失敗 提示框')
         }
     }
 

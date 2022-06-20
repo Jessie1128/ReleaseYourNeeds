@@ -44,21 +44,31 @@
     font-weight: bold;
     width:100px;
     height:18px;
-    margin: 10px 20px 5px;
+    margin: 10px 0px 5px 10px;
     padding: 5px;
-    color:#dcdcdc;
-    background-color: rgb(57, 62, 65, 0.6);
+    color: #fff;
+    background-color: rgb(57, 62, 65, 0.8);
     border-radius: 5px;
 }
 
-.find_coll_hr {
+/* .find_coll_hr {
     width:200px;
     border: 1px solid #393E41;
     margin-top: -4px;
+} */
+
+.find_coll_inner_frame {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #cdcdcd;
 }
 
 .find_coll_open {
     display: flex;
+    justify-content: flex-start;
+    border-bottom: #393E41 2px solid;
+    width: 200px;
 }
 
 .find_coll_open_text {
@@ -68,6 +78,7 @@
     height: 20px;
     margin-top: 24px;
     color: #393E41;
+    margin-left: 20px;
 }
 
 .find_coll_open_text:hover {
@@ -103,6 +114,45 @@
     padding-top: 50px;
 }
 
+.find_coll_circle_inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    width: 16px;
+    height: 16px;
+    color: #000;
+    font-weight: bold;
+    /* font-size: 12px; */
+    filter: blur(0px);
+    /* padding: 5px; */
+}
+
+.find_coll_bookmarks_circle {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 100%;
+    padding: 1px;
+    top: 15px;
+    right: 105px;
+}
+
+.find_coll_comments_circle {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 100%;
+    padding: 1px;
+    /* top: 80px; */
+    right: 105px;
+}
 
 @media screen and (max-width: 1000px) {
 
@@ -115,9 +165,8 @@
     }
 
     .find_coll_text {
-        font-size: 14px;
-        width:90px;
-        margin-right: 10px;
+        font-size: 13px;
+        margin-left: 5px;
     }
 
     .find_coll_hr {
@@ -133,6 +182,10 @@
     }
 
     .find_coll_start {
+        width: 170px;
+    }
+
+    .find_coll_open {
         width: 170px;
     }
 

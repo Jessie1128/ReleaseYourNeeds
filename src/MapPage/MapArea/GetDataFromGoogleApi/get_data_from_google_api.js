@@ -1,5 +1,5 @@
-    import react , { Component } from "react"
-    import { useLoadScript } from '@react-google-maps/api';
+    // import react , { Component } from "react"
+    // import { useLoadScript } from '@react-google-maps/api';
 
     class GetData {
         constructor( inner,map_obj ) {
@@ -12,23 +12,23 @@
 
         // ========================================================================= // for place details to get photos async START
         get_photos = async() => {
-            console.log('Hi, I am ' + this.inner['placeID']);
-            console.log('Hi, I am ' + this.map_obj.current);
+            // console.log('Hi, I am ' + this.inner['placeID']);
+            // console.log('Hi, I am ' + this.map_obj.current);
 
             let request = {        
                 placeId: this.inner['placeID'],
                 fields: [ 'photos' ]
             }
-            console.log(request)
+            // console.log(request)
 
             return new Promise ((resolve,reject)=>{
                 try {
                     let service = new window.google.maps.places.PlacesService(this.map_obj);
-                    console.log(service)
-                    console.log(service.getDetails)
+                    // console.log(service)
+                    // console.log(service.getDetails)
                     service.getDetails(request, (place, status)=>{
                         if(status === window.google.maps.places.PlacesServiceStatus.OK){
-                            console.log(place)
+                            // console.log(place)
                             let i=0
                             let url = place['photos'].map ( item => { 
                                 if(i>=1){
@@ -37,15 +37,15 @@
                                 i++
                                 return item.getUrl({ maxWidth: 500, maxHeight: 500 })
                             })
-                            console.log(url[0])
+                            // console.log(url[0])
                             resolve(url[0])
                         }else{
-                            console.log('api failed')
+                            // console.log('api failed')
                             resolve('no')
                         }
                     })
                 }catch(error){
-                    console.log(error+' & api failed')
+                    // console.log(error+' & api failed')
                     reject(error)
                 }
             })

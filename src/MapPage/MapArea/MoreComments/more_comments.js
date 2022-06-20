@@ -1,7 +1,7 @@
-import React , { Fragment , useState , useEffect , useContext } from 'react'
+import React , { useState , useEffect , useContext } from 'react'
 import Loading_effect from '../../../Component/LoadingEffect/loadingEffect'
 import './more_comments.css'
-import { getDoc , getDocs , doc, query, orderBy , where, startAfter , updateDoc , limit , startAt } from "firebase/firestore";
+import { getDoc , toDate , doc  } from "firebase/firestore";
 import { db } from '../../../connection_firebase/connection_firebase';
 import MoreCommentsComments from './MoreComments-comments/more_comments_comments';
 import { LoginThrouht } from '../../../Component/ContextFolder/context_folder'; 
@@ -9,21 +9,15 @@ import { LoginThrouht } from '../../../Component/ContextFolder/context_folder';
 const More_Comments = ({ url , info_board ,  top , setTop , commented , setCommented , inner , get_user_data , comment_exist , 
                          click_and_more_comments , setClick_and_more_comments , commented_inner , commented_time , setComment_exist }) => {
 
-    // let [ top , setTop ] = useState ({top:'480px'})
-    // let [ click_and_more_comments , setClick_and_more_comments ] = useState ('查看更多留言...') 
     let [ loading , setLoading ] = useState (<Loading_effect loading_effect_height={{height:'200px'}}/>)
     const [ get_exist_comment , setGet_exist_comment] = useState(false)
     const { throught } = useContext(LoginThrouht)
     let [ fillter_comments , setFiltered_comments ] = useState([])
     let [ data , setData ] = useState(null)
-    // let [ E_and_P_noPhoto , setE_and_P_noPhoto ] = useState(null) // 這邊先處理 E&P 的暫定大頭照
-
 
     useEffect(()=>{
-        console.log(url)
-        console.log(get_user_data)
-        // if(get_user_data==='')return
-        console.log('我會每次都有嗎')
+        // console.log(url)
+        // console.log(get_user_data)
         setTop({top:'480px'})
         setClick_and_more_comments('查看更多評論...')
         setGet_exist_comment(false)
@@ -31,43 +25,29 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , setComme
     },[info_board])
 
     useEffect(()=>{
-        console.log(get_exist_comment)
+        // console.log(get_exist_comment)
         if(click_and_more_comments==='查看更多評論...') return
-        console.log(commented)
+        // console.log(commented)
         get_all_user_comments()
-        // if(commented===undefined){
-        //     console.log('不用再留言框')
-        // }else{
-        //     console.log('要在')
-        //     // get_all_user_comments()
-        //     console.log(commented)
-        // }
     },[top])
 
     const get_all_user_comments = async() => {
-        console.log('我要看')
-        // if(get_exist_comment===true) return 
-        // 這邊要打資料ㄧㄛ
-        console.log(inner)
+        // console.log(inner)
         let id=(inner['公廁名稱'].length)*(inner['緯度']+inner['經度'])
-        console.log(id)
-
+        // console.log(id)
         const docRef = doc(db, "comments", inner['公廁名稱']);
         const docSnap = await getDoc(docRef);
-
-
         let info=[]
         if (docSnap.exists()) {
             let res=docSnap.data().data
-            console.log(res)
+            // console.log(res)
             res=res.reverse()
             let i=0
-            // let info=[]
             res.map(item=>{
-                let time=item['create_at']['seconds']
-                time=JSON.stringify(new Date(time*1000))
-                time=time.replaceAll('"','').split('T')
-                item['time']=time[0]
+                // console.log(item['create_at'].toDate())
+                let time = item['create_at'].toDate()
+                time = new Date(time.toDateString())
+                item['time']=(time.toLocaleDateString()).replaceAll('/','-')
                 if( i%2 == 0 ){
                     item['background']={background:'rgb(128, 141, 142, 0.9)'}
                 }else{     
@@ -76,49 +56,31 @@ const More_Comments = ({ url , info_board ,  top , setTop , commented , setComme
                 info.push(item)
                 i++
             })
-            // console.log('順序1')
-            console.log('順序1',info)
-            console.log(JSON.stringify(info))
+            // console.log(JSON.stringify(info))
             if(JSON.stringify(info)==JSON.stringify([])){
-                console.log('沒留言')
                 setLoading(null)
                 setFiltered_comments(['null'])
                 return
             } 
         } else {
-            console.log("目前沒有任何留言");
             setLoading(null)
             setFiltered_comments(['null'])
-            console.log(fillter_comments)
+            // console.log(fillter_comments)
             return 
         }
-        console.log('順序2')
-        // console.log(JSON.stringify(res))
-        // setGet_exist_comment(true)
         setLoading('')
         setFiltered_comments(info)
     }
-
-    // const create_comments_div = (data) => {
-    //     console.log(data)
-    // }
 
     const more_comments_onClick = () => {
         if(click_and_more_comments==='查看更多評論...'){
             setClick_and_more_comments('關閉留言')
             setTop({top:'22px'})
-            // get_all_user_comments()
-            console.log('我要叫留言')
         }else{
             setClick_and_more_comments('查看更多評論...')
             setTop({top:'480px'})
-            console.log('我不要叫留言')
         }
     }
-
-    // if((data['user_collection'].indexOf(inner['公廁名稱']) == -1)) return
-    // setBookmarks_current(true)
-    // setBookmarks_color(require('../../../source/mark_yellow.png')) 
 
     return (
         <>

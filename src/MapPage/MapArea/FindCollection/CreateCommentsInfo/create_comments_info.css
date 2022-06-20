@@ -64,8 +64,12 @@
     font-weight: normal;
     margin-top: 3px;
     margin-bottom: 3px;
-    transform: scale(0.8); /* 用缩放来解决 */
-    transform-origin: 0 0; /* 左对齐 */
+
+    transform: scale(0.8); 
+    transform-origin: 0 0; 
+    z-index: 0;
+    /* transform: scale(0.8); /* 用缩放来解决 */
+    /* transform-origin: 0 0; /* 左对齐 */
 }
 
 .comm_text_comments {
