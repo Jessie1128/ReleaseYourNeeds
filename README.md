@@ -37,17 +37,16 @@ The testing account and testing password : user2@user2.com / user22
 - Prettier 
 
 ## Main Features
-- 提供使用者，定點搜尋鄰近的公廁點位
-- Enabling users to search for nearby public restrooms.
-- 依據營業時間，區分三種顏色地標，快速尋找開放中的場所
-- According to opening hours, with 3 different color markers to quickly look for avaliable locations.
-- 撰寫評論功能，描述體驗以提供實用資訊
-- comment writing feature, share experiences and provide useful information. 
-- 收藏地點功能，建立專屬清單
-- Save locations. Create private list.
-- 新增廁所點位在地圖當中，與其他使用者分享自我親身經驗、推薦
-- Add new locations to the map, share and recommend restrooms to other users.
-- Support RWD on different devices
+- 提供使用者，定點搜尋鄰近的公廁點位  
+  Enabling users to search for nearby public restrooms.
+- 依據營業時間，區分三種顏色地標，快速尋找開放中的場所  
+  According to opening hours, with 3 different color markers to quickly look for avaliable locations.
+- 撰寫評論功能，描述體驗以提供實用資訊  
+  comment writing feature, share experiences and provide useful information. 
+- 收藏地點功能，建立專屬清單  
+  Save locations. Create private list.
+- 支援多種裝置切換  
+  Support RWD on different devices
 
 ## Contact
 Jessie Lin  
