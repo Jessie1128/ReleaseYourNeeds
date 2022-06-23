@@ -1,14 +1,14 @@
 # Release Your Needs
 
 依據台北市政府公廁點位資訊，當使用者定位後，提供使用者搜尋周邊鄰近廁所。  
-This application provides preside location of public restrooms based on the sources produced by the Taipei city government.   
+This application provides preside location of public restrooms based on the sources produced by the Taipei city government.  
 
 🔗 Website URL : https://mymap-896b7.web.app/  
 
-The testing account and testing password : user2@user2.com / user22    
-
+The testing account and testing password : user2@user2.com / user22  
 
 <img src="./src/source/map-map.gif" width="550">
+
 ## Frontend Technique
 - React Hooks   
   (SPA with functional components)
