@@ -7,7 +7,8 @@ import { useContext , useEffect , useState } from 'react';
 import { Brightness } from '../Component/ContextFolder/context_folder';
 import { Alert_Box } from '../Component/AlertBox/alert_box';
 import Loading_effect from '../Component/LoadingEffect/loadingEffect';
-
+import { storage } from '../connection_firebase/connection_firebase';
+import { ref , getDownloadURL } from "firebase/storage";
 
 const HomePage = () => {
 
@@ -18,13 +19,83 @@ const HomePage = () => {
     const [ title_width , setTitle_width ] = useState({width: '1100px'})
     const [ intro_height , setIntro_height ]  = useState({height: ''})
     const [ loading , setLoading ] = useState(<Loading_effect/>)
-    const [ change , setChange ] = useState('hover_marker')
-    const [ check , setCheck ] = useState('check_current')
+    const [ change , setChange ] = useState('')
+    const [ check , setCheck ] = useState('')
+    const [ background_pic , setBackground_pic ] = useState('')
+    const [ big_data , setBig_data ] = useState('')
+    const [ current_place , setCurrent_place ] = useState('')
+    const [ current_opened , setCurrent_opened ] = useState('')
+    const [ current_pending , setCurrent_pending ] = useState('')
+    const [ current_closed , setCurrent_closed ] = useState('')
+    const [ no_data , setNo_data ] = useState('')
+    const [ hover_marker , setHover_marker ] = useState('')
+    const [ check_more , setCheck_more ] = useState('')
+    const [ coll_comment , setColl_comment ] = useState('')
+    const [ coll_place , setColl_place ] = useState('')
+    const [ check_current , setCheck_current ] = useState('')
+    const [ check_coll , setCheck_coll ] = useState('')
+    const [ check_comment , setCheck_comment ] = useState('')
 
     useEffect(()=>{
         if(JSON.stringify(bright)==JSON.stringify({filter: 'brightness(0.6)'})){
             setBright({filter: 'brightness(1.0)'})
         }
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/mapImg-2.png'))
+        .then((background)=>{
+            setBackground_pic(background)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/big_data.png'))
+        .then((bigData)=>{
+            setBig_data(bigData)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/current_place.png'))
+        .then((current_place)=>{
+            setCurrent_place(current_place)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/current_opened.png'))
+        .then((current_opened)=>{
+            setCurrent_opened(current_opened)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/current_pending.png'))
+        .then((current_pending)=>{
+            setCurrent_pending(current_pending)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/current_closed.png'))
+        .then((current_closed)=>{
+            setCurrent_closed(current_closed)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/no_data.png'))
+        .then((no_data)=>{
+            setNo_data(no_data)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/hover_marker.png'))
+        .then((hover_marker)=>{
+            setHover_marker(hover_marker)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_more.png'))
+        .then((check_more)=>{
+            setCheck_more(check_more)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/coll_comment.png'))
+        .then((coll_comment)=>{
+            setColl_comment(coll_comment)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/coll_place.png'))
+        .then((coll_place)=>{
+            setColl_place(coll_place)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_current.png'))
+        .then((check_current)=>{
+            setCheck_current(check_current)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_coll.png'))
+        .then((check_coll)=>{
+            setCheck_coll(check_coll)
+        })
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_comment.png'))
+        .then((check_comment)=>{
+            setCheck_comment(check_comment)
+        })
     },[])
 
     const load = () => {
@@ -46,14 +117,16 @@ const HomePage = () => {
             setLoading('')
         },'1500')
         setInterval(() => {
-            if(i===0){
-                setChange('hover_marker')
-            }else if(i===1){
-                setChange('check_more')
-            }else if(i===2){
-                setChange('coll_comment')
-            }else if(i===3){
-                setChange('coll_place')
+            if( hover_marker != '' && check_more != '' && coll_comment != '' && coll_place != '' ){
+                if(i===0){
+                    setChange(hover_marker)
+                }else if(i===1){
+                    setChange(check_more)
+                }else if(i===2){
+                    setChange(coll_comment)
+                }else if(i===3){
+                    setChange(coll_place)
+                }
             }
             i++;
             if(i===4){
@@ -61,12 +134,14 @@ const HomePage = () => {
             }
         }, 2000);
         setInterval(() => {
-            if(y===0){
-                setCheck('check_current')
-            }else if(y===1){
-                setCheck('check_coll')
-            }else if(y===2){
-                setCheck('check_comment')
+            if( check_current != '' && check_coll != '' && check_comment != '' ){
+                if(y===0){
+                    setCheck(check_current)
+                }else if(y===1){
+                    setCheck(check_coll)
+                }else if(y===2){
+                    setCheck(check_comment)
+                }
             }
             y++;
             if(y===3){
@@ -77,8 +152,6 @@ const HomePage = () => {
         
         function getWindowDimensions() {
             const { innerWidth: width, innerHeight: height } = window;
-            // console.log(width)
-            // console.log(height)
                 if(width<620){
                     setTitle_font_size({fontSize: '24px'})
                 }else{
@@ -93,7 +166,8 @@ const HomePage = () => {
         <div>
             <img 
                 className='home_area_color' 
-                src={require('../source/mapImg-2.png')} 
+                // src={ref(storage, 'gs://mymap-896b7.appspot.com/mapImg-2.png')}
+                src={background_pic} 
                 onLoad={load}
             />
             <div className='home_area_color' style={bright}>
@@ -140,7 +214,7 @@ const HomePage = () => {
                             <div className='intro_pic'>
                                 <div className='intro_pic_data'>
                                     <div className='intro_pic_img_frame'>
-                                        <img className='intro_pic_img' src={require('../source/big_data.png')}/>
+                                        <img className='intro_pic_img' src={big_data}/>
                                     </div>
                                     <div className='intro_pic_inner'>
                                         <h6 className='intro_pic_text'>
@@ -149,19 +223,19 @@ const HomePage = () => {
                                             <div>區分為不同顏色的地標</div>
                                         </h6>
                                         <div className='grid_frame'>
-                                            <img src={require('../source/current_place.png')}/>
+                                            <img src={current_place}/>
                                             <span>目前位置</span>
                                         </div>
                                         <div className='grid_frame'>
-                                            <img src={require('../source/current_opened.png')}/>
+                                            <img src={current_opened}/>
                                             <span>場所目前營業中</span>
                                         </div>
                                         <div className='grid_frame'>
-                                            <img src={require('../source/current_pending.png')}/>
+                                            <img src={current_pending}/>
                                             <span>場所目前尚未提供開放時間</span>
                                         </div>
                                         <div className='grid_frame'>
-                                            <img src={require('../source/current_closed.png')}/>
+                                            <img src={current_closed}/>
                                             <span>場所目前已過開放時間</span>
                                         </div>
                                     </div>
@@ -181,7 +255,7 @@ const HomePage = () => {
                             <div className='intro_pic'>
                                 <div className='intro_pic_data'>
                                     <div className='intro_pic_img_frame'>
-                                        <img className='intro_pic_img' src={require('../source/no_data.png')}/>
+                                        <img className='intro_pic_img' src={no_data}/>
                                     </div>
                                     <div className='intro_pic_inner'>
                                         <h6 className='intro_pic_text'>
@@ -198,7 +272,7 @@ const HomePage = () => {
                             <div className='intro_pic'>
                                 <div className='intro_pic_data'>
                                     <div className='intro_hover_img_frame'>
-                                        <img className='intro_pic_img' src={require(`../source/${change}.png`)}/>
+                                        <img className='intro_pic_img' src={change}/>
                                     </div>
                                     <div className='intro_pic_inner'>
                                         <h6 className='intro_pic_text'>
@@ -216,7 +290,7 @@ const HomePage = () => {
                             <div className='coll_pic'>
                                 <div className='coll_pic_data'>
                                     <div className='coll_pic_inner'>
-                                        <img className='coll_pic_src' src={require(`../source/${check}.png`)}/>
+                                        <img className='coll_pic_src' src={check}/>
                                         <div className='coll_pic_block'>
                                             <div className='coll_pic_text'>點擊定位 <div>返回當前位置</div></div>
                                             <div className='coll_pic_text'>點擊書籤 <div>顯示收藏地點</div></div>
@@ -234,56 +308,6 @@ const HomePage = () => {
                 </div>
             </div>
             <Alert_Box/>
-            
-            {/* <Header /> */}
-            {/* <div className='rwd_to_next_page'>
-                <nav> <Link to="/map" className='button_rwd'>前往搜尋頁面</Link> </nav>
-            </div>    ←← for rwd botton
-            <div className='home_area_color' style={bright}>
-                <div className='home_area'>
-                    <div className='main_intro'>
-                        <h3 className='main_intro_inner_h3'>依據台北市政府彙整公廁資料</h3>
-                        <h4 className='main_intro_inner_h4'>提供搜尋定位地點周邊的鄰近廁所</h4>
-                    </div>
-                </div>
-            </div> */}
-            {/* <div className='home_area_color' style={bright}>
-                <div className='home_area'>
-                    <div className='intro'>
-                        <div className='intro_frame'>
-                            <div className='intro_inner'>
-                                <div className='intro_inner_text'>
-                                    <img src={require('../source/current_place.png')}></img>
-                                    <div className='intro_marker_text'>當前位置</div>
-                                </div>
-                                <div className='intro_inner_text'>
-                                    <img src={require('../source/current_opened.png')}></img>
-                                    <div className='intro_marker_text'>場所目前營業中</div>
-                                </div>
-                                <div className='intro_inner_text'>
-                                    <img src={require('../source/current_closed.png')}></img>
-                                    <div className='intro_marker_text'>場所目前已過開放時間</div>
-                                </div>
-                                <div className='intro_inner_text'>
-                                    <img src={require('../source/current_pending.png')}></img>
-                                    <div className='intro_marker_text'>場所目前尚為提供營業時間</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className='intro_ps'>
-                            <div className='ps_text_frame'>
-                                <div className='ps_time'>場所營業時間，僅供參考。實際開放時間請以各場所為主。</div>
-                                <div className='ps_thanks'>感謝各場所維護人員的辛勞！</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className='to_next_page_frame'>
-                    <div className='to_next_page'>
-                        <nav> <Link to="/map" className="button">前往尋找</Link> </nav>
-                    </div>
-                </div>
-            </div> */}
         </div>
     )
 }

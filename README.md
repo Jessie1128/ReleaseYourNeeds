@@ -1,21 +1,26 @@
 # Release Your Needs
 
 依據台北市政府公廁點位資訊，當使用者定位後，提供使用者搜尋周邊鄰近廁所。  
-This application provides preside location of public bathrooms based on the sources produced by the Taipei city government.  
+This application provides preside location of public restrooms based on the sources produced by the Taipei city government.  
 🔗 Website URL : https://mymap-896b7.web.app/  
+The testing account and testing password : user2@user2.com / user22  
 ![Alt text](./src/source/map-map.gif) 
 
 ## Frontend Technique
-- React Hook (SPA with functional components)
-- React Router ( SPA )
-- Webpack  
-- Babel-Loader
+- React Hooks   
+  (SPA with functional components)
+- React Router  
+  ( SPA routing )
  
 ## Backend Technique
 - Cloud Firebase  
-- Firebase Authentication  
+  ( managed sources for toilet spots and users login infomation )
+- Firebase Storage  
+  ( managed images )
+- Firebase Authentication   
+  ( e-mail , password login / google login )
 - Firebase Hosting  
-- Node Package Manager  
+  ( production-grade web content hosting )
 
 ## Third Party APIs
 - Google Maps JavaScript API  
@@ -25,9 +30,25 @@ This application provides preside location of public bathrooms based on the sour
 ## Version Control
 - Git / GitHub
 
-## 主要功能
-- 提供使用者，定點搜尋鄰近的公廁點位
-- 依據營業時間，區分三種顏色地標，快速尋找開放中的場所
-- 撰寫評論功能，描述體驗以提供實用資訊
-- 收藏地點功能，建立專屬清單
+## Building tools
+- NPM 
+- Webpack  
+- Babel-Loader
+- Prettier 
 
+## Main Features
+- 提供使用者，定點搜尋鄰近的公廁點位
+- Enabling users to search for nearby public restrooms.
+- 依據營業時間，區分三種顏色地標，快速尋找開放中的場所
+- According to opening hours, with 3 different color markers to quickly look for avaliable locations.
+- 撰寫評論功能，描述體驗以提供實用資訊
+- comment writing feature, share experiences and provide useful information. 
+- 收藏地點功能，建立專屬清單
+- Save locations. Create private list.
+- 新增廁所點位在地圖當中，與其他使用者分享自我親身經驗、推薦
+- Add new locations to the map, share and recommend restrooms to other users.
+- Support RWD on different devices
+
+## Contact
+Jessie Lin  
+📞 e-mail : b19950828@gmail.com

@@ -2,7 +2,7 @@ import React , { useState , useEffect , useContext } from 'react'
 import './login_board.css'
 import CloseBotton from '../closeBotton/closeBotton'
 import FirebaseLogin from '../FirebaseLogin/firebase-login'
-import { db } from "../../connection_firebase/connection_firebase";
+import { db , storage } from "../../connection_firebase/connection_firebase";
 import { collection , getDoc , getDocs , doc, setDoc , query , where  } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword , signInWithEmailAndPassword , signOut } from "firebase/auth";
 import { AlertFrame } from '../ContextFolder/context_folder';
@@ -11,6 +11,7 @@ import { LoginThrouht } from '../ContextFolder/context_folder';
 import { Brightness } from '../ContextFolder/context_folder';
 import { E_and_P_user } from '../ContextFolder/context_folder';
 import { ForDisplay } from '../ContextFolder/context_folder';
+import { ref , getDownloadURL } from "firebase/storage";
 
 const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo , dis , 
                       setLogin_status, setLogin_name , setLogin_photo , setDis}) => {
@@ -28,9 +29,13 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
     const [ margin , setMargin ] = useState({marginTop:'10px'})
     const [ hint , setHint ] = useState(null)
     const [ login_board_bright , setLogin_board_bright ] = useState(null)
-
+    const [ google_pic , setGoogle_pic ] = useState('')
 
     useEffect(()=>{
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/google.png'))
+        .then((google_pic)=>{
+            setGoogle_pic(google_pic)
+        })
         setPassword_value('user22')
         setEmail_value('user2@user2.com')
         if( throught===null && JSON.stringify(for_display)===JSON.stringify({display: ''}) ){     // for login box alertBox 被關掉 filter 會變
@@ -328,7 +333,7 @@ const LoginBoard = ({ setLogin_board , login_status , login_name , login_photo ,
                 
                 <div className='login_with_google'>
                     <div className='google_img_frame'>
-                        <img src={require('../../source/google.png')} className='google_img'/>
+                        <img src={google_pic} className='google_img'/>
                     </div>
                     <div className='google_text'>
                         <FirebaseLogin  

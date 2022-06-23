@@ -1,12 +1,13 @@
 import React , { useState , useEffect , useContext } from "react";
 import '../more_comments.css'
 import { deleteField , setDoc , toDate , getDoc , doc , updateDoc  } from "firebase/firestore";
-import { db } from "../../../../connection_firebase/connection_firebase";
+import { db , storage } from "../../../../connection_firebase/connection_firebase";
 import { E_and_P_user } from "../../../../Component/ContextFolder/context_folder";
 import { Google_user } from "../../../../Component/ContextFolder/context_folder";
 import { AlertFrame } from "../../../../Component/ContextFolder/context_folder";
 import { LoginThrouht } from "../../../../Component/ContextFolder/context_folder";
 import { Brightness } from "../../../../Component/ContextFolder/context_folder";
+import { ref , getDownloadURL } from "firebase/storage";
 
 const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Name , background , inner ,  get_user_data , 
                                 setFiltered_comments , setGet_exist_comment , setCommented , setTop , setComment_exist , setClick_and_more_comments }) => {
@@ -20,7 +21,14 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
     const [ editable_style , setEditable_style ] = useState('show_review_user_inner')
     let [ display , setDisplay ] = useState({display:'none'})
     const [ ori_text , setOri_text ] = useState(commented_inner)
+    const [ delete_img , setDelete_img ] = useState('')
 
+    useEffect(()=>{
+        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/delete.png'))
+        .then((delete_img)=>{
+            setDelete_img(delete_img)
+        })
+    },[])
 
     useEffect(()=>{
         if(get_user_data===undefined||get_user_data===''||get_user_data===null||get_user_data===false){
@@ -202,7 +210,7 @@ const MoreCommentsComments = ({ url , commented_time , commented_inner , user_Na
                                         (點選刪除留言)
                                     </div> */}
                                     <div className='show_full_mes_img' onClick={delete_mes.bind(null,commented_inner)}>
-                                        <img className='full_mes_img' src={require('../../../../source/delete.png')}></img>
+                                        <img className='full_mes_img' src={delete_img}></img>
                                     </div>
                                 </div>
                             ):(

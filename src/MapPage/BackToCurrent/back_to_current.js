@@ -4,7 +4,7 @@ import { Google_user } from '../../Component/ContextFolder/context_folder'
 import { E_and_P_user } from "../../Component/ContextFolder/context_folder";
 import { AlertFrame } from '../../Component/ContextFolder/context_folder'
 import { Brightness } from '../../Component/ContextFolder/context_folder'
-import { db } from '../../connection_firebase/connection_firebase';
+import { db , storage } from '../../connection_firebase/connection_firebase';
 import { collection , getDocs , query , where } from "firebase/firestore";
 import CreateComm from '../MapArea/FindCollection/CreateCommentsInfo/create_comments_info';
 import CreateColl from '../MapArea/FindCollection/CreatePlaceInfo/create_place_info';
@@ -12,6 +12,7 @@ import CloseBotton from '../../Component/closeBotton/closeBotton';
 import Loading_effect from '../../Component/LoadingEffect/loadingEffect';
 import { Plus_or_Minus } from '../../Component/ContextFolder/context_folder';
 import { v4 } from 'uuid';
+import { ref , getDownloadURL } from "firebase/storage";
 
 
 const BackToCurrent = ({ if_center_move , map_obj , setFiltered_marker , 
@@ -46,6 +47,25 @@ const BackToCurrent = ({ if_center_move , map_obj , setFiltered_marker ,
     const [ filter_bookmarks_box , setFilter_bookmarks_box ] = useState([])
     const [ filter_bookmarks_no_data , setFilter_bookmarks_no_data ] = useState('')
     const [ bookmarks_box_no_data_css , setBookmarks_box_no_data_css ] = useState({marginTop:'0px'})
+
+    // const [ direction , setDirection ] = useState('')
+    // const [ comment_coll , setComment_coll ] = useState('')
+    // const [ bookmark_coll , setBookmark_coll ]  = useState('')
+
+    // useEffect(()=>{
+    //     getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/direction.png'))
+    //     .then((direction)=>{
+    //         setDirection(direction)
+    //     })
+    //     getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/comment_coll.png'))
+    //     .then((comment_coll)=>{
+    //         setComment_coll(comment_coll)
+    //     })
+    //     getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/bookmark_coll.png'))
+    //     .then((bookmark_coll)=>{
+    //         setBookmark_coll(bookmark_coll)
+    //     })
+    // },[])
 
     useEffect(()=>{
         if(alert_text===null) return 
