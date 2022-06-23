@@ -50,4 +50,4 @@ The testing account and testing password : user2@user2.com / user22
 
 ## Contact
 Jessie Lin  
-📞 e-mail : b19950828@gmail.com
+📫 e-mail : b19950828@gmail.com
