@@ -7,7 +7,7 @@ This application provides preside location of public restrooms based on the sour
 
 The testing account and testing password : user2@user2.com / user22  
 
-<img src="./src/source/map-map.gif" width="550" >
+<img src="./src/source/map-map.gif" width="550" height='415'>
 
 ## Frontend Technique
 - React Hooks   
