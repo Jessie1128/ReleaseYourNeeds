@@ -295,6 +295,7 @@ const MapFrame = ({ setText , setBack_to_center , filtered_marker , setFiltered_
             }
             return ( 
               <MarkerForToilet
+                key={key_value}
                 position={new_lat_lng}  
                 icon={icon}
                 key_value={key_value}

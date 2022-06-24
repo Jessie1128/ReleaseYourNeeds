@@ -530,7 +530,7 @@
     .coll_to_next_page {
         display: flex;
         justify-content: flex-end;
-        margin-top: 75px;
+        margin-top: 60px;
     }
 }
 

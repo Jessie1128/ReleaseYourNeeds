@@ -2,7 +2,7 @@ import '../Component/base.css'
 import './homePage.css'
 import * as React from "react";
 import '../Component/Header/header.css'
-import { Link } from "react-router-dom";
+import { Link , useLocation } from "react-router-dom";
 import { useContext , useEffect , useState } from 'react';
 import { Brightness } from '../Component/ContextFolder/context_folder';
 import { Alert_Box } from '../Component/AlertBox/alert_box';
@@ -19,8 +19,6 @@ const HomePage = () => {
     const [ title_width , setTitle_width ] = useState({width: '1100px'})
     const [ intro_height , setIntro_height ]  = useState({height: ''})
     const [ loading , setLoading ] = useState(<Loading_effect/>)
-    const [ change , setChange ] = useState('')
-    const [ check , setCheck ] = useState('')
     const [ background_pic , setBackground_pic ] = useState('')
     const [ big_data , setBig_data ] = useState('')
     const [ current_place , setCurrent_place ] = useState('')
@@ -28,13 +26,8 @@ const HomePage = () => {
     const [ current_pending , setCurrent_pending ] = useState('')
     const [ current_closed , setCurrent_closed ] = useState('')
     const [ no_data , setNo_data ] = useState('')
-    const [ hover_marker , setHover_marker ] = useState('')
-    const [ check_more , setCheck_more ] = useState('')
-    const [ coll_comment , setColl_comment ] = useState('')
-    const [ coll_place , setColl_place ] = useState('')
-    const [ check_current , setCheck_current ] = useState('')
-    const [ check_coll , setCheck_coll ] = useState('')
-    const [ check_comment , setCheck_comment ] = useState('')
+    const [ change , setChange ] = useState('')
+    const [ check , setCheck ] = useState('')
 
     useEffect(()=>{
         if(JSON.stringify(bright)==JSON.stringify({filter: 'brightness(0.6)'})){
@@ -68,40 +61,66 @@ const HomePage = () => {
         .then((no_data)=>{
             setNo_data(no_data)
         })
-        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/hover_marker.png'))
-        .then((hover_marker)=>{
-            setHover_marker(hover_marker)
+
+        Promise.all([
+            getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/hover_marker.png')),
+            getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_more.png')),
+            getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/coll_comment.png')),
+            getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/coll_place.png'))
+        ])
+        .then((res) => {
+            console.log(res)
+            return res
         })
-        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_more.png'))
-        .then((check_more)=>{
-            setCheck_more(check_more)
+        .then((value)=>{
+            let i=0
+            setInterval(() => {
+                if(i===0){
+                    setChange(value[0])
+                }else if(i===1){
+                    setChange(value[1])
+                }else if(i===2){
+                    setChange(value[2])
+                }else if(i===3){
+                    setChange(value[3])
+                }
+                i++;
+                if(i===4){
+                    i=0
+                }
+            }, 2000);
         })
-        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/coll_comment.png'))
-        .then((coll_comment)=>{
-            setColl_comment(coll_comment)
+
+        Promise.all([
+            getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_current.png')),
+            getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_coll.png')),
+            getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_comment.png'))
+        ])
+        .then((res) => {
+            console.log(res)
+            return res
         })
-        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/coll_place.png'))
-        .then((coll_place)=>{
-            setColl_place(coll_place)
-        })
-        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_current.png'))
-        .then((check_current)=>{
-            setCheck_current(check_current)
-        })
-        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_coll.png'))
-        .then((check_coll)=>{
-            setCheck_coll(check_coll)
-        })
-        getDownloadURL(ref(storage, 'gs://mymap-896b7.appspot.com/check_comment.png'))
-        .then((check_comment)=>{
-            setCheck_comment(check_comment)
-        })
+        .then((value)=>{
+            let y=0
+            setInterval(() => {
+                if(y===0){
+                    setCheck(value[0])
+                }else if(y===1){
+                    setCheck(value[1])
+                }else if(y===2){
+                    setCheck(value[2])
+                }
+                y++;
+                if(y===3){
+                    y=0
+                }
+            }, 2000);
+        })        
     },[])
 
     const load = () => {
         let vh = window.innerHeight * 0.01;
         let height=(vh*100)-100;
-        let i=0
         let y=0
         setTimeout(()=>{
             setHeader_background({height: '80px', borderBottom: '2px #000 solid'})
@@ -116,39 +135,6 @@ const HomePage = () => {
             getWindowDimensions() 
             setLoading('')
         },'1500')
-        setInterval(() => {
-            if( hover_marker != '' && check_more != '' && coll_comment != '' && coll_place != '' ){
-                if(i===0){
-                    setChange(hover_marker)
-                }else if(i===1){
-                    setChange(check_more)
-                }else if(i===2){
-                    setChange(coll_comment)
-                }else if(i===3){
-                    setChange(coll_place)
-                }
-            }
-            i++;
-            if(i===4){
-                i=0
-            }
-        }, 2000);
-        setInterval(() => {
-            if( check_current != '' && check_coll != '' && check_comment != '' ){
-                if(y===0){
-                    setCheck(check_current)
-                }else if(y===1){
-                    setCheck(check_coll)
-                }else if(y===2){
-                    setCheck(check_comment)
-                }
-            }
-            y++;
-            if(y===3){
-                y=0
-            }
-        }, 2000);
-        
         
         function getWindowDimensions() {
             const { innerWidth: width, innerHeight: height } = window;
@@ -157,16 +143,13 @@ const HomePage = () => {
                 }else{
                     setTitle_font_size({fontSize: '30px'})
                 }
-        }
-        // getWindowDimensions()
-        
+        }   
     }
 
     return (
         <div>
             <img 
                 className='home_area_color' 
-                // src={ref(storage, 'gs://mymap-896b7.appspot.com/mapImg-2.png')}
                 src={background_pic} 
                 onLoad={load}
             />
