@@ -29,7 +29,7 @@ const MarkerForToilet = ({ key_value , position , icon , inner , setMarker_info 
             <MarkerInfoLabel 
                 center={position} 
                 inner={e} 
-                key={key_value+2}
+                key={key_value+3}
                 // hover={hover}
                 setMarker_info={setMarker_info} 
                 setInfo_board={setInfo_board}
@@ -42,16 +42,13 @@ const MarkerForToilet = ({ key_value , position , icon , inner , setMarker_info 
     }
 
     return(
-        <>
-            <Marker 
-                key={key_value+3}
-                position={position}  
-                icon={icon}
-                inner={inner}
-                onMouseOver={render_marker_info_label.bind(null,inner)}
-                onClick={render_marker_info_onClick.bind(null,inner)}
-            />
-        </>
+        <Marker 
+            position={position}  
+            icon={icon}
+            inner={inner}
+            onMouseOver={render_marker_info_label.bind(null,inner)}
+            onClick={render_marker_info_onClick.bind(null,inner)}
+        />
     )
 }
 
