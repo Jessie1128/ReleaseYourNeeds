@@ -53,11 +53,11 @@ The testing account and testing password : user2@user2.com / user22
 - 使用 use Context 管理會員登陸狀態   
   Manage user state with React Context to pass data through the component tree.
 - 使用 Firebase 多項服務，提供帳號密碼 及 第三方會員登錄系統，Firestore 及 Store 存取資訊、會員資料、圖片 及 部署網站上線  
-- Utilize Firestore, Storage, Authentication, Hosting with Firebase for member systems and deploying.
+  Utilize Firestore, Storage, Authentication, Hosting with Firebase for member systems and deploying.
 - 使用 React Router 管理專案路由，實作 SPA  
-React-Router to implement a Single Page Application(SPA).
+  React-Router to implement a Single Page Application(SPA).
 - 使用 NPM 套件管理 及 Webpack 打包專案  
-NPM package management and Webpack javascript module packaging.
+  NPM package management and Webpack javascript module packaging.
 
 
 
