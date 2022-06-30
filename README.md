@@ -1,8 +1,9 @@
 # Release Your Needs
 
-依據台北市政府公廁點位資訊，當使用者定位後，提供使用者搜尋周邊鄰近廁所。
+依據台北市政府公廁點位資訊，當使用者定位後，提供使用者搜尋周邊鄰近廁所。  
 依照公廁點位當前是否營業，將地標區分為三種不同顏色，快速尋找開放中的場所。  
-This application provides preside location of public restrooms based on the sources produced by the Taipei city government.Enabling users to search for nearby public restrooms.According to opening hours, with 3 different color markers to quickly look for available locations.
+This application provides preside location of public restrooms based on the sources produced by the Taipei city government.  
+Enabling users to search for nearby public restrooms.According to opening hours, with 3 different color markers to quickly look for available locations.
 
 🔗 Website URL : https://mymap-896b7.web.app/  
 
@@ -53,9 +54,9 @@ The testing account and testing password : user2@user2.com / user22
   Manage user state with React Context to pass data through the component tree.
 - 使用 Firebase 多項服務，提供帳號密碼 及 第三方會員登錄系統，Firestore 及 Store 存取資訊、會員資料、圖片 及 部署網站上線  
 - Utilize Firestore, Storage, Authentication, Hosting with Firebase for member systems and deploying.
-- 使用 React Router 管理專案路由，實作 SPA
+- 使用 React Router 管理專案路由，實作 SPA  
 React-Router to implement a Single Page Application(SPA).
-- NPM 套件管理 及 Webpack 打包專案
+- 使用 NPM 套件管理 及 Webpack 打包專案  
 NPM package management and Webpack javascript module packaging.
 
 
