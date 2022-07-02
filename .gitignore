@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-7f0c9093f3a5b7ad1f190d6100e98d96.png
+./7f0c9093f3a5b7ad1f190d6100e98d96.png
 /package-lock.json
 .env
 /env
