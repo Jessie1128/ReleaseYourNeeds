@@ -1,5 +1,5 @@
 import '../Component/base.css'
-import './homePage.css'
+import './homepage.css'
 import * as React from "react";
 import '../Component/Header/header.css'
 import { Link , useLocation } from "react-router-dom";

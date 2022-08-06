@@ -240,7 +240,7 @@ const MapFrame = ({ setText , setBack_to_center , filtered_marker , setFiltered_
 
     const libraries = ['places']
     const isLoaded = useLoadScript({                       // isLoaded 本身是 boolean, const { variable } = this.props.variable
-      googleMapsApiKey: process.env.REACT_APP_Maps_API_Key,  
+      // googleMapsApiKey: process.env.REACT_APP_Maps_API_Key,  
       libraries,
     }).isLoaded
 
